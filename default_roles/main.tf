@@ -20,7 +20,7 @@ variable "create_instance_profile" {
 
 resource "aws_iam_role" "role" {
   name               = var.name
-  assume_role_policy = var.create_instance_profile ? data.aws_iam_policy_document.instance_profile : data.aws_iam_policy_document.role.json
+  assume_role_policy = var.create_instance_profile ? data.aws_iam_policy_document.instance_profile[0].json : data.aws_iam_policy_document.role.json
 }
 
 resource "aws_iam_instance_profile" "role" {
@@ -32,6 +32,7 @@ resource "aws_iam_instance_profile" "role" {
 
 data "aws_iam_policy_document" "role" {
   statement {
+    sid    = "AllowIdentityUsersToAssumeRole"
     effect = "Allow"
 
     principals {
@@ -48,6 +49,7 @@ data "aws_iam_policy_document" "instance_profile" {
   source_json = data.aws_iam_policy_document.role.json
 
   statement {
+    sid    = "AllowEC2ToAssumeInstanceProfile"
     effect = "Allow"
 
     principals {
