@@ -15,11 +15,12 @@ module "billing" {
 }
 
 module "operator" {
-  source             = "./default_roles"
-  name               = "operator"
-  user_arns          = var.user_arns.operation
-  base_policy_arn    = var.operator_base_policy_arn
-  custom_policy_json = var.operator_custom_policy_json
+  source                  = "./default_roles"
+  name                    = "operator"
+  user_arns               = var.user_arns.operation
+  base_policy_arn         = var.operator_base_policy_arn
+  custom_policy_json      = var.operator_custom_policy_json
+  create_instance_profile = var.operator_create_instance_profile
 }
 
 module "breakglass" {
