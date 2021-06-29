@@ -13,9 +13,21 @@ variable "custom_policy_json" {
   default = ""
 }
 
+variable "create_instance_profile" {
+  type    = bool
+  default = false
+}
+
 resource "aws_iam_role" "role" {
   name               = var.name
-  assume_role_policy = data.aws_iam_policy_document.role.json
+  assume_role_policy = var.create_instance_profile ? data.aws_iam_policy_document.instance_profile : data.aws_iam_policy_document.role.json
+}
+
+resource "aws_iam_instance_profile" "role" {
+  count = var.create_instance_profile ? 1 : 0
+
+  name = var.name
+  role = aws_iam_role.role.name
 }
 
 data "aws_iam_policy_document" "role" {
@@ -30,6 +42,23 @@ data "aws_iam_policy_document" "role" {
     actions = ["sts:AssumeRole", "sts:TagSession"]
   }
 }
+
+data "aws_iam_policy_document" "instance_profile" {
+  count       = var.create_instance_profile ? 1 : 0
+  source_json = data.aws_iam_policy_document.role.json
+
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+
+    actions = ["sts:AssumeRole"]
+  }
+}
+
 
 resource "aws_iam_role_policy_attachment" "base" {
   role       = aws_iam_role.role.id
