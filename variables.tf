@@ -71,6 +71,11 @@ variable "operator_custom_policy_json" {
   default = ""
 }
 
+variable "operator_create_instance_profile" {
+  type    = bool
+  default = false
+}
+
 variable "product" {
   type = string
 }
