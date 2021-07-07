@@ -24,11 +24,12 @@ module "operator" {
 }
 
 module "breakglass" {
-  source             = "./default_roles"
-  name               = "breakglass"
-  user_arns          = var.user_arns.breakglass
-  base_policy_arn    = var.breakglass_base_policy_arn
-  custom_policy_json = var.breakglass_custom_policy_json
+  source                  = "./default_roles"
+  name                    = "breakglass"
+  user_arns               = var.user_arns.breakglass
+  base_policy_arn         = var.breakglass_base_policy_arn
+  custom_policy_json      = var.breakglass_custom_policy_json
+  create_instance_profile = var.breakglass_create_instance_profile
 }
 
 module "ci" {
