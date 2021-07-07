@@ -14,6 +14,11 @@ variable "breakglass_base_policy_arn" {
   default = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
+variable "breakglass_create_instance_profile" {
+  type    = bool
+  default = false
+}
+
 variable "breakglass_custom_policy_json" {
   type    = string
   default = ""
