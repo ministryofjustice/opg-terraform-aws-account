@@ -8,6 +8,7 @@ Creates cloudtrails in each account.
 Sets up a strong password policy for IAM users.
 Enables Guardduty
 
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 No requirements.
@@ -16,28 +17,56 @@ No requirements.
 
 | Name | Version |
 |------|---------|
-| aws  | n/a     |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | n/a |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_aws_config"></a> [aws\_config](#module\_aws\_config) | ./config | n/a |
+| <a name="module_billing"></a> [billing](#module\_billing) | ./default_roles | n/a |
+| <a name="module_breakglass"></a> [breakglass](#module\_breakglass) | ./default_roles | n/a |
+| <a name="module_ci"></a> [ci](#module\_ci) | ./default_roles | n/a |
+| <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./cloudtrail | n/a |
+| <a name="module_operator"></a> [operator](#module\_operator) | ./default_roles | n/a |
+| <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | ./security_hub | n/a |
+| <a name="module_viewer"></a> [viewer](#module\_viewer) | ./default_roles | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_guardduty_detector.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) | resource |
+| [aws_iam_account_password_policy.strict](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_password_policy) | resource |
 
 ## Inputs
 
-| Name                             | Description | Type                                                                                                                                                                                             | Default                                          | Required |
-|----------------------------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------|:--------:|
-| billing\_base\_policy\_arn       | n/a         | `string`                                                                                                                                                                                         | `"arn:aws:iam::aws:policy/job-function/Billing"` |    no    |
-| billing\_custom\_policy\_json    | n/a         | `string`                                                                                                                                                                                         | `""`                                             |    no    |
-| breakglass\_base\_policy\_arn    | n/a         | `string`                                                                                                                                                                                         | `"arn:aws:iam::aws:policy/AdministratorAccess"`  |    no    |
-| breakglass\_custom\_policy\_json | n/a         | `string`                                                                                                                                                                                         | `""`                                             |    no    |
-| ci\_base\_policy\_arn            | n/a         | `string`                                                                                                                                                                                         | `"arn:aws:iam::aws:policy/AdministratorAccess"`  |    no    |
-| ci\_custom\_policy\_json         | n/a         | `string`                                                                                                                                                                                         | `""`                                             |    no    |
-| cloudtrail\_bucket\_name         | trail name  | `string`                                                                                                                                                                                         | `"cloudtrail"`                                   |    no    |
-| cloudtrail\_trail\_name          | trail name  | `string`                                                                                                                                                                                         | `"cloudtrail"`                                   |    no    |
-| enable\_guardduty                | n/a         | `boolean`                                                                                                                                                                                        | `false`                                          |    no    |
-| operator\_base\_policy\_arn      | n/a         | `string`                                                                                                                                                                                         | `"arn:aws:iam::aws:policy/ReadOnlyAccess"`       |    no    |
-| operator\_custom\_policy\_json   | n/a         | `string`                                                                                                                                                                                         | `""`                                             |    no    |
-| product                          | n/a         | `string`                                                                                                                                                                                         | n/a                                              |   yes    |
-| user\_arns                       | n/a         | <pre>object({<br>    view       = list(string)<br>    operation  = list(string)<br>    breakglass = list(string)<br>    ci         = list(string)<br>    billing    = list(string)<br>  })</pre> | n/a                                              |   yes    |
-| viewer\_base\_policy\_arn        | n/a         | `string`                                                                                                                                                                                         | `"arn:aws:iam::aws:policy/ReadOnlyAccess"`       |    no    |
-| viewer\_custom\_policy\_json     | n/a         | `string`                                                                                                                                                                                         | `""`                                             |    no    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_account_name"></a> [account\_name](#input\_account\_name) | Account Name | `string` | `""` | no |
+| <a name="input_baseline_security_enabled"></a> [baseline\_security\_enabled](#input\_baseline\_security\_enabled) | n/a | `bool` | `false` | no |
+| <a name="input_billing_base_policy_arn"></a> [billing\_base\_policy\_arn](#input\_billing\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/job-function/Billing"` | no |
+| <a name="input_billing_custom_policy_json"></a> [billing\_custom\_policy\_json](#input\_billing\_custom\_policy\_json) | n/a | `string` | `""` | no |
+| <a name="input_breakglass_base_policy_arn"></a> [breakglass\_base\_policy\_arn](#input\_breakglass\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/AdministratorAccess"` | no |
+| <a name="input_breakglass_create_instance_profile"></a> [breakglass\_create\_instance\_profile](#input\_breakglass\_create\_instance\_profile) | n/a | `bool` | `false` | no |
+| <a name="input_breakglass_custom_policy_json"></a> [breakglass\_custom\_policy\_json](#input\_breakglass\_custom\_policy\_json) | n/a | `string` | `""` | no |
+| <a name="input_ci_base_policy_arn"></a> [ci\_base\_policy\_arn](#input\_ci\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/AdministratorAccess"` | no |
+| <a name="input_ci_custom_policy_json"></a> [ci\_custom\_policy\_json](#input\_ci\_custom\_policy\_json) | n/a | `string` | `""` | no |
+| <a name="input_cloudtrail_bucket_name"></a> [cloudtrail\_bucket\_name](#input\_cloudtrail\_bucket\_name) | trail name | `string` | `"cloudtrail"` | no |
+| <a name="input_cloudtrail_trail_name"></a> [cloudtrail\_trail\_name](#input\_cloudtrail\_trail\_name) | trail name | `string` | `"cloudtrail"` | no |
+| <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
+| <a name="input_is_production"></a> [is\_production](#input\_is\_production) | n/a | `bool` | `false` | no |
+| <a name="input_operator_base_policy_arn"></a> [operator\_base\_policy\_arn](#input\_operator\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/ReadOnlyAccess"` | no |
+| <a name="input_operator_create_instance_profile"></a> [operator\_create\_instance\_profile](#input\_operator\_create\_instance\_profile) | n/a | `bool` | `false` | no |
+| <a name="input_operator_custom_policy_json"></a> [operator\_custom\_policy\_json](#input\_operator\_custom\_policy\_json) | n/a | `string` | `""` | no |
+| <a name="input_product"></a> [product](#input\_product) | n/a | `string` | n/a | yes |
+| <a name="input_team_email"></a> [team\_email](#input\_team\_email) | Team group email address for use in tags | `string` | `"opgteam@digital.justice.gov.uk"` | no |
+| <a name="input_team_name"></a> [team\_name](#input\_team\_name) | Name of the Team looking after the Service | `string` | `"OPG"` | no |
+| <a name="input_user_arns"></a> [user\_arns](#input\_user\_arns) | n/a | <pre>object({<br>    view       = list(string)<br>    operation  = list(string)<br>    breakglass = list(string)<br>    ci         = list(string)<br>    billing    = list(string)<br>  })</pre> | n/a | yes |
+| <a name="input_viewer_base_policy_arn"></a> [viewer\_base\_policy\_arn](#input\_viewer\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/ReadOnlyAccess"` | no |
+| <a name="input_viewer_custom_policy_json"></a> [viewer\_custom\_policy\_json](#input\_viewer\_custom\_policy\_json) | n/a | `string` | `""` | no |
 
 ## Outputs
 
-No output.
+No outputs.
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
