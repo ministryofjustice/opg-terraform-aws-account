@@ -129,7 +129,7 @@ locals {
 
 variable "aws_s3_account_block_public_access_enable" {
   default     = false
-  description = "Whether Amazon S3 should block public blocks for buckets in this account. Defaults to False."
+  description = "Whether Amazon S3 should enable public blocks for buckets in this account. Defaults to False."
 }
 variable "aws_s3_account_block_public_acls" {
   default     = true
