@@ -126,3 +126,24 @@ locals {
     owner            = "${var.team_name}: ${var.team_email}"
   }
 }
+
+variable "aws_s3_account_block_public_access_enable" {
+  default     = false
+  description = "Whether Amazon S3 should enable public blocks for buckets in this account. Defaults to False."
+}
+variable "aws_s3_account_block_public_acls" {
+  default     = true
+  description = "Whether Amazon S3 should block public ACLs for buckets in this account. Defaults to true."
+}
+variable "aws_s3_account_block_public_policy" {
+  default     = true
+  description = "Whether Amazon S3 should block public bucket policies for buckets in this account. Defaults to true."
+}
+variable "aws_s3_account_ignore_public_acls" {
+  default     = true
+  description = "Whether Amazon S3 should ignore public ACLs for buckets in this account. Defaults to true."
+}
+variable "aws_s3_account_restrict_public_buckets" {
+  default     = true
+  description = "Whether Amazon S3 should restrict public bucket policies for buckets in this account. Defaults to true."
+}
