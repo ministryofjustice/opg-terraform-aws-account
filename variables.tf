@@ -148,9 +148,9 @@ variable "aws_s3_account_restrict_public_buckets" {
   description = "Whether Amazon S3 should restrict public bucket policies for buckets in this account. Defaults to true."
 }
 
-variable "aws_cloudwatch_log_group_cloudtrail_name" {
-  type        = string
-  description = "Name of the trail to use for cis foundation log metrics."
+variable "cis_foundation_alarms_enabled" {
+  default     = true
+  description = "Whether to create metrics alarms to support CIS Foundation compliance. Defaults to true."
 }
 
 variable "cis_metric_namespace" {
