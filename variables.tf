@@ -147,3 +147,14 @@ variable "aws_s3_account_restrict_public_buckets" {
   default     = true
   description = "Whether Amazon S3 should restrict public bucket policies for buckets in this account. Defaults to true."
 }
+
+variable "cis_foundation_alarms_enabled" {
+  default     = true
+  description = "Whether to create metrics alarms to support CIS Foundation compliance. Defaults to true."
+}
+
+variable "cis_metric_namespace" {
+  type        = string
+  default     = "CISLogMetrics"
+  description = "The destination namespace of the CIS CloudWatch metric."
+}
