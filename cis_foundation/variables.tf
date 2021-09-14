@@ -1,6 +1,5 @@
 variable "cis_metric_namespace" {
   type        = string
-  default     = "CISLogMetrics"
   description = "The destination namespace of the CIS CloudWatch metric."
 }
 

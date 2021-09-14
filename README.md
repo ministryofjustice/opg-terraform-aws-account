@@ -27,6 +27,7 @@ No requirements.
 | <a name="module_billing"></a> [billing](#module\_billing) | ./default_roles | n/a |
 | <a name="module_breakglass"></a> [breakglass](#module\_breakglass) | ./default_roles | n/a |
 | <a name="module_ci"></a> [ci](#module\_ci) | ./default_roles | n/a |
+| <a name="module_cis_foundation"></a> [cis\_foundation](#module\_cis\_foundation) | ./cis_foundation | n/a |
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./cloudtrail | n/a |
 | <a name="module_operator"></a> [operator](#module\_operator) | ./default_roles | n/a |
 | <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | ./security_hub | n/a |
@@ -48,6 +49,7 @@ No requirements.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_name"></a> [account\_name](#input\_account\_name) | Account Name | `string` | `""` | no |
+| <a name="input_aws_cloudwatch_log_group_cloudtrail_name"></a> [aws\_cloudwatch\_log\_group\_cloudtrail\_name](#input\_aws\_cloudwatch\_log\_group\_cloudtrail\_name) | Name of the trail to use for cis foundation log metrics. | `string` | n/a | yes |
 | <a name="input_aws_s3_account_block_public_access_enable"></a> [aws\_s3\_account\_block\_public\_access\_enable](#input\_aws\_s3\_account\_block\_public\_access\_enable) | Whether Amazon S3 should enable public blocks for buckets in this account. Defaults to False. | `bool` | `false` | no |
 | <a name="input_aws_s3_account_block_public_acls"></a> [aws\_s3\_account\_block\_public\_acls](#input\_aws\_s3\_account\_block\_public\_acls) | Whether Amazon S3 should block public ACLs for buckets in this account. Defaults to true. | `bool` | `true` | no |
 | <a name="input_aws_s3_account_block_public_policy"></a> [aws\_s3\_account\_block\_public\_policy](#input\_aws\_s3\_account\_block\_public\_policy) | Whether Amazon S3 should block public bucket policies for buckets in this account. Defaults to true. | `bool` | `true` | no |
@@ -61,6 +63,7 @@ No requirements.
 | <a name="input_breakglass_custom_policy_json"></a> [breakglass\_custom\_policy\_json](#input\_breakglass\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_ci_base_policy_arn"></a> [ci\_base\_policy\_arn](#input\_ci\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/AdministratorAccess"` | no |
 | <a name="input_ci_custom_policy_json"></a> [ci\_custom\_policy\_json](#input\_ci\_custom\_policy\_json) | n/a | `string` | `""` | no |
+| <a name="input_cis_metric_namespace"></a> [cis\_metric\_namespace](#input\_cis\_metric\_namespace) | The destination namespace of the CIS CloudWatch metric. | `string` | `"CISLogMetrics"` | no |
 | <a name="input_cloudtrail_bucket_name"></a> [cloudtrail\_bucket\_name](#input\_cloudtrail\_bucket\_name) | trail name | `string` | `"cloudtrail"` | no |
 | <a name="input_cloudtrail_trail_name"></a> [cloudtrail\_trail\_name](#input\_cloudtrail\_trail\_name) | trail name | `string` | `"cloudtrail"` | no |
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
@@ -77,5 +80,7 @@ No requirements.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_aws_sns_topic_cis_aws_foundations_standard"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
