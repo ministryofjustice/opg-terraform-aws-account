@@ -14,6 +14,11 @@ resource "aws_kms_key" "cis_aws_foundations_standard_sns" {
   enable_key_rotation     = true
 }
 
+resource "aws_kms_alias" "cis_aws_foundations_standard_sns" {
+  name          = "alias/cis-aws-foundations-standard-sns"
+  target_key_id = aws_kms_key.cis_aws_foundations_standard_sns.key_id
+}
+
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "cis_aws_foundations_standard_sns_kms" {
