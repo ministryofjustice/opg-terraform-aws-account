@@ -158,16 +158,3 @@ variable "cis_metric_namespace" {
   default     = "CISLogMetrics"
   description = "The destination namespace of the CIS CloudWatch metric."
 }
-
-variable "cis_controls_enabled" {
-  type = object({
-    root_account_usage   = bool
-    root_account_usage_2 = bool
-    root_account_usage_3 = bool
-  })
-  default = {
-    root_account_usage   = false
-    root_account_usage_2 = false
-    root_account_usage_3 = false
-  }
-}

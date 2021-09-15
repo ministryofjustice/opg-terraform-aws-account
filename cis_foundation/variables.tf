@@ -16,10 +16,3 @@ variable "tags" {
   description = "A map of tags to assign to resources."
   type        = map(string)
 }
-variable "controls_enabled" {
-  type = object({
-    root_account_usage   = bool
-    root_account_usage_2 = bool
-    root_account_usage_3 = bool
-  })
-}
