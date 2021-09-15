@@ -3,6 +3,7 @@ data "aws_cloudwatch_log_group" "cloudtrail" {
 }
 
 resource "aws_cloudwatch_log_metric_filter" "root_account_usage" {
+  count          = var.controls_enabled.root_account_usage == true ? 1 : 0
   name           = "CIS-1.1-RootAccountUsage"
   pattern        = "{$.userIdentity.type=\"Root\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType !=\"AwsServiceEvent\"}"
   log_group_name = data.aws_cloudwatch_log_group.cloudtrail.name
@@ -14,6 +15,7 @@ resource "aws_cloudwatch_log_metric_filter" "root_account_usage" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "root_account_usage" {
+  count               = var.controls_enabled.root_account_usage == true ? 1 : 0
   actions_enabled     = true
   alarm_name          = "CIS-1.1-RootAccountUsage"
   alarm_actions       = [aws_sns_topic.cis_aws_foundations_standard.arn]
