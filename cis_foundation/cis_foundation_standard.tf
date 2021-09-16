@@ -30,3 +30,32 @@ resource "aws_cloudwatch_metric_alarm" "root_account_usage" {
   threshold           = 1
   treat_missing_data  = "notBreaching"
 }
+
+resource "aws_cloudwatch_log_metric_filter" "unauthorised_api_calls" {
+  name           = "CIS-3.1-UnauthorizedAPICalls"
+  pattern        = "{($.errorCode=\"*UnauthorizedOperation\") || ($.errorCode=\"AccessDenied*\")}"
+  log_group_name = data.aws_cloudwatch_log_group.cloudtrail.name
+  metric_transformation {
+    name      = "EventCount"
+    namespace = "CISLogMetrics"
+    value     = "1"
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "unauthorised_api_calls" {
+  actions_enabled     = true
+  alarm_name          = "CIS-3.1-UnauthorizedAPICalls"
+  alarm_actions       = [aws_sns_topic.cis_aws_foundations_standard.arn]
+  ok_actions          = [aws_sns_topic.cis_aws_foundations_standard.arn]
+  alarm_description   = "unauthorised api call"
+  namespace           = "CISLogMetrics"
+  metric_name         = "EventCount"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
+  period              = 60
+  evaluation_periods  = 1
+  datapoints_to_alarm = 1
+  statistic           = "Average"
+  tags                = var.tags
+  threshold           = 1
+  treat_missing_data  = "notBreaching"
+}
