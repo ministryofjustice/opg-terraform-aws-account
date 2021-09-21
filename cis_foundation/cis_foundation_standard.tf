@@ -7,7 +7,7 @@ resource "aws_cloudwatch_log_metric_filter" "root_account_usage" {
   pattern        = "{$.userIdentity.type=\"Root\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType !=\"AwsServiceEvent\"}"
   log_group_name = data.aws_cloudwatch_log_group.cloudtrail.name
   metric_transformation {
-    name      = "EventCount"
+    name      = "CIS-1.1-RootAccountUsag"
     namespace = "CISLogMetrics"
     value     = "1"
   }
@@ -20,7 +20,7 @@ resource "aws_cloudwatch_metric_alarm" "root_account_usage" {
   ok_actions          = [aws_sns_topic.cis_aws_foundations_standard.arn]
   alarm_description   = "root login usage count"
   namespace           = "CISLogMetrics"
-  metric_name         = "EventCount"
+  metric_name         = "CIS-1.1-RootAccountUsag"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   period              = 60
   evaluation_periods  = 1
@@ -36,7 +36,7 @@ resource "aws_cloudwatch_log_metric_filter" "unauthorised_api_calls" {
   pattern        = "{($.errorCode=\"*UnauthorizedOperation\") || ($.errorCode=\"AccessDenied*\")}"
   log_group_name = data.aws_cloudwatch_log_group.cloudtrail.name
   metric_transformation {
-    name      = "EventCount"
+    name      = "CIS-3.1-UnauthorizedAPICalls"
     namespace = "CISLogMetrics"
     value     = "1"
   }
@@ -49,7 +49,7 @@ resource "aws_cloudwatch_metric_alarm" "unauthorised_api_calls" {
   ok_actions          = [aws_sns_topic.cis_aws_foundations_standard.arn]
   alarm_description   = "unauthorised api call"
   namespace           = "CISLogMetrics"
-  metric_name         = "EventCount"
+  metric_name         = "CIS-3.1-UnauthorizedAPICalls"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   period              = 60
   evaluation_periods  = 1
@@ -65,7 +65,7 @@ resource "aws_cloudwatch_log_metric_filter" "console_sign_in_without_mfa" {
   pattern        = "{($.eventName=\"ConsoleLogin\") && ($.additionalEventData.MFAUsed !=\"Yes\")}"
   log_group_name = data.aws_cloudwatch_log_group.cloudtrail.name
   metric_transformation {
-    name      = "EventCount"
+    name      = "CIS-3.2-ConsoleSigninWithoutMFA"
     namespace = "CISLogMetrics"
     value     = "1"
   }
@@ -78,7 +78,7 @@ resource "aws_cloudwatch_metric_alarm" "console_sign_in_without_mfa" {
   ok_actions          = [aws_sns_topic.cis_aws_foundations_standard.arn]
   alarm_description   = "console sign in without mfa count"
   namespace           = "CISLogMetrics"
-  metric_name         = "EventCount"
+  metric_name         = "CIS-3.2-ConsoleSigninWithoutMFA"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   period              = 60
   evaluation_periods  = 1
@@ -94,7 +94,7 @@ resource "aws_cloudwatch_log_metric_filter" "console_authentication_failure" {
   pattern        = "{($.eventName=ConsoleLogin) && ($.errorMessage=\"Failed authentication\")}"
   log_group_name = data.aws_cloudwatch_log_group.cloudtrail.name
   metric_transformation {
-    name      = "EventCount"
+    name      = "CIS-3.6-ConsoleAuthenticationFailure"
     namespace = "CISLogMetrics"
     value     = "1"
   }
@@ -107,7 +107,7 @@ resource "aws_cloudwatch_metric_alarm" "console_authentication_failure" {
   ok_actions          = [aws_sns_topic.cis_aws_foundations_standard.arn]
   alarm_description   = "console sign in without mfa count"
   namespace           = "CISLogMetrics"
-  metric_name         = "EventCount"
+  metric_name         = "CIS-3.6-ConsoleAuthenticationFailure"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   period              = 60
   evaluation_periods  = 1
