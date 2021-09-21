@@ -78,7 +78,7 @@ data "aws_iam_policy_document" "cloudtrail" {
       identifiers = ["cloudtrail.amazonaws.com"]
       type        = "Service"
     }
-    resources = ["${aws_s3_bucket.cloudtrail.arn}"]
+    resources = [aws_s3_bucket.cloudtrail.arn]
   }
 
   statement {
