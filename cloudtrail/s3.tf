@@ -71,6 +71,17 @@ data "aws_iam_policy_document" "cloudtrail" {
   }
 
   statement {
+    sid     = "AWSConfigBucketExistenceCheck"
+    effect  = "Allow"
+    actions = ["s3:ListBucket"]
+    principals {
+      identifiers = ["cloudtrail.amazonaws.com"]
+      type        = "Service"
+    }
+    resources = [aws_s3_bucket.cloudtrail.arn]
+  }
+
+  statement {
     sid     = "DenyNoneSSLRequests"
     effect  = "Deny"
     actions = ["s3:*"]
