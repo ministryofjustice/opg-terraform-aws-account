@@ -1,5 +1,8 @@
+data "aws_caller_identity" "account" {
+}
+data "aws_region" "current" {}
 resource "aws_securityhub_standards_control" "ensure_hardware_mfa_is_enabled_for_the_root_account" {
-  standards_control_arn = "arn:aws:securityhub:::control/cis-aws-foundations-benchmark/v/1.2.0/1.14"
+  standards_control_arn = "arn:aws:securityhub::${data.aws_region.current.name}:${data.aws_caller_identity.account.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0/1.14"
   control_status        = var.cis_1_14_control_status
   disabled_reason       = var.cis_1_14_diabled_reason
 }
