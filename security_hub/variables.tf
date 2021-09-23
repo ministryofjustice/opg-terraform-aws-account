@@ -29,8 +29,8 @@ variable "cis_1_14_control_status" {
   default     = "DISABLED"
   description = "The control status could be ENABLED or DISABLED. You have to specify disabled_reason argument for DISABLED control status."
 }
-variable "cis_1_14_diabled_reason" {
+variable "cis_1_14_disabled_reason" {
   type        = string
-  default     = "See ADR"
+  default     = "See ADR https://docs.opg.service.justice.gov.uk/documentation/adrs/adr-004.html#adr-004-no-hardware-mfa-key-for-root-account"
   description = "A description of the reason why you are disabling a security standard control. If you specify this attribute, control_status will be set to DISABLED automatically."
 }
