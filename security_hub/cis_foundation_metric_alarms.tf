@@ -1,7 +1,3 @@
-data "aws_cloudwatch_log_group" "cloudtrail" {
-  name = var.aws_cloudwatch_log_group_cloudtrail_name
-}
-
 resource "aws_cloudwatch_log_metric_filter" "root_account_usage" {
   name           = "CIS-1.1-RootAccountUsage"
   pattern        = "{$.userIdentity.type=\"Root\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType !=\"AwsServiceEvent\"}"
