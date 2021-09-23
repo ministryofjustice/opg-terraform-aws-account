@@ -1,8 +1,7 @@
-# variable "account_name" {
-#   default     = ""
-#   description = "Account Name"
-#   type        = string
-# }
+variable "account_name" {
+  description = "Account Name"
+  type        = string
+}
 
 variable "product" {
   default     = ""
@@ -18,10 +17,6 @@ variable "tags" {
 variable "cis_metric_namespace" {
   type        = string
   description = "The destination namespace of the CIS CloudWatch metric."
-}
-
-variable "account_name" {
-  type = string
 }
 
 variable "aws_cloudwatch_log_group_cloudtrail_name" {
