@@ -158,7 +158,3 @@ variable "cis_metric_namespace" {
   default     = "CISLogMetrics"
   description = "The destination namespace of the CIS CloudWatch metric."
 }
-
-variable "cis_1_14_control_arn" {
-  type = string
-}
