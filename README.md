@@ -29,7 +29,6 @@ Enables Guardduty
 | <a name="module_billing"></a> [billing](#module\_billing) | ./default_roles | n/a |
 | <a name="module_breakglass"></a> [breakglass](#module\_breakglass) | ./default_roles | n/a |
 | <a name="module_ci"></a> [ci](#module\_ci) | ./default_roles | n/a |
-| <a name="module_cis_foundation"></a> [cis\_foundation](#module\_cis\_foundation) | ./cis_foundation | n/a |
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./cloudtrail | n/a |
 | <a name="module_operator"></a> [operator](#module\_operator) | ./default_roles | n/a |
 | <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | ./security_hub | n/a |
