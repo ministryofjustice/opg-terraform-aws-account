@@ -32,12 +32,9 @@ module "breakglass" {
   create_instance_profile = var.breakglass_create_instance_profile
 }
 
-resource "aws_iam_role_policy" "aws_support_access_for_breakglass" {
-  policy = data.aws_iam_policy.aws_support_access.policy
-  role   = module.breakglass.aws_iam_role.id
-}
-data "aws_iam_policy" "aws_support_access" {
-  arn = "arn:aws:iam::aws:policy/AWSSupportAccess"
+resource "aws_iam_role_policy_attachment" "aws_support_access_for_breakglass" {
+  role       = module.breakglass.aws_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSSupportAccess"
 }
 
 module "ci" {
