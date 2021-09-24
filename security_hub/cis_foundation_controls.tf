@@ -6,12 +6,12 @@ variable "cis_3_8_enabled" {
 
 variable "cis_3_14_enabled" {
   type        = bool
-  default     = true
+  default     = false
   description = "When true, creates a metric filter and alarm for CIS.3.14. When false, sets standard control to disabled."
 }
 
 locals {
-  cis_toggled_controls = {
+  cis_controls = {
     cis_1_1_root_account_usage = {
       metric_name           = "CIS-1.1-RootAccountUsage"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/1.1"
@@ -98,7 +98,7 @@ locals {
 
 
 resource "aws_securityhub_standards_control" "toggled_control" {
-  for_each              = local.cis_toggled_controls
+  for_each              = local.cis_controls
   standards_control_arn = each.value.standards_control_arn
   control_status        = each.value.control_status
   disabled_reason       = each.value.actions_enabled ? null : "Not appropriate for our usage"
@@ -108,7 +108,7 @@ resource "aws_securityhub_standards_control" "toggled_control" {
 }
 
 resource "aws_cloudwatch_log_metric_filter" "toggled_control" {
-  for_each       = local.cis_toggled_controls
+  for_each       = local.cis_controls
   name           = each.value.metric_name
   pattern        = each.value.pattern
   log_group_name = data.aws_cloudwatch_log_group.cloudtrail.name
@@ -120,7 +120,7 @@ resource "aws_cloudwatch_log_metric_filter" "toggled_control" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "toggled_control" {
-  for_each            = local.cis_toggled_controls
+  for_each            = local.cis_controls
   actions_enabled     = each.value.actions_enabled
   alarm_name          = each.value.metric_name
   alarm_actions       = [aws_sns_topic.cis_aws_foundations_standard.arn]
