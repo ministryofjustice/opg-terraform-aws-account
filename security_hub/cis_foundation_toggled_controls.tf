@@ -16,7 +16,7 @@ locals {
       metric_name           = "CIS-3.8-S3BucketPolicyChanges"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.8"
       actions_enabled       = var.cis_3_8_enabled
-      control_status        = var.cis_3_8_enabled ? "DISABLED" : "ENABLED"
+      control_status        = var.cis_3_8_enabled ? "ENABLED" : "DISABLED"
       pattern               = "{($.eventSource=s3.amazonaws.com) && (($.eventName=PutBucketAcl) || ($.eventName=PutBucketPolicy) || ($.eventName=PutBucketCors) || ($.eventName=PutBucketLifecycle) || ($.eventName=PutBucketReplication) || ($.eventName=DeleteBucketPolicy) || ($.eventName=DeleteBucketCors) || ($.eventName=DeleteBucketLifecycle) || ($.eventName=DeleteBucketReplication))}"
       alarm_description     = "s3 bucket policy changes count"
     }
@@ -24,7 +24,7 @@ locals {
       metric_name           = "CIS-3.14-VPCChanges"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.14"
       actions_enabled       = var.cis_3_14_enabled
-      control_status        = var.cis_3_14_enabled ? "DISABLED" : "ENABLED"
+      control_status        = var.cis_3_14_enabled ? "ENABLED" : "DISABLED"
       pattern               = "{($.eventName=CreateVpc) || ($.eventName=DeleteVpc) || ($.eventName=ModifyVpcAttribute) || ($.eventName=AcceptVpcPeeringConnection) || ($.eventName=CreateVpcPeeringConnection) || ($.eventName=DeleteVpcPeeringConnection) || ($.eventName=RejectVpcPeeringConnection) || ($.eventName=AttachClassicLinkVpc) || ($.eventName=DetachClassicLinkVpc) || ($.eventName=DisableVpcClassicLink) || ($.eventName=EnableVpcClassicLink)}"
       alarm_description     = "vpc changes count"
     }
@@ -55,7 +55,7 @@ resource "aws_cloudwatch_log_metric_filter" "toggled_control" {
 
 resource "aws_cloudwatch_metric_alarm" "toggled_control" {
   for_each            = local.cis_toggled_controls
-  actions_enabled     = true
+  actions_enabled     = each.value.actions_enabled
   alarm_name          = each.value.metric_name
   alarm_actions       = [aws_sns_topic.cis_aws_foundations_standard.arn]
   ok_actions          = [aws_sns_topic.cis_aws_foundations_standard.arn]
