@@ -158,3 +158,15 @@ variable "cis_metric_namespace" {
   default     = "CISLogMetrics"
   description = "The destination namespace of the CIS CloudWatch metric."
 }
+
+variable "cis_foundation_control_3_8_enabled" {
+  type        = bool
+  default     = true
+  description = "When true, creates a metric filter and alarm for CIS.3.8. When false, sets standard control to disabled."
+}
+
+variable "cis_foundation_control_3_14_enabled" {
+  type        = bool
+  default     = true
+  description = "When true, creates a metric filter and alarm for CIS.3.14. When false, sets standard control to disabled."
+}
