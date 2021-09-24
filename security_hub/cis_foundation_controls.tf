@@ -1,15 +1,3 @@
-variable "cis_3_8_enabled" {
-  type        = bool
-  default     = true
-  description = "When true, creates a metric filter and alarm for CIS.3.8. When false, sets standard control to disabled."
-}
-
-variable "cis_3_14_enabled" {
-  type        = bool
-  default     = false
-  description = "When true, creates a metric filter and alarm for CIS.3.14. When false, sets standard control to disabled."
-}
-
 locals {
   cis_controls = {
     cis_1_1_root_account_usage = {
@@ -69,8 +57,8 @@ locals {
     cis_3_8_s3_bucket_policy_changes = {
       metric_name           = "CIS-3.8-S3BucketPolicyChanges"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.8"
-      actions_enabled       = var.cis_3_8_enabled
-      control_status        = var.cis_3_8_enabled ? "ENABLED" : "DISABLED"
+      actions_enabled       = var.cis_foundation_control_3_8_enabled
+      control_status        = var.cis_foundation_control_3_8_enabled ? "ENABLED" : "DISABLED"
       pattern               = "{($.eventSource=s3.amazonaws.com) && (($.eventName=PutBucketAcl) || ($.eventName=PutBucketPolicy) || ($.eventName=PutBucketCors) || ($.eventName=PutBucketLifecycle) || ($.eventName=PutBucketReplication) || ($.eventName=DeleteBucketPolicy) || ($.eventName=DeleteBucketCors) || ($.eventName=DeleteBucketLifecycle) || ($.eventName=DeleteBucketReplication))}"
       alarm_description     = "s3 bucket policy changes count"
       alarm_threshold       = 1
@@ -78,8 +66,8 @@ locals {
     cis_3_9_aws_config_configuration_changes = {
       metric_name           = "CIS-3.9-AWSConfigChanges"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.9"
-      actions_enabled       = var.cis_3_8_enabled
-      control_status        = var.cis_3_8_enabled ? "ENABLED" : "DISABLED"
+      actions_enabled       = true
+      control_status        = "ENABLED"
       pattern               = "{($.eventSource=config.amazonaws.com) && (($.eventName=StopConfigurationRecorder) || ($.eventName=DeleteDeliveryChannel) || ($.eventName=PutDeliveryChannel) || ($.eventName=PutConfigurationRecorder))}"
       alarm_description     = "aws config configuration changes count"
       alarm_threshold       = 1
@@ -87,8 +75,8 @@ locals {
     cis_3_14_vpc_changes = {
       metric_name           = "CIS-3.14-VPCChanges"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.14"
-      actions_enabled       = var.cis_3_14_enabled
-      control_status        = var.cis_3_14_enabled ? "ENABLED" : "DISABLED"
+      actions_enabled       = var.cis_foundation_control_3_14_enabled
+      control_status        = var.cis_foundation_control_3_14_enabled ? "ENABLED" : "DISABLED"
       pattern               = "{($.eventName=CreateVpc) || ($.eventName=DeleteVpc) || ($.eventName=ModifyVpcAttribute) || ($.eventName=AcceptVpcPeeringConnection) || ($.eventName=CreateVpcPeeringConnection) || ($.eventName=DeleteVpcPeeringConnection) || ($.eventName=RejectVpcPeeringConnection) || ($.eventName=AttachClassicLinkVpc) || ($.eventName=DetachClassicLinkVpc) || ($.eventName=DisableVpcClassicLink) || ($.eventName=EnableVpcClassicLink)}"
       alarm_description     = "vpc changes count"
       alarm_threshold       = 1
