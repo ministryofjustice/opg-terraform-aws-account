@@ -1,4 +1,13 @@
+resource "aws_securityhub_standards_control" "cis_1_14_ensure_hardware_mfa_is_enabled_for_the_root_account" {
+  standards_control_arn = "${local.cis_standard_controls_arn_path}/1.14"
+  control_status        = var.cis_foundation_control_1_14_enabled ? "ENABLED" : "DISABLED"
+  disabled_reason       = var.cis_foundation_control_1_14_enabled ? null : "See ADR https://docs.opg.service.justice.gov.uk/documentation/adrs/adr-004.html#adr-004-no-hardware-mfa-key-for-root-account"
+  depends_on = [
+    aws_securityhub_account.main
+  ]
+}
 locals {
+  cis_standard_controls_arn_path = "arn:aws:securityhub:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0"
   cis_controls = {
     cis_1_1_root_account_usage = {
       metric_name           = "CIS-1.1-RootAccountUsage"
