@@ -27,6 +27,15 @@ locals {
       alarm_description     = "console sign in without mfa count"
       alarm_threshold       = 1
     }
+    cis_3_4_iam_policy_changes = {
+      metric_name           = "CIS-3.4-IAMPolicyChanges"
+      standards_control_arn = "${local.cis_standard_controls_arn_path}/3.4"
+      actions_enabled       = var.cis_foundation_control_3_4_enabled
+      control_status        = var.cis_foundation_control_3_4_enabled ? "ENABLED" : "DISABLED"
+      pattern               = "{($.eventName=DeleteGroupPolicy) || ($.eventName=DeleteRolePolicy) || ($.eventName=DeleteUserPolicy) || ($.eventName=PutGroupPolicy) || ($.eventName=PutRolePolicy) || ($.eventName=PutUserPolicy) || ($.eventName=CreatePolicy) || ($.eventName=DeletePolicy) || ($.eventName=CreatePolicyVersion) || ($.eventName=DeletePolicyVersion) || ($.eventName=AttachRolePolicy) || ($.eventName=DetachRolePolicy) || ($.eventName=AttachUserPolicy) || ($.eventName=DetachUserPolicy) || ($.eventName=AttachGroupPolicy) || ($.eventName=DetachGroupPolicy)}"
+      alarm_description     = "iam policy changes count"
+      alarm_threshold       = 1
+    }
     cis_3_5_cloudtrail_configuration_changes = {
       metric_name           = "CIS-3.5-CloudTrailChanges"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.5"
@@ -69,6 +78,42 @@ locals {
       actions_enabled       = true
       control_status        = "ENABLED"
       pattern               = "{($.eventSource=config.amazonaws.com) && (($.eventName=StopConfigurationRecorder) || ($.eventName=DeleteDeliveryChannel) || ($.eventName=PutDeliveryChannel) || ($.eventName=PutConfigurationRecorder))}"
+      alarm_description     = "aws config configuration changes count"
+      alarm_threshold       = 1
+    }
+    cis_3_10_security_group_changes = {
+      metric_name           = "CIS-3.10-SecurityGroupChanges"
+      standards_control_arn = "${local.cis_standard_controls_arn_path}/3.10"
+      actions_enabled       = var.cis_foundation_control_3_10_enabled
+      control_status        = var.cis_foundation_control_3_10_enabled ? "ENABLED" : "DISABLED"
+      pattern               = "{($.eventName=AuthorizeSecurityGroupIngress) || ($.eventName=AuthorizeSecurityGroupEgress) || ($.eventName=RevokeSecurityGroupIngress) || ($.eventName=RevokeSecurityGroupEgress) || ($.eventName=CreateSecurityGroup) || ($.eventName=DeleteSecurityGroup)}"
+      alarm_description     = "aws config configuration changes count"
+      alarm_threshold       = 1
+    }
+    cis_3_11_changes_to_network_access_control_lists = {
+      metric_name           = "CIS-3.11-NetworkACLChanges"
+      standards_control_arn = "${local.cis_standard_controls_arn_path}/3.11"
+      actions_enabled       = var.cis_foundation_control_3_11_enabled
+      control_status        = var.cis_foundation_control_3_11_enabled ? "ENABLED" : "DISABLED"
+      pattern               = "{($.eventName=CreateNetworkAcl) || ($.eventName=CreateNetworkAclEntry) || ($.eventName=DeleteNetworkAcl) || ($.eventName=DeleteNetworkAclEntry) || ($.eventName=ReplaceNetworkAclEntry) || ($.eventName=ReplaceNetworkAclAssociation)}"
+      alarm_description     = "aws config configuration changes count"
+      alarm_threshold       = 1
+    }
+    cis_3_12_changes_to_network_gateways = {
+      metric_name           = "CIS-3.12-NetworkGatewayChanges"
+      standards_control_arn = "${local.cis_standard_controls_arn_path}/3.12"
+      actions_enabled       = var.cis_foundation_control_3_12_enabled
+      control_status        = var.cis_foundation_control_3_12_enabled ? "ENABLED" : "DISABLED"
+      pattern               = "{($.eventName=CreateCustomerGateway) || ($.eventName=DeleteCustomerGateway) || ($.eventName=AttachInternetGateway) || ($.eventName=CreateInternetGateway) || ($.eventName=DeleteInternetGateway) || ($.eventName=DetachInternetGateway)}"
+      alarm_description     = "aws config configuration changes count"
+      alarm_threshold       = 1
+    }
+    cis_3_13_changes_to_route_tables = {
+      metric_name           = "CIS-3.13-RouteTableChanges"
+      standards_control_arn = "${local.cis_standard_controls_arn_path}/3.13"
+      actions_enabled       = var.cis_foundation_control_3_13_enabled
+      control_status        = var.cis_foundation_control_3_13_enabled ? "ENABLED" : "DISABLED"
+      pattern               = "{($.eventName=CreateRoute) || ($.eventName=CreateRouteTable) || ($.eventName=ReplaceRoute) || ($.eventName=ReplaceRouteTableAssociation) || ($.eventName=DeleteRouteTable) || ($.eventName=DeleteRoute) || ($.eventName=DisassociateRouteTable)}"
       alarm_description     = "aws config configuration changes count"
       alarm_threshold       = 1
     }

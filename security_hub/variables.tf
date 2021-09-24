@@ -35,9 +35,29 @@ variable "cis_1_14_disabled_reason" {
   description = "A description of the reason why you are disabling a security standard control. If you specify this attribute, control_status will be set to DISABLED automatically."
 }
 
+variable "cis_foundation_control_3_4_enabled" {
+  type        = bool
+  description = "When true, creates a metric filter and alarm for CIS.3.4. When false, sets standard control to disabled."
+}
 variable "cis_foundation_control_3_8_enabled" {
   type        = bool
   description = "When true, creates a metric filter and alarm for CIS.3.8. When false, sets standard control to disabled."
+}
+variable "cis_foundation_control_3_10_enabled" {
+  type        = bool
+  description = "When true, creates a metric filter and alarm for CIS.3.10. When false, sets standard control to disabled."
+}
+variable "cis_foundation_control_3_11_enabled" {
+  type        = bool
+  description = "When true, creates a metric filter and alarm for CIS.3.11. When false, sets standard control to disabled."
+}
+variable "cis_foundation_control_3_12_enabled" {
+  type        = bool
+  description = "When true, creates a metric filter and alarm for CIS.3.12. When false, sets standard control to disabled."
+}
+variable "cis_foundation_control_3_13_enabled" {
+  type        = bool
+  description = "When true, creates a metric filter and alarm for CIS.3.13. When false, sets standard control to disabled."
 }
 
 variable "cis_foundation_control_3_14_enabled" {
