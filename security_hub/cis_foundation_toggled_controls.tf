@@ -35,7 +35,7 @@ resource "aws_securityhub_standards_control" "toggled_control" {
   for_each              = local.cis_toggled_controls
   standards_control_arn = each.value.standards_control_arn
   control_status        = each.value.control_status
-  disabled_reason       = "Not appropriate for our usage"
+  disabled_reason       = each.value.actions_enabled ? null : "Not appropriate for our usage"
   depends_on = [
     aws_securityhub_account.main
   ]
