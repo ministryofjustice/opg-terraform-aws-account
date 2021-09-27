@@ -10,3 +10,12 @@ resource "aws_securityhub_standards_control" "iam_6_hardware_mfa_should_be_enabl
     aws_securityhub_account.main
   ]
 }
+
+resource "aws_securityhub_standards_control" "elb_6_application_load_balancer_deletion_protection_should_be_enabled" {
+  standards_control_arn = "${local.fsbp_standard_controls_arn_path}/ELB.6"
+  control_status        = var.fsbp_standard_control_elb_6_enabled ? "ENABLED" : "DISABLED"
+  disabled_reason       = var.fsbp_standard_control_elb_6_enabled ? null : "Non-production accounts contain ephemeral environments."
+  depends_on = [
+    aws_securityhub_account.main
+  ]
+}

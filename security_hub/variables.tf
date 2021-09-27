@@ -57,3 +57,8 @@ variable "cis_foundation_control_3_14_enabled" {
   type        = bool
   description = "When true, creates a metric filter and alarm for CIS.3.14. When false, sets standard control to disabled."
 }
+
+variable "fsbp_standard_control_elb_6_enabled" {
+  type        = bool
+  description = "When false, sets standard control to disabled."
+}
