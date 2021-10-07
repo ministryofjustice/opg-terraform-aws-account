@@ -1,6 +1,5 @@
-
 resource "aws_s3_bucket" "s3_access_logging" {
-  bucket = "s3-access-logs.${var.account_name}.${var.product}.opg.service.justice.gov.uk"
+  bucket = "s3-access-logs-${var.account_name}-${var.region}-${var.product}-opg"
   acl    = "log-delivery-write"
   tags   = local.mandatory_moj_tags
   versioning {
