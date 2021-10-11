@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "cloudtrail" {
   tags   = var.tags
   logging {
     target_bucket = var.s3_access_logging_bucket_name
-    target_prefix = "log/${var.trail_name}/"
+    target_prefix = "log/${var.bucket_name}/"
   }
 
   lifecycle_rule {
