@@ -36,3 +36,32 @@ resource "aws_s3_bucket_public_access_block" "s3_access_logging" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+
+resource "aws_s3_bucket_policy" "s3_access_logging" {
+  bucket = aws_s3_bucket.s3_access_logging.bucket
+  policy = data.aws_iam_policy_document.s3_access_logging.json
+}
+
+data "aws_iam_policy_document" "s3_access_logging" {
+  statement {
+    sid     = "DenyNoneSSLRequests"
+    effect  = "Deny"
+    actions = ["s3:*"]
+    resources = [
+      aws_s3_bucket.s3_access_logging.arn,
+      "${aws_s3_bucket.s3_access_logging.arn}/*"
+    ]
+
+    condition {
+      test     = "Bool"
+      variable = "aws:SecureTransport"
+      values   = [false]
+    }
+
+    principals {
+      type        = "AWS"
+      identifiers = ["*"]
+    }
+  }
+}
