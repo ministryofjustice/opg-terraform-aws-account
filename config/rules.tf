@@ -169,6 +169,22 @@ resource "aws_config_config_rule" "securityhub_enabled" {
   depends_on = [aws_config_configuration_recorder.main]
 }
 
+resource "aws_config_config_rule" "ecs_task_definition_user_for_host_mode_check" {
+  name                        = "${local.config_name}-ecs-task-definition-user-for-host-mode-check"
+  description                 = "Check ECS task definition with host networking mode has 'privileged' or 'user' container definitions"
+  maximum_execution_frequency = var.config_max_execution_frequency
+  input_parameters            = jsonencode({ SkipInactiveTaskDefinitions = false })
+
+  source {
+    owner             = "AWS"
+    source_identifier = "ECS_TASK_DEFINITION_USER_FOR_HOST_MODE_CHECK"
+  }
+
+  tags = var.tags
+
+  depends_on = [aws_config_configuration_recorder.main]
+}
+
 resource "aws_config_config_rule" "tagged_resources" {
   name        = "${local.config_name}-tagged-resourses"
   description = "Checks whether all resources have mandatory tags in your AWS account and region."
