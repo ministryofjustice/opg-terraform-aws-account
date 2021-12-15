@@ -173,7 +173,7 @@ resource "aws_config_config_rule" "ecs_task_definition_user_for_host_mode_check"
   name                        = "${local.config_name}-ecs-task-definition-user-for-host-mode-check"
   description                 = "Check ECS task definition with host networking mode has 'privileged' or 'user' container definitions"
   maximum_execution_frequency = var.config_max_execution_frequency
-  input_parameters            = jsonencode({ SkipInactiveTaskDefinitions = false })
+  input_parameters            = jsonencode({ SkipInactiveTaskDefinitions = true })
 
   source {
     owner             = "AWS"
