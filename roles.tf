@@ -23,7 +23,7 @@ module "operator" {
   create_instance_profile = var.operator_create_instance_profile
 }
 
-resource "aws_iam_role_policy_attachment" "aws_inspector2_access_for_breakglass" {
+resource "aws_iam_role_policy_attachment" "aws_inspector2_access_for_operator" {
   role       = module.operator.aws_iam_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonInspector2FullAccess"
 }
