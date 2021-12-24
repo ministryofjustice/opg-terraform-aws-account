@@ -23,6 +23,11 @@ module "operator" {
   create_instance_profile = var.operator_create_instance_profile
 }
 
+resource "aws_iam_role_policy_attachment" "aws_inspector2_access_for_operator" {
+  role       = module.operator.aws_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonInspector2FullAccess"
+}
+
 module "breakglass" {
   source                  = "./default_roles"
   name                    = "breakglass"
@@ -37,10 +42,20 @@ resource "aws_iam_role_policy_attachment" "aws_support_access_for_breakglass" {
   policy_arn = "arn:aws:iam::aws:policy/AWSSupportAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "aws_inspector2_access_for_breakglass" {
+  role       = module.breakglass.aws_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonInspector2FullAccess"
+}
+
 module "ci" {
   source             = "./default_roles"
   name               = "${var.product}-ci"
   user_arns          = var.user_arns.ci
   base_policy_arn    = var.ci_base_policy_arn
   custom_policy_json = var.ci_custom_policy_json
+}
+
+resource "aws_iam_role_policy_attachment" "aws_inspector2_access_for_ci" {
+  role       = module.ci.aws_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonInspector2FullAccess"
 }
