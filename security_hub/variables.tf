@@ -9,11 +9,6 @@ variable "product" {
   type        = string
 }
 
-variable "tags" {
-  type        = map(any)
-  description = "Tags to apply to all taggable resources"
-}
-
 variable "cis_metric_namespace" {
   type        = string
   description = "The destination namespace of the CIS CloudWatch metric."
