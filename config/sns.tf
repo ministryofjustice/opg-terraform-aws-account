@@ -1,7 +1,6 @@
 resource "aws_sns_topic" "config" {
   name              = local.config_name
   kms_master_key_id = aws_kms_key.config_sns.key_id
-  tags              = var.tags
 }
 
 resource "aws_sns_topic_policy" "config" {

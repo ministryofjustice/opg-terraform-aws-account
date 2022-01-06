@@ -9,8 +9,6 @@ resource "aws_config_config_rule" "cloudtrail_enabled" {
 
   maximum_execution_frequency = var.config_max_execution_frequency
 
-  tags = var.tags
-
   depends_on = [aws_config_configuration_recorder.main]
 }
 
@@ -28,8 +26,6 @@ resource "aws_config_config_rule" "ec2_instance_public_ip" {
     compliance_resource_types = ["EC2:Instance"]
   }
 
-  tags = var.tags
-
   depends_on = [aws_config_configuration_recorder.main]
 }
 
@@ -43,8 +39,6 @@ resource "aws_config_config_rule" "guardduty_enabled" {
   }
 
   maximum_execution_frequency = var.config_max_execution_frequency
-
-  tags = var.tags
 
   depends_on = [aws_config_configuration_recorder.main]
 }
@@ -61,8 +55,6 @@ resource "aws_config_config_rule" "iam_inactive_users" {
   input_parameters            = jsonencode({ maxCredentialUsageAge = "90" })
   maximum_execution_frequency = var.config_max_execution_frequency
 
-  tags = var.tags
-
   depends_on = [aws_config_configuration_recorder.main]
 }
 
@@ -77,8 +69,6 @@ resource "aws_config_config_rule" "iam_mfa_enabled" {
 
   maximum_execution_frequency = var.config_max_execution_frequency
 
-  tags = var.tags
-
   depends_on = [aws_config_configuration_recorder.main]
 }
 
@@ -92,8 +82,6 @@ resource "aws_config_config_rule" "iam_root_access_key_check" {
   }
 
   maximum_execution_frequency = var.config_max_execution_frequency
-
-  tags = var.tags
 
   depends_on = [aws_config_configuration_recorder.main]
 }
@@ -110,8 +98,6 @@ resource "aws_config_config_rule" "s3_buckets_encrypted" {
   scope {
     compliance_resource_types = ["AWS::S3::Bucket"]
   }
-
-  tags = var.tags
 
   depends_on = [aws_config_configuration_recorder.main]
 }
@@ -130,8 +116,6 @@ resource "aws_config_config_rule" "s3_buckets_public_read" {
     compliance_resource_types = ["AWS::S3::Bucket"]
   }
 
-  tags = var.tags
-
   depends_on = [aws_config_configuration_recorder.main]
 }
 
@@ -149,8 +133,6 @@ resource "aws_config_config_rule" "s3_buckets_public_write" {
     compliance_resource_types = ["AWS::S3::Bucket"]
   }
 
-  tags = var.tags
-
   depends_on = [aws_config_configuration_recorder.main]
 }
 
@@ -163,8 +145,6 @@ resource "aws_config_config_rule" "securityhub_enabled" {
     owner             = "AWS"
     source_identifier = "SECURITYHUB_ENABLED"
   }
-
-  tags = var.tags
 
   depends_on = [aws_config_configuration_recorder.main]
 }
@@ -223,7 +203,5 @@ resource "aws_config_config_rule" "tagged_resources" {
       "AWS::S3::Bucket",
     ]
   }
-  tags = var.tags
-
   depends_on = [aws_config_configuration_recorder.main]
 }

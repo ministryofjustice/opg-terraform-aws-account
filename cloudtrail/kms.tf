@@ -3,7 +3,6 @@ resource "aws_kms_key" "cloudtrail_s3" {
   deletion_window_in_days = 7
   enable_key_rotation     = true
   policy                  = data.aws_iam_policy_document.cloudtrail_s3_key.json
-  tags                    = var.tags
 }
 
 resource "aws_kms_alias" "cloudtrail_s3" {
