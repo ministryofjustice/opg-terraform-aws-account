@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "cloudtrail" {
   acl    = "log-delivery-write"
   bucket = var.bucket_name
-  tags   = var.tags
   logging {
     target_bucket = var.s3_access_logging_bucket_name
     target_prefix = "log/${var.bucket_name}/"

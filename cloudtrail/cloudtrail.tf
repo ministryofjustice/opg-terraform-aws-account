@@ -7,7 +7,6 @@ resource "aws_cloudtrail" "cloudtrail" {
   is_multi_region_trail         = true
   kms_key_id                    = aws_kms_key.cloudtrail_s3.arn
   s3_bucket_name                = aws_s3_bucket.cloudtrail.bucket
-  tags                          = var.tags
 
   event_selector {
     include_management_events = true
@@ -27,13 +26,11 @@ resource "aws_cloudtrail" "cloudtrail" {
 
 resource "aws_cloudwatch_log_group" "cloudtrail" {
   name = var.trail_name
-  tags = var.tags
 }
 
 resource "aws_iam_role" "cloudtrail" {
   name               = var.trail_name
   assume_role_policy = data.aws_iam_policy_document.cloudtrail_role_assume_role_policy.json
-  tags               = var.tags
 }
 
 data "aws_iam_policy_document" "cloudtrail_role_assume_role_policy" {
