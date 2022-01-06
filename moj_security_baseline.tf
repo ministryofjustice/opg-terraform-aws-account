@@ -3,7 +3,6 @@ module "aws_config" {
   count        = var.baseline_security_enabled ? 1 : 0
   account_name = var.account_name
   product      = var.product
-  tags         = local.mandatory_moj_tags
 }
 
 module "security_hub" {
@@ -22,5 +21,4 @@ module "security_hub" {
   cis_foundation_control_3_13_enabled      = var.cis_foundation_control_3_13_enabled
   cis_foundation_control_3_14_enabled      = var.cis_foundation_control_3_14_enabled
   fsbp_standard_control_elb_6_enabled      = var.fsbp_standard_control_elb_6_enabled
-  tags                                     = local.mandatory_moj_tags
 }

@@ -175,7 +175,6 @@ resource "aws_cloudwatch_metric_alarm" "toggled_control" {
   evaluation_periods  = 1
   datapoints_to_alarm = 1
   statistic           = "Sum"
-  tags                = var.tags
   threshold           = each.value.alarm_threshold
   treat_missing_data  = "notBreaching"
 }

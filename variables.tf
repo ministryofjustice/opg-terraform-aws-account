@@ -117,16 +117,6 @@ variable "user_arns" {
   })
 }
 
-locals {
-  mandatory_moj_tags = {
-    application      = var.product
-    business-unit    = "OPG"
-    environment-name = var.account_name
-    is-production    = var.is_production
-    owner            = "${var.team_name}: ${var.team_email}"
-  }
-}
-
 variable "aws_s3_account_block_public_access_enable" {
   default     = false
   description = "Whether Amazon S3 should enable public blocks for buckets in this account. Defaults to False."

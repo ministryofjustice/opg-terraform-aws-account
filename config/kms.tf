@@ -3,7 +3,6 @@ resource "aws_kms_key" "config_sns" {
   deletion_window_in_days = 10
   policy                  = data.aws_iam_policy_document.sns_kms.json
   enable_key_rotation     = true
-  tags                    = var.tags
 }
 
 data "aws_iam_policy_document" "sns_kms" {

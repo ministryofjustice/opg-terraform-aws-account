@@ -22,11 +22,6 @@ variable "product" {
   type        = string
 }
 
-variable "tags" {
-  type        = map(any)
-  description = "Tags to apply to all taggable resources"
-}
-
 locals {
   config_name = "aws-config-${var.product}-${var.account_name}"
 }
