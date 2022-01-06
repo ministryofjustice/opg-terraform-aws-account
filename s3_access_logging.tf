@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "s3_access_logging" {
   bucket = "s3-access-logs-opg-${var.product}-${var.account_name}-${data.aws_region.current.name}"
   acl    = "log-delivery-write"
-  tags   = local.mandatory_moj_tags
   versioning {
     enabled = true
   }
