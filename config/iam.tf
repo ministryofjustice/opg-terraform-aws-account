@@ -1,7 +1,6 @@
 resource "aws_iam_role" "config" {
   name               = "aws-config-${var.product}-${var.account_name}"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
-  tags               = var.tags
 }
 
 data "aws_iam_policy_document" "assume_role_policy" {
