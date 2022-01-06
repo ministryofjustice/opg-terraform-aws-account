@@ -2,7 +2,6 @@ resource "aws_s3_bucket" "config" {
   bucket        = "config.${var.account_name}.${var.product}.opg.service.justice.gov.uk"
   acl           = "private"
   force_destroy = true
-  tags          = var.tags
 
   versioning {
     enabled = true
