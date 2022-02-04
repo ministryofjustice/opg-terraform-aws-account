@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "sns_kms" {
     ]
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_role.config.arn]
+      identifiers = [var.config_iam_role.arn]
     }
   }
   statement {

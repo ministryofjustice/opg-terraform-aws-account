@@ -10,6 +10,10 @@ variable "config_delivery_frequency" {
   type        = string
 }
 
+variable "config_iam_role" {
+  description = "Iam role object for the config role."
+}
+
 variable "config_max_execution_frequency" {
   description = "The maximum frequency with which AWS Config runs evaluations for a rule."
   type        = string

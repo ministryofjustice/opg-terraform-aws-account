@@ -1,5 +1,5 @@
 module "viewer" {
-  source             = "./default_roles"
+  source             = "./modules/default_roles"
   name               = "viewer"
   user_arns          = var.user_arns.view
   base_policy_arn    = var.viewer_base_policy_arn
@@ -7,7 +7,7 @@ module "viewer" {
 }
 
 module "billing" {
-  source             = "./default_roles"
+  source             = "./modules/default_roles"
   name               = "billing"
   user_arns          = var.user_arns.billing
   base_policy_arn    = var.billing_base_policy_arn
@@ -15,7 +15,7 @@ module "billing" {
 }
 
 module "operator" {
-  source                  = "./default_roles"
+  source                  = "./modules/default_roles"
   name                    = "operator"
   user_arns               = var.user_arns.operation
   base_policy_arn         = var.operator_base_policy_arn
@@ -24,7 +24,7 @@ module "operator" {
 }
 
 module "breakglass" {
-  source                  = "./default_roles"
+  source                  = "./modules/default_roles"
   name                    = "breakglass"
   user_arns               = var.user_arns.breakglass
   base_policy_arn         = var.breakglass_base_policy_arn
@@ -38,7 +38,7 @@ resource "aws_iam_role_policy_attachment" "aws_support_access_for_breakglass" {
 }
 
 module "ci" {
-  source             = "./default_roles"
+  source             = "./modules/default_roles"
   name               = "${var.product}-ci"
   user_arns          = var.user_arns.ci
   base_policy_arn    = var.ci_base_policy_arn
