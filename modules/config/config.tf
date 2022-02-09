@@ -1,6 +1,6 @@
 resource "aws_config_configuration_recorder" "main" {
   name     = local.config_name
-  role_arn = aws_iam_role.config.arn
+  role_arn = var.config_iam_role.arn
 
   recording_group {
     all_supported                 = true

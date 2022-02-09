@@ -1,5 +1,7 @@
+data "aws_region" "current" {}
+
 resource "aws_s3_bucket" "config" {
-  bucket        = "config.${var.account_name}.${var.product}.opg.service.justice.gov.uk"
+  bucket        = "config.${data.aws_region.current.name}.${var.account_name}.${var.product}.opg.justice.gov.uk"
   acl           = "private"
   force_destroy = true
 

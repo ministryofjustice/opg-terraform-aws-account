@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     effect  = "Allow"
     principals {
       type        = "AWS"
-      identifiers = [aws_iam_role.config.arn]
+      identifiers = [var.config_iam_role.arn]
     }
     resources = [aws_sns_topic.config.arn]
     sid       = "AWSConfigSNSPolicyAllowRole"
