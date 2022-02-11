@@ -32,7 +32,7 @@ locals {
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.2"
       actions_enabled       = true
       control_status        = "DISABLED"
-      pattern               = "{($.eventName=\"ConsoleLogin\") && ($.additionalEventData.MFAUsed !=\"Yes\") && ($.userIdentity.sessionContext.sessionIssuer.arn != \"arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-reserved/sso.amazonaws.com/eu-west-2/*\")}"
+      pattern               = "{($.eventName=\"ConsoleLogin\") && (($.additionalEventData.MFAUsed !=\"Yes\") || ($.userIdentity.sessionContext.sessionIssuer.arn != \"arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-reserved/sso.amazonaws.com/eu-west-2/*\"))}"
       alarm_description     = "console sign in without mfa count"
       alarm_threshold       = 1
     }
