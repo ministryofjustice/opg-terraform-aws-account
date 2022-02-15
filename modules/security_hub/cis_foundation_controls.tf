@@ -7,7 +7,8 @@ resource "aws_securityhub_standards_control" "cis_1_14_ensure_hardware_mfa_is_en
   ]
 }
 locals {
-  cis_standard_controls_arn_path = "arn:aws:securityhub:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0"
+  cis_standard_controls_arn_path             = "arn:aws:securityhub:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0"
+  cis_foundation_control_3_10_custom_enabled = var.cis_foundation_control_3_10_custom_filter == "" ? false : true
   cis_controls = {
     cis_1_1_root_account_usage = {
       metric_name           = "CIS-1.1-RootAccountUsage"
@@ -93,9 +94,9 @@ locals {
     cis_3_10_security_group_changes = {
       metric_name           = "CIS-3.10-SecurityGroupChanges"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.10"
-      actions_enabled       = var.cis_foundation_control_3_10_enabled
-      control_status        = var.cis_foundation_control_3_10_enabled ? "ENABLED" : "DISABLED"
-      pattern               = "{($.eventName=AuthorizeSecurityGroupIngress) || ($.eventName=AuthorizeSecurityGroupEgress) || ($.eventName=RevokeSecurityGroupIngress) || ($.eventName=RevokeSecurityGroupEgress) || ($.eventName=CreateSecurityGroup) || ($.eventName=DeleteSecurityGroup)}"
+      actions_enabled       = var.cis_foundation_control_3_10_enabled || local.cis_foundation_control_3_10_custom_enabled ? true : false
+      control_status        = var.cis_foundation_control_3_10_enabled && !local.cis_foundation_control_3_10_custom_enabled ? "ENABLED" : "DISABLED"
+      pattern               = local.cis_foundation_control_3_10_custom_enabled ? var.cis_foundation_control_3_10_custom_filter : "{($.eventName=AuthorizeSecurityGroupIngress) || ($.eventName=AuthorizeSecurityGroupEgress) || ($.eventName=RevokeSecurityGroupIngress) || ($.eventName=RevokeSecurityGroupEgress) || ($.eventName=CreateSecurityGroup) || ($.eventName=DeleteSecurityGroup)}"
       alarm_description     = "aws config configuration changes count"
       alarm_threshold       = 1
     }
@@ -143,7 +144,7 @@ resource "aws_securityhub_standards_control" "toggled_control" {
   for_each              = local.cis_controls
   standards_control_arn = each.value.standards_control_arn
   control_status        = each.value.control_status
-  disabled_reason       = each.value.actions_enabled ? null : "Not appropriate for our usage"
+  disabled_reason       = each.value.control_status == "ENABLED" ? null : "Not appropriate for our usage"
   depends_on = [
     aws_securityhub_account.main
   ]
