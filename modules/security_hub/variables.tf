@@ -35,6 +35,11 @@ variable "cis_foundation_control_3_10_enabled" {
   type        = bool
   description = "When true, creates a metric filter and alarm for CIS.3.10. When false, sets standard control to disabled."
 }
+variable "cis_foundation_control_3_10_custom_filter" {
+  type        = string
+  default     = ""
+  description = "When provided, creates a custom metric filter and alarm for CIS.3.10 and disables the control."
+}
 variable "cis_foundation_control_3_11_enabled" {
   type        = bool
   description = "When true, creates a metric filter and alarm for CIS.3.11. When false, sets standard control to disabled."
