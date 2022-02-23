@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_query_definition" "cis_1_1" {
-  name = "CIS-1.1-RootAccountUsage"
+  name = "CIS-Queries/CIS-1.1-RootAccountUsage"
 
   log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
 
@@ -11,7 +11,7 @@ EOF
 }
 
 resource "aws_cloudwatch_query_definition" "cis_3_1" {
-  name = "CIS-3.1-UnauthorisedAPICalls"
+  name = "CIS-Queries/CIS-3.1-UnauthorisedAPICalls"
 
   log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
 
@@ -23,7 +23,7 @@ EOF
 }
 
 resource "aws_cloudwatch_query_definition" "cis_3_2" {
-  name = "CIS-3.2-ConsoleSigninWithoutMFA"
+  name = "CIS-Queries/CIS-3.2-ConsoleSigninWithoutMFA"
 
   log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
 
@@ -35,7 +35,7 @@ EOF
 }
 
 resource "aws_cloudwatch_query_definition" "cis_3_4" {
-  name = "CIS-3.4-IAMPolicyChanges"
+  name = "CIS-Queries/CIS-3.4-IAMPolicyChanges"
 
   log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
 
@@ -47,7 +47,7 @@ EOF
 }
 
 resource "aws_cloudwatch_query_definition" "cis_3_8" {
-  name = "CIS-3.8-S3BucketPolicyChanges"
+  name = "CIS-Queries/CIS-3.8-S3BucketPolicyChanges"
 
   log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
 
