@@ -32,10 +32,12 @@ locals {
       metric_name           = "CIS-3.2-ConsoleSigninWithoutMFA"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.2"
       actions_enabled       = true
-      control_status        = "ENABLED"
-      pattern               = "{($.eventName=\"ConsoleLogin\") && ($.additionalEventData.MFAUsed !=\"Yes\")}"
-      alarm_description     = "console sign in without mfa count"
-      alarm_threshold       = 1
+      control_status        = "DISABLED"
+      pattern               = "{($.eventName = \"ConsoleLogin\") && ($.additionalEventData.MFAUsed != \"Yes\") && ($.additionalEventData.CredentialType != \"EXTERNAL_IDP\")}"
+      # pattern               = "{($.eventName=\"ConsoleLogin\") && ($.additionalEventData.MFAUsed !=\"Yes\")}"
+      # pattern               = "{($.eventName = \"ConsoleLogin\") && ($.additionalEventData.MFAUsed != \"Yes\") && ($.additionalEventData.CredentialType != \"EXTERNAL_IDP\") && ($.userIdentity.type = \"IAMUser\") && ($.responseElements.ConsoleLogin = \"Success\") }"
+      alarm_description = "IAM user console sign in without mfa count"
+      alarm_threshold   = 1
     }
     cis_3_4_iam_policy_changes = {
       metric_name           = "CIS-3.4-IAMPolicyChanges"
