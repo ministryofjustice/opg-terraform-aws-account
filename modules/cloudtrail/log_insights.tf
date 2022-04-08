@@ -29,7 +29,7 @@ resource "aws_cloudwatch_query_definition" "cis_3_2" {
 
   query_string = <<EOF
 fields @timestamp, sourceIPAddress, userIdentity.arn, eventName, responseElements.ConsoleLogin
-| filter eventName = "ConsoleLogin" and additionalEventData.MFAUsed !="Yes"
+| filter eventName = "ConsoleLogin" and additionalEventData.MFAUsed !="Yes" and userIdentity.type = "IAMUser" and responseElements.ConsoleLogin = "Success"
 | sort @timestamp desc
 EOF
 }
