@@ -33,9 +33,10 @@ locals {
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.2"
       actions_enabled       = true
       control_status        = "DISABLED"
-      pattern               = "{($.eventName = \"ConsoleLogin\") && ($.additionalEventData.MFAUsed != \"Yes\") && ($.additionalEventData.CredentialType != \"EXTERNAL_IDP\")}"
+      # pattern               = "{($.eventName = \"ConsoleLogin\") && ($.additionalEventData.MFAUsed != \"Yes\") && ($.additionalEventData.CredentialType != \"EXTERNAL_IDP\")}"
       # pattern               = "{($.eventName=\"ConsoleLogin\") && ($.additionalEventData.MFAUsed !=\"Yes\")}"
-      # pattern               = "{($.eventName = \"ConsoleLogin\") && ($.additionalEventData.MFAUsed != \"Yes\") && ($.additionalEventData.CredentialType != \"EXTERNAL_IDP\") && ($.userIdentity.type = \"IAMUser\") && ($.responseElements.ConsoleLogin = \"Success\") }"
+      pattern = "{($.eventName = \"ConsoleLogin\") && ($.additionalEventData.MFAUsed != \"Yes\") && (($.additionalEventData.CredentialType != \"EXTERNAL_IDP\")) || ($.userIdentity.type = \"IAMUser\")) && ($.responseElements.ConsoleLogin = \"Success\") }"
+      # pattern           = "{($.eventName = \"ConsoleLogin\") && ($.additionalEventData.MFAUsed != \"Yes\") && ($.additionalEventData.CredentialType != \"EXTERNAL_IDP\") && ($.userIdentity.type = \"IAMUser\") && ($.responseElements.ConsoleLogin = \"Success\") }"
       alarm_description = "IAM user console sign in without mfa count"
       alarm_threshold   = 1
     }
