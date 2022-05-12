@@ -13,6 +13,7 @@ Enables Guardduty
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.5 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.59.0 |
 
 ## Providers
@@ -25,14 +26,15 @@ Enables Guardduty
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_aws_config"></a> [aws\_config](#module\_aws\_config) | ./config | n/a |
-| <a name="module_billing"></a> [billing](#module\_billing) | ./default_roles | n/a |
-| <a name="module_breakglass"></a> [breakglass](#module\_breakglass) | ./default_roles | n/a |
-| <a name="module_ci"></a> [ci](#module\_ci) | ./default_roles | n/a |
-| <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./cloudtrail | n/a |
-| <a name="module_operator"></a> [operator](#module\_operator) | ./default_roles | n/a |
-| <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | ./security_hub | n/a |
-| <a name="module_viewer"></a> [viewer](#module\_viewer) | ./default_roles | n/a |
+| <a name="module_billing"></a> [billing](#module\_billing) | ./modules/default_roles | n/a |
+| <a name="module_breakglass"></a> [breakglass](#module\_breakglass) | ./modules/default_roles | n/a |
+| <a name="module_ci"></a> [ci](#module\_ci) | ./modules/default_roles | n/a |
+| <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./modules/cloudtrail | n/a |
+| <a name="module_eu-west-1"></a> [eu-west-1](#module\_eu-west-1) | ./modules/region | n/a |
+| <a name="module_eu-west-2"></a> [eu-west-2](#module\_eu-west-2) | ./modules/region | n/a |
+| <a name="module_operator"></a> [operator](#module\_operator) | ./modules/default_roles | n/a |
+| <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | ./modules/security_hub | n/a |
+| <a name="module_viewer"></a> [viewer](#module\_viewer) | ./modules/default_roles | n/a |
 
 ## Resources
 
@@ -41,12 +43,11 @@ Enables Guardduty
 | [aws_ebs_encryption_by_default.enabled](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_encryption_by_default) | resource |
 | [aws_guardduty_detector.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) | resource |
 | [aws_iam_account_password_policy.strict](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_password_policy) | resource |
+| [aws_iam_role.config](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.aws_support_access_for_breakglass](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.managed_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_s3_account_public_access_block.block_all](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_account_public_access_block) | resource |
-| [aws_s3_bucket.s3_access_logging](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket) | resource |
-| [aws_s3_bucket_policy.s3_access_logging](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_policy) | resource |
-| [aws_s3_bucket_public_access_block.s3_access_logging](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) | resource |
-| [aws_iam_policy_document.s3_access_logging](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
@@ -69,6 +70,7 @@ Enables Guardduty
 | <a name="input_ci_custom_policy_json"></a> [ci\_custom\_policy\_json](#input\_ci\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_cis_foundation_alarms_enabled"></a> [cis\_foundation\_alarms\_enabled](#input\_cis\_foundation\_alarms\_enabled) | Whether to create metrics alarms to support CIS Foundation compliance. Defaults to true. | `bool` | `true` | no |
 | <a name="input_cis_foundation_control_1_14_enabled"></a> [cis\_foundation\_control\_1\_14\_enabled](#input\_cis\_foundation\_control\_1\_14\_enabled) | When true, creates a metric filter and alarm for CIS.1.14. When false, sets standard control to disabled. | `bool` | `false` | no |
+| <a name="input_cis_foundation_control_3_10_custom_filter"></a> [cis\_foundation\_control\_3\_10\_custom\_filter](#input\_cis\_foundation\_control\_3\_10\_custom\_filter) | When provided, creates a custom metric filter and alarm for CIS.3.10 and disables the control in security hub. | `string` | `""` | no |
 | <a name="input_cis_foundation_control_3_10_enabled"></a> [cis\_foundation\_control\_3\_10\_enabled](#input\_cis\_foundation\_control\_3\_10\_enabled) | When true, creates a metric filter and alarm for CIS.3.10. When false, sets standard control to disabled. | `bool` | `true` | no |
 | <a name="input_cis_foundation_control_3_11_enabled"></a> [cis\_foundation\_control\_3\_11\_enabled](#input\_cis\_foundation\_control\_3\_11\_enabled) | When true, creates a metric filter and alarm for CIS.3.11. When false, sets standard control to disabled. | `bool` | `true` | no |
 | <a name="input_cis_foundation_control_3_12_enabled"></a> [cis\_foundation\_control\_3\_12\_enabled](#input\_cis\_foundation\_control\_3\_12\_enabled) | When true, creates a metric filter and alarm for CIS.3.12. When false, sets standard control to disabled. | `bool` | `true` | no |
