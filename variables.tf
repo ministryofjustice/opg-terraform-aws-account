@@ -85,11 +85,6 @@ variable "product" {
   type = string
 }
 
-variable "shield_advanced_enabled" {
-  type    = bool
-  default = false
-}
-
 variable "team_name" {
   default     = "OPG"
   description = "Name of the Team looking after the Service"
