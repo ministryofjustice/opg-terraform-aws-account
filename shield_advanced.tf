@@ -1,7 +1,9 @@
 resource "aws_iam_role" "aws_srt_support" {
   name               = "AWSSRTSupport"
   description        = "Role for DDoS response team to review AWS resources in your account and to mitigate DDoS attacks against your infrastructure by creating WAF rules and AWS Shield protections."
+  path               = "/service-role/"
   assume_role_policy = data.aws_iam_policy_document.aws_srt_support_assume_role_policy.json
+  inline_policy {}
 }
 
 data "aws_iam_policy_document" "aws_srt_support_assume_role_policy" {
