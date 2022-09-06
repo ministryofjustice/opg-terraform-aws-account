@@ -214,8 +214,8 @@ variable "cost_anomaly_weekly_schedule_threshold" {
   description = "The dollar value that triggers a weekly notification if the threshold is exceeded."
 }
 
-variable "cost_anomaly_daily_schedule_threshold" {
+variable "cost_anomaly_immediate_schedule_threshold" {
   type        = number
   default     = 10
-  description = "The dollar value that triggers a daily notification if the threshold is exceeded."
+  description = "The dollar value that triggers an immediate notification if the threshold is exceeded."
 }

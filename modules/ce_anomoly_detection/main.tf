@@ -25,10 +25,10 @@ resource "aws_ce_anomaly_subscription" "weekly" {
   provider = aws.global
 }
 
-resource "aws_ce_anomaly_subscription" "daily" {
-  name      = "Daily Subscription"
-  threshold = var.daily_schedule_threshold
-  frequency = "DAILY"
+resource "aws_ce_anomaly_subscription" "immediate" {
+  name      = "Immediate Subscription"
+  threshold = var.immediate_schedule_threshold
+  frequency = "IMMEDIATE"
 
   monitor_arn_list = [
     aws_ce_anomaly_monitor.service_monitor.arn,
@@ -36,7 +36,7 @@ resource "aws_ce_anomaly_subscription" "daily" {
 
   subscriber {
     type    = "SNS"
-    address = aws_sns_topic.daily_cost_anomaly_updates.arn
+    address = aws_sns_topic.immediate_cost_anomaly_updates.arn
   }
 
   depends_on = [
@@ -45,8 +45,8 @@ resource "aws_ce_anomaly_subscription" "daily" {
   provider = aws.global
 }
 
-resource "aws_sns_topic" "daily_cost_anomaly_updates" {
-  name     = "DailyCostAnomalyUpdates"
+resource "aws_sns_topic" "immediate_cost_anomaly_updates" {
+  name     = "immediateCostAnomalyUpdates"
   provider = aws.global
 }
 
@@ -68,7 +68,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     }
 
     resources = [
-      aws_sns_topic.daily_cost_anomaly_updates.arn,
+      aws_sns_topic.immediate_cost_anomaly_updates.arn,
     ]
   }
 
@@ -104,14 +104,14 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     }
 
     resources = [
-      aws_sns_topic.daily_cost_anomaly_updates.arn,
+      aws_sns_topic.immediate_cost_anomaly_updates.arn,
     ]
   }
   provider = aws.global
 }
 
 resource "aws_sns_topic_policy" "default" {
-  arn      = aws_sns_topic.daily_cost_anomaly_updates.arn
+  arn      = aws_sns_topic.immediate_cost_anomaly_updates.arn
   policy   = data.aws_iam_policy_document.sns_topic_policy.json
   provider = aws.global
 }
