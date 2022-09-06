@@ -202,3 +202,20 @@ variable "fsbp_standard_control_elb_6_enabled" {
   default     = true
   description = "When false, sets standard control to disabled."
 }
+
+variable "cost_anomaly_notification_email_address" {
+  type        = string
+  description = "Email address to use to send anomaly alerts to"
+}
+
+variable "cost_anomaly_weekly_schedule_threshold" {
+  type        = number
+  default     = 100
+  description = "The dollar value that triggers a weekly notification if the threshold is exceeded."
+}
+
+variable "cost_anomaly_immediate_schedule_threshold" {
+  type        = number
+  default     = 10
+  description = "The dollar value that triggers an immediate notification if the threshold is exceeded."
+}
