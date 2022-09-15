@@ -27,5 +27,5 @@ variable "product" {
 }
 
 locals {
-  config_name = "aws-config-${var.product}-${var.account_name}"
+  config_name = "${var.product}-${var.account_name}"
 }
