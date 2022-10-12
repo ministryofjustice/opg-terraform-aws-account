@@ -10,6 +10,7 @@ resource "aws_ce_anomaly_monitor" "service_monitor" {
 }
 
 resource "aws_ce_anomaly_subscription" "weekly" {
+  count     = local.weekly_email_enabled
   name      = "Weekly Subscription"
   threshold = var.weekly_schedule_threshold
   frequency = "WEEKLY"
