@@ -205,8 +205,8 @@ variable "fsbp_standard_control_elb_6_enabled" {
 
 variable "cost_anomaly_notification_email_address" {
   type        = string
+  default     = null
   description = "Email address to use to send anomaly alerts to"
-  default     = ""
 }
 
 variable "cost_anomaly_weekly_schedule_threshold" {
