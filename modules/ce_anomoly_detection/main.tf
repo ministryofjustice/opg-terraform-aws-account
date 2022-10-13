@@ -10,6 +10,7 @@ resource "aws_ce_anomaly_monitor" "service_monitor" {
 }
 
 resource "aws_ce_anomaly_subscription" "weekly" {
+  count     = var.notification_email_address == null ? 0 : 1
   name      = "Weekly Subscription"
   threshold = var.weekly_schedule_threshold
   frequency = "WEEKLY"
