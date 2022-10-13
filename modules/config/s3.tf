@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "config" {
   force_destroy = true
   logging {
     target_bucket = var.s3_access_logging_bucket_name
-    target_prefix = "log/${var.bucket_name}/"
+    target_prefix = "log/config.${data.aws_region.current.name}.${var.account_name}.${var.product}.opg.justice.gov.uk/"
   }
 
   versioning {
