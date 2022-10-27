@@ -5,6 +5,6 @@ module "aws_config" {
   config_iam_role               = var.config_iam_role
   s3_access_logging_bucket_name = aws_s3_bucket.s3_access_logging.id
   product                       = var.product
-  sns_failure_feedback_role_arn = aws_iam_role.sns_failure_feedback.arn
-  sns_success_feedback_role_arn = aws_iam_role.sns_success_feedback.arn
+  sns_failure_feedback_role_arn = var.sns_failure_feedback_role_arn
+  sns_success_feedback_role_arn = var.sns_success_feedback_role_arn
 }
