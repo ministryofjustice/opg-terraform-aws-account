@@ -47,8 +47,23 @@ resource "aws_ce_anomaly_subscription" "immediate" {
 }
 
 resource "aws_sns_topic" "immediate_cost_anomaly_updates" {
-  name     = "immediateCostAnomalyUpdates"
-  provider = aws.global
+  name                                     = "immediateCostAnomalyUpdates"
+  application_failure_feedback_role_arn    = var.sns_failure_feedback_role_arn
+  application_success_feedback_role_arn    = var.sns_success_feedback_role_arn
+  application_success_feedback_sample_rate = 100
+  firehose_failure_feedback_role_arn       = var.sns_failure_feedback_role_arn
+  firehose_success_feedback_role_arn       = var.sns_success_feedback_role_arn
+  firehose_success_feedback_sample_rate    = 100
+  http_failure_feedback_role_arn           = var.sns_failure_feedback_role_arn
+  http_success_feedback_role_arn           = var.sns_success_feedback_role_arn
+  http_success_feedback_sample_rate        = 100
+  lambda_failure_feedback_role_arn         = var.sns_failure_feedback_role_arn
+  lambda_success_feedback_role_arn         = var.sns_success_feedback_role_arn
+  lambda_success_feedback_sample_rate      = 100
+  sqs_failure_feedback_role_arn            = var.sns_failure_feedback_role_arn
+  sqs_success_feedback_role_arn            = var.sns_success_feedback_role_arn
+  sqs_success_feedback_sample_rate         = 100
+  provider                                 = aws.global
 }
 
 data "aws_iam_policy_document" "sns_topic_policy" {

@@ -1,6 +1,21 @@
 resource "aws_sns_topic" "cis_aws_foundations_standard" {
-  name              = "cis_aws_foundations_standard"
-  kms_master_key_id = aws_kms_key.cis_aws_foundations_standard_sns.key_id
+  name                                     = "cis_aws_foundations_standard"
+  kms_master_key_id                        = aws_kms_key.cis_aws_foundations_standard_sns.key_id
+  application_failure_feedback_role_arn    = var.sns_failure_feedback_role_arn
+  application_success_feedback_role_arn    = var.sns_success_feedback_role_arn
+  application_success_feedback_sample_rate = 100
+  firehose_failure_feedback_role_arn       = var.sns_failure_feedback_role_arn
+  firehose_success_feedback_role_arn       = var.sns_success_feedback_role_arn
+  firehose_success_feedback_sample_rate    = 100
+  http_failure_feedback_role_arn           = var.sns_failure_feedback_role_arn
+  http_success_feedback_role_arn           = var.sns_success_feedback_role_arn
+  http_success_feedback_sample_rate        = 100
+  lambda_failure_feedback_role_arn         = var.sns_failure_feedback_role_arn
+  lambda_success_feedback_role_arn         = var.sns_success_feedback_role_arn
+  lambda_success_feedback_sample_rate      = 100
+  sqs_failure_feedback_role_arn            = var.sns_failure_feedback_role_arn
+  sqs_success_feedback_role_arn            = var.sns_success_feedback_role_arn
+  sqs_success_feedback_sample_rate         = 100
 }
 
 resource "aws_kms_key" "cis_aws_foundations_standard_sns" {

@@ -1,20 +1,24 @@
 module "eu-west-1" {
-  source                    = "./modules/region"
-  account_name              = var.account_name
-  baseline_security_enabled = var.baseline_security_enabled
-  config_iam_role           = var.baseline_security_enabled ? aws_iam_role.config[0] : null
-  product                   = var.product
+  source                        = "./modules/region"
+  account_name                  = var.account_name
+  baseline_security_enabled     = var.baseline_security_enabled
+  config_iam_role               = var.baseline_security_enabled ? aws_iam_role.config[0] : null
+  product                       = var.product
+  sns_failure_feedback_role_arn = aws_iam_role.sns_failure_feedback.arn
+  sns_success_feedback_role_arn = aws_iam_role.sns_success_feedback.arn
   providers = {
     aws = aws
   }
 }
 
 module "eu-west-2" {
-  source                    = "./modules/region"
-  account_name              = var.account_name
-  baseline_security_enabled = var.baseline_security_enabled
-  config_iam_role           = var.baseline_security_enabled ? aws_iam_role.config[0] : null
-  product                   = var.product
+  source                        = "./modules/region"
+  account_name                  = var.account_name
+  baseline_security_enabled     = var.baseline_security_enabled
+  config_iam_role               = var.baseline_security_enabled ? aws_iam_role.config[0] : null
+  product                       = var.product
+  sns_failure_feedback_role_arn = aws_iam_role.sns_failure_feedback.arn
+  sns_success_feedback_role_arn = aws_iam_role.sns_success_feedback.arn
   providers = {
     aws = aws.eu-west-2
   }
