@@ -107,7 +107,7 @@ data "aws_iam_policy_document" "cloudtrail" {
 }
 
 module "s3_event_notifications" {
-  source                        = "../modules/s3_event_notifications"
+  source                        = "../modules/s3_bucket_event_notifications"
   s3_bucket_event_types         = ["s3:ObjectRemoved:*"]
   s3_bucket_id                  = aws_s3_bucket.cloudtrail.id
   sns_failure_feedback_role_arn = var.sns_failure_feedback_role_arn
