@@ -1,7 +1,10 @@
 variable "s3_bucket_event_types" {
   description = "The type of event that triggers the notification"
   type        = list(string)
-  default     = ["s3:ObjectRemoved:*"]
+  default = [
+    "s3:ObjectRemoved:*",
+    "s3:ObjectAcl:Put",
+  ]
 }
 
 variable "s3_bucket_id" {
