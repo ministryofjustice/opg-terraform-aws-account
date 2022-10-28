@@ -117,3 +117,14 @@ data "aws_iam_policy_document" "config_bucket" {
   }
 
 }
+
+module "s3_event_notifications" {
+  source = "../s3_bucket_event_notifications"
+  s3_bucket_event_types = [
+    "s3:ObjectRemoved:*",
+    "s3:ObjectAcl:Put",
+  ]
+  s3_bucket_id                  = aws_s3_bucket.config.id
+  sns_failure_feedback_role_arn = var.sns_failure_feedback_role_arn
+  sns_success_feedback_role_arn = var.sns_success_feedback_role_arn
+}
