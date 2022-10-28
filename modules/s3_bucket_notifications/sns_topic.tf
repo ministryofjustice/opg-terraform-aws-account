@@ -1,6 +1,6 @@
 resource "aws_sns_topic" "s3_event_notification" {
   name                                     = "${var.s3_bucket_id}-s3-event-notification-topic"
-  kms_master_key_id                        = var.kms_master_key_id
+  kms_master_key_id                        = aws_kms_key.s3_bucket_event_notification_sns.key_id
   application_failure_feedback_role_arn    = var.sns_failure_feedback_role_arn
   application_success_feedback_role_arn    = var.sns_success_feedback_role_arn
   application_success_feedback_sample_rate = 100

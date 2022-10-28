@@ -18,8 +18,3 @@ variable "sns_success_feedback_role_arn" {
   description = "The ARN of the IAM role that Amazon SNS can assume when it needs to access your AWS resources to process your success feedback"
   type        = string
 }
-
-variable "kms_master_key_id" {
-  description = "The ID of an AWS-managed customer master key (CMK) for Amazon SNS or a custom CMK"
-  type        = string
-}
