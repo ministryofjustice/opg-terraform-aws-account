@@ -1,13 +1,13 @@
 data "aws_region" "current" {}
 
 resource "aws_s3_bucket" "config" {
-  bucket        = "config.${data.aws_region.current.name}.${var.account_name}.${var.product}.opg.justice.gov.uk"
+  bucket        = "config-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
   acl           = "private"
   force_destroy = true
 
   logging {
     target_bucket = var.s3_access_logging_bucket_name
-    target_prefix = "log/config.${data.aws_region.current.name}.${var.account_name}.${var.product}.opg.justice.gov.uk/"
+    target_prefix = "log/config-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
   }
   versioning {
     enabled = true
