@@ -22,6 +22,13 @@ resource "aws_cloudtrail" "cloudtrail" {
       values = ["arn:aws:lambda"]
     }
   }
+  insight_selector {
+    insight_type = "ApiCallRateInsight"
+  }
+
+  insight_selector {
+    insight_type = "ApiErrorRateInsight"
+  }
 }
 
 resource "aws_cloudwatch_log_group" "cloudtrail" {
