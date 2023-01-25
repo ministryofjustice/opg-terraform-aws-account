@@ -154,7 +154,7 @@ resource "aws_cloudwatch_log_metric_filter" "toggled_control" {
   for_each       = local.cis_controls
   name           = each.value.metric_name
   pattern        = each.value.pattern
-  log_group_name = data.aws_cloudwatch_log_group.cloudtrail.name
+  log_group_name = var.aws_cloudwatch_log_group_cloudtrail_name
   metric_transformation {
     name      = each.value.metric_name
     namespace = "CISLogMetrics"
