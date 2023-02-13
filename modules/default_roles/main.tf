@@ -1,23 +1,3 @@
-variable "user_arns" {
-  type    = list(string)
-  default = []
-}
-
-variable "name" {}
-
-variable "base_policy_arn" {
-  default = "arn:aws:iam::aws:policy/ReadOnlyAccess"
-}
-
-variable "custom_policy_json" {
-  default = ""
-}
-
-variable "create_instance_profile" {
-  type    = bool
-  default = false
-}
-
 resource "aws_iam_role" "role" {
   name               = var.name
   assume_role_policy = var.create_instance_profile ? data.aws_iam_policy_document.instance_profile[0].json : data.aws_iam_policy_document.role.json
