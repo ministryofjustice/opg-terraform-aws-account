@@ -27,6 +27,12 @@ variable "user_arns" {
   default = []
 }
 
+variable "account_name" {
+  type        = string
+  description = "Name of the account."
+  default     = "development"
+}
+
 variable "name" {}
 
 variable "base_policy_arn" {

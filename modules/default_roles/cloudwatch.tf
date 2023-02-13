@@ -1,3 +1,10 @@
+locals {
+  account_id   = data.aws_caller_identity.current.account_id
+  account_name = var.account_name
+}
+
+data "aws_caller_identity" "current" {}
+
 resource "aws_cloudwatch_log_metric_filter" "role_assume_metric" {
   count          = var.create_assume_alarm ? 1 : 0
   name           = "BreakGlassConsoleLogin"
