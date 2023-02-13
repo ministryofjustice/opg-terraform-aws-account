@@ -14,9 +14,9 @@ resource "aws_cloudwatch_log_metric_filter" "role_assume_metric" {
 resource "aws_cloudwatch_metric_alarm" "role_assume_alarm" {
   count               = var.create_assume_alarm ? 1 : 0
   alarm_name          = "${local.account_name} ${aws_iam_role.role.name} console login check"
-  actions_enabled     = var.alarm_actions_enabled ? true : false
-  alarm_actions       = var.alarm_actions_enabled ? [var.alarm_sns_topic_arn] : []
-  ok_actions          = var.alarm_actions_enabled ? [var.alarm_sns_topic_arn] : []
+  actions_enabled     = var.create_assume_alarm ? true : false
+  alarm_actions       = var.create_assume_alarm ? [var.alarm_sns_topic_arn] : []
+  ok_actions          = var.create_assume_alarm ? [var.alarm_sns_topic_arn] : []
   alarm_description   = "number of ${aws_iam_role.role.name} assume attempts"
   namespace           = "${var.aws_cloudwatch_namespace_prefix}/Cloudtrail"
   metric_name         = "EventCount"
