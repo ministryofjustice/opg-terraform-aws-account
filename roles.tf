@@ -24,13 +24,13 @@ module "operator" {
 }
 
 module "breakglass" {
-  source                    = "./modules/default_roles"
-  name                      = "breakglass"
-  user_arns                 = var.user_arns.breakglass
-  base_policy_arn           = var.breakglass_base_policy_arn
-  custom_policy_json        = var.breakglass_custom_policy_json
-  create_instance_profile   = var.breakglass_create_instance_profile
-  create_assume_alarm_role  = true
+  source                  = "./modules/default_roles"
+  name                    = "breakglass"
+  user_arns               = var.user_arns.breakglass
+  base_policy_arn         = var.breakglass_base_policy_arn
+  custom_policy_json      = var.breakglass_custom_policy_json
+  create_instance_profile = var.breakglass_create_instance_profile
+  create_assume_alarm     = true
 }
 
 resource "aws_iam_role_policy_attachment" "aws_support_access_for_breakglass" {
