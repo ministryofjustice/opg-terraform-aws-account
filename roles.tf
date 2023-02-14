@@ -32,6 +32,9 @@ module "breakglass" {
   create_instance_profile         = var.breakglass_create_instance_profile
   aws_cloudwatch_namespace_prefix = "online-lpa"
   create_assume_alarm             = true
+  cloudtrail_trail_name           = var.cloudtrail_trail_name
+  #TODO: This should be a variable, somehow
+  alarm_sns_topic_arn             = "CloudWatch-to-PagerDuty-1311lpal111"
 }
 
 resource "aws_iam_role_policy_attachment" "aws_support_access_for_breakglass" {

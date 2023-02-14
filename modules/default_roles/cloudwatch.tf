@@ -9,7 +9,7 @@ resource "aws_cloudwatch_log_metric_filter" "role_assume_metric" {
   count          = var.create_assume_alarm ? 1 : 0
   name           = "BreakGlassConsoleLogin"
   pattern        = "{ ($.eventType = \"AwsConsoleSignIn\") && ($.userIdentity.arn = \"arn:aws:sts::${local.account_id}:assumed-role/${aws_iam_role.role.name}/*\") }"
-  log_group_name = var.aws_cloudwatch_log_group_cloudtrail_name
+  log_group_name = var.cloudtrail_trail_name
 
   metric_transformation {
     name      = "EventCount"

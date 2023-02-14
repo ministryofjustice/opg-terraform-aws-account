@@ -16,6 +16,12 @@ variable "create_assume_alarm" {
   description = "Create the assume role alarm."
 }
 
+variable "cloudtrail_trail_name" {
+  type        = string
+  default     = null
+  description = "Name of the trail."
+}
+
 variable "alarm_sns_topic_arn" {
   type        = string
   default     = null
