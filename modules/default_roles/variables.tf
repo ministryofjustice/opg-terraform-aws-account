@@ -5,9 +5,9 @@ variable "aws_cloudwatch_log_group_cloudtrail_name" {
 }
 
 variable "aws_cloudwatch_namespace_prefix" {
-    type        = string
-    default     = null
-    description = "Prefix for the namespace."
+  type        = string
+  default     = null
+  description = "Prefix for the namespace."
 }
 
 variable "create_assume_alarm" {
