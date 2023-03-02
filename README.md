@@ -66,12 +66,13 @@ Enables Guardduty
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_name"></a> [account\_name](#input\_account\_name) | Account Name | `string` | `""` | no |
+| <a name="input_aws_config_enabled"></a> [aws\_config\_enabled](#input\_aws\_config\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_aws_s3_account_block_public_access_enable"></a> [aws\_s3\_account\_block\_public\_access\_enable](#input\_aws\_s3\_account\_block\_public\_access\_enable) | Whether Amazon S3 should enable public blocks for buckets in this account. Defaults to False. | `bool` | `false` | no |
 | <a name="input_aws_s3_account_block_public_acls"></a> [aws\_s3\_account\_block\_public\_acls](#input\_aws\_s3\_account\_block\_public\_acls) | Whether Amazon S3 should block public ACLs for buckets in this account. Defaults to true. | `bool` | `true` | no |
 | <a name="input_aws_s3_account_block_public_policy"></a> [aws\_s3\_account\_block\_public\_policy](#input\_aws\_s3\_account\_block\_public\_policy) | Whether Amazon S3 should block public bucket policies for buckets in this account. Defaults to true. | `bool` | `true` | no |
 | <a name="input_aws_s3_account_ignore_public_acls"></a> [aws\_s3\_account\_ignore\_public\_acls](#input\_aws\_s3\_account\_ignore\_public\_acls) | Whether Amazon S3 should ignore public ACLs for buckets in this account. Defaults to true. | `bool` | `true` | no |
 | <a name="input_aws_s3_account_restrict_public_buckets"></a> [aws\_s3\_account\_restrict\_public\_buckets](#input\_aws\_s3\_account\_restrict\_public\_buckets) | Whether Amazon S3 should restrict public bucket policies for buckets in this account. Defaults to true. | `bool` | `true` | no |
-| <a name="input_baseline_security_enabled"></a> [baseline\_security\_enabled](#input\_baseline\_security\_enabled) | n/a | `bool` | `false` | no |
+| <a name="input_aws_security_hub_enabled"></a> [aws\_security\_hub\_enabled](#input\_aws\_security\_hub\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_billing_base_policy_arn"></a> [billing\_base\_policy\_arn](#input\_billing\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/job-function/Billing"` | no |
 | <a name="input_billing_custom_policy_json"></a> [billing\_custom\_policy\_json](#input\_billing\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_breakglass_base_policy_arn"></a> [breakglass\_base\_policy\_arn](#input\_breakglass\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/AdministratorAccess"` | no |
