@@ -4,7 +4,12 @@ variable "account_name" {
   type        = string
 }
 
-variable "baseline_security_enabled" {
+variable "aws_config_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "aws_security_hub_enabled" {
   type    = bool
   default = false
 }
