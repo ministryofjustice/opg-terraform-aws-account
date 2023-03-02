@@ -1,6 +1,6 @@
 module "security_hub" {
   source                                    = "./modules/security_hub"
-  count                                     = var.baseline_security_enabled ? 1 : 0
+  count                                     = var.aws_security_hub_enabled ? 1 : 0
   account_name                              = var.account_name
   product                                   = var.product
   cis_metric_namespace                      = var.cis_metric_namespace
