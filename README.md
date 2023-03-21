@@ -116,5 +116,6 @@ Enables Guardduty
 |------|-------------|
 | <a name="output_aws_sns_topic_ce_detection_immediate_schedule"></a> [aws\_sns\_topic\_ce\_detection\_immediate\_schedule](#output\_aws\_sns\_topic\_ce\_detection\_immediate\_schedule) | n/a |
 | <a name="output_aws_sns_topic_cis_aws_foundations_standard"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard) | n/a |
-| <a name="output_aws_sns_topic_custom_cloudwatch_alarms"></a> [aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
+| <a name="output_eu_west_1_aws_sns_topic_custom_cloudwatch_alarms"></a> [eu\_west\_1\_aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_eu\_west\_1\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
+| <a name="output_eu_west_2_aws_sns_topic_custom_cloudwatch_alarms"></a> [eu\_west\_2\_aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_eu\_west\_2\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
