@@ -32,6 +32,7 @@ Enables Guardduty
 | <a name="module_ci"></a> [ci](#module\_ci) | ./modules/default_roles | n/a |
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./modules/cloudtrail | n/a |
 | <a name="module_cost_anomaly_detection"></a> [cost\_anomaly\_detection](#module\_cost\_anomaly\_detection) | ./modules/ce_anomoly_detection | n/a |
+| <a name="module_custom_cloudwatch_alarms"></a> [custom\_cloudwatch\_alarms](#module\_custom\_cloudwatch\_alarms) | ./modules/custom_cloudwatch_alarms | n/a |
 | <a name="module_eu-west-1"></a> [eu-west-1](#module\_eu-west-1) | ./modules/region | n/a |
 | <a name="module_eu-west-2"></a> [eu-west-2](#module\_eu-west-2) | ./modules/region | n/a |
 | <a name="module_operator"></a> [operator](#module\_operator) | ./modules/default_roles | n/a |
@@ -96,6 +97,7 @@ Enables Guardduty
 | <a name="input_cost_anomaly_immediate_schedule_threshold"></a> [cost\_anomaly\_immediate\_schedule\_threshold](#input\_cost\_anomaly\_immediate\_schedule\_threshold) | The dollar value that triggers an immediate notification if the threshold is exceeded. | `number` | `10` | no |
 | <a name="input_cost_anomaly_notification_email_address"></a> [cost\_anomaly\_notification\_email\_address](#input\_cost\_anomaly\_notification\_email\_address) | Email address to use to send anomaly alerts to | `string` | `null` | no |
 | <a name="input_cost_anomaly_weekly_schedule_threshold"></a> [cost\_anomaly\_weekly\_schedule\_threshold](#input\_cost\_anomaly\_weekly\_schedule\_threshold) | The dollar value that triggers a weekly notification if the threshold is exceeded. | `number` | `100` | no |
+| <a name="input_custom_alarms_breakglass_login_alarm_enabled"></a> [custom\_alarms\_breakglass\_login\_alarm\_enabled](#input\_custom\_alarms\_breakglass\_login\_alarm\_enabled) | Enable or disable the breakglass login alarm | `bool` | `true` | no |
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
 | <a name="input_fsbp_standard_control_elb_6_enabled"></a> [fsbp\_standard\_control\_elb\_6\_enabled](#input\_fsbp\_standard\_control\_elb\_6\_enabled) | When false, sets standard control to disabled. | `bool` | `true` | no |
 | <a name="input_is_production"></a> [is\_production](#input\_is\_production) | n/a | `bool` | `false` | no |
@@ -115,4 +117,6 @@ Enables Guardduty
 |------|-------------|
 | <a name="output_aws_sns_topic_ce_detection_immediate_schedule"></a> [aws\_sns\_topic\_ce\_detection\_immediate\_schedule](#output\_aws\_sns\_topic\_ce\_detection\_immediate\_schedule) | n/a |
 | <a name="output_aws_sns_topic_cis_aws_foundations_standard"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard) | n/a |
+| <a name="output_eu_west_1_aws_sns_topic_custom_cloudwatch_alarms"></a> [eu\_west\_1\_aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_eu\_west\_1\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
+| <a name="output_eu_west_2_aws_sns_topic_custom_cloudwatch_alarms"></a> [eu\_west\_2\_aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_eu\_west\_2\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
