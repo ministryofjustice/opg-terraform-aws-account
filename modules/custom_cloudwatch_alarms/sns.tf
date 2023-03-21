@@ -26,7 +26,7 @@ resource "aws_kms_key" "custom_cloudwatch_alarms_sns" {
 }
 
 resource "aws_kms_alias" "custom_cloudwatch_alarms_sns" {
-  name          = "alias/cis-aws-foundations-standard-sns"
+  name          = "alias/custom_cloudwatch_alarms_sns"
   target_key_id = aws_kms_key.custom_cloudwatch_alarms_sns.key_id
 }
 
