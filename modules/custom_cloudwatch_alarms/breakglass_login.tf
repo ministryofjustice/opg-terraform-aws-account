@@ -5,7 +5,7 @@ resource "aws_cloudwatch_log_metric_filter" "breakglass_metric" {
   log_group_name = var.cloudtrail_log_group_name
 
   metric_transformation {
-    name      = "EventCount"
+    name      = "BreakglassLoginCount"
     namespace = "${var.product}/Cloudtrail"
     value     = "1"
   }
@@ -19,7 +19,7 @@ resource "aws_cloudwatch_metric_alarm" "breakglass_login_alarm" {
   ok_actions          = [aws_sns_topic.custom_cloudwatch_alarms.arn]
   alarm_description   = "number of breakglass logins"
   namespace           = "${var.product}/Cloudtrail"
-  metric_name         = "EventCount"
+  metric_name         = "BreakglassLoginCount"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   period              = 60
   evaluation_periods  = 1
