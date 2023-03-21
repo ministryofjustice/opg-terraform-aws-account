@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_log_metric_filter" "breakglass_metric" {
-  count          = var.breakglass_login_alarm_enabled ? 1 : 0
+  count          = var.custom_alarms_breakglass_login_alarm_enabled ? 1 : 0
   name           = "BreakGlassConsoleLogin"
   pattern        = "{ ($.eventType = \"AwsConsoleSignIn\") && ($.userIdentity.arn = \"arn:aws:sts::${data.aws_caller_identity.current.account_id}:assumed-role/breakglass/*\") }"
   log_group_name = var.cloudtrail_log_group_name
@@ -12,7 +12,7 @@ resource "aws_cloudwatch_log_metric_filter" "breakglass_metric" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "account_breakglass_login_alarm" {
-  count               = var.breakglass_login_alarm_enabled ? 1 : 0
+  count               = var.custom_alarms_breakglass_login_alarm_enabled ? 1 : 0
   actions_enabled     = true
   alarm_name          = "${var.account_name} breakglass console login check"
   alarm_actions       = [aws_sns_topic.custom_cloudwatch_alarms.arn]

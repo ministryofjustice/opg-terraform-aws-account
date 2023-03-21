@@ -9,23 +9,24 @@ variable "sns_success_feedback_role_arn" {
 }
 
 variable "product" {
-  type = string
+  description = "Name of the product"
+  type        = string
 }
 
 variable "account_name" {
-  default     = ""
   description = "Account Name"
   type        = string
 }
 
-variable "breakglass_login_alarm_enabled" {
+variable "custom_alarms_breakglass_login_alarm_enabled" {
   default     = true
   description = "Enable or disable the breakglass login alarm"
   type        = bool
 }
 
 variable "cloudtrail_log_group_name" {
-  type = string
+  description = "Name of the cloudtrail log group"
+  type        = string
 }
 
 data "aws_caller_identity" "current" {
