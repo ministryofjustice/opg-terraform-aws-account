@@ -5,3 +5,11 @@ output "aws_sns_topic_cis_aws_foundations_standard" {
 output "aws_sns_topic_ce_detection_immediate_schedule" {
   value = module.cost_anomaly_detection.immediate_schedule_sns_topic
 }
+
+output "aws_sns_topic_ce_detection_immediate_schedule" {
+  value = module.cost_anomaly_detection.immediate_schedule_sns_topic
+}
+
+output "aws_sns_topic_custom_cloudwatch_alarms" {
+  value = module.custom_cloudwatch_alarms.aws_sns_topic_custom_cloudwatch_alarms
+}
