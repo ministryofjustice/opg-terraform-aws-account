@@ -30,6 +30,7 @@ resource "aws_cloudwatch_metric_alarm" "breakglass_login_alarm" {
 }
 
 resource "aws_cloudwatch_query_definition" "breakglass_login_alarm" {
+  count           = var.custom_alarms_breakglass_login_alarm_enabled ? 1 : 0
   name            = "Custom Cloudwatch Alarms/Breakglass Login"
   log_group_names = [var.cloudtrail_log_group_name]
   query_string    = <<EOF
