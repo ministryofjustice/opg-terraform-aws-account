@@ -11,7 +11,7 @@ resource "aws_cloudwatch_log_metric_filter" "breakglass_metric" {
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "account_breakglass_login_alarm" {
+resource "aws_cloudwatch_metric_alarm" "breakglass_login_alarm" {
   count               = var.custom_alarms_breakglass_login_alarm_enabled ? 1 : 0
   actions_enabled     = true
   alarm_name          = "${var.account_name} breakglass console login check"
@@ -27,4 +27,14 @@ resource "aws_cloudwatch_metric_alarm" "account_breakglass_login_alarm" {
   statistic           = "Sum"
   threshold           = 1
   treat_missing_data  = "notBreaching"
+}
+
+resource "aws_cloudwatch_query_definition" "breakglass_login_alarm" {
+  name            = "Custom Cloudwatch Alarms/Breakglass Login"
+  log_group_names = [var.cloudtrail_log_group_name]
+  query_string    = <<EOF
+fields @timestamp, sourceIPAddress, eventName, responseElements.ConsoleLogin
+| filter userIdentity.arn = \"arn:aws:sts::${data.aws_caller_identity.current.account_id}:assumed-role/breakglass/*\" and eventType ="AwsConsoleSignIn"
+| sort @timestamp desc
+EOF
 }
