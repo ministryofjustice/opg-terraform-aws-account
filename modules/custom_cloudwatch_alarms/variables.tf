@@ -30,5 +30,4 @@ variable "cloudtrail_log_group_name" {
 }
 
 data "aws_caller_identity" "current" {
-  provider = aws.global
 }
