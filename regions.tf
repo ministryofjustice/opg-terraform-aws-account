@@ -6,6 +6,7 @@ module "eu-west-1" {
   product                       = var.product
   sns_failure_feedback_role_arn = aws_iam_role.sns_failure_feedback.arn
   sns_success_feedback_role_arn = aws_iam_role.sns_success_feedback.arn
+  cloudtrail_log_group_name     = module.cloudtrail.cloudtrail_log_group_name
   providers = {
     aws = aws
   }
@@ -19,6 +20,7 @@ module "eu-west-2" {
   product                       = var.product
   sns_failure_feedback_role_arn = aws_iam_role.sns_failure_feedback.arn
   sns_success_feedback_role_arn = aws_iam_role.sns_success_feedback.arn
+  cloudtrail_log_group_name     = module.cloudtrail.cloudtrail_log_group_name
   providers = {
     aws = aws.eu-west-2
   }
