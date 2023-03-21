@@ -225,3 +225,9 @@ variable "cost_anomaly_immediate_schedule_threshold" {
   default     = 10
   description = "The dollar value that triggers an immediate notification if the threshold is exceeded."
 }
+
+variable "custom_alarms_breakglass_login_alarm_enabled" {
+  default     = true
+  description = "Enable or disable the breakglass login alarm"
+  type        = bool
+}

@@ -1,12 +1,12 @@
 variable "account_name" {
-  default     = ""
   description = "Account Name"
   type        = string
 }
 
 variable "aws_config_enabled" {
-  type    = bool
-  default = false
+  description = "Enable AWS Config"
+  type        = bool
+  default     = false
 }
 
 variable "config_iam_role" {
@@ -14,7 +14,8 @@ variable "config_iam_role" {
 }
 
 variable "product" {
-  type = string
+  description = "Name of the product"
+  type        = string
 }
 
 variable "sns_failure_feedback_role_arn" {
