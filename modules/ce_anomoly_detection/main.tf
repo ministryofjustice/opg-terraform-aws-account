@@ -131,3 +131,10 @@ resource "aws_sns_topic_policy" "default" {
   policy   = data.aws_iam_policy_document.sns_topic_policy.json
   provider = aws.global
 }
+
+resource "aws_sns_topic_subscription" "immediate_email_alerts" {
+  topic_arn = aws_sns_topic.immediate_cost_anomaly_updates.arn
+  protocol  = "email"
+  endpoint  = var.notification_email_address
+  provider  = aws.global
+}
