@@ -34,7 +34,7 @@ locals {
   }
 }
 
-# Description: This module configures an AWS account with some security controls turned off for production purposes.
+# Description: Full confuguration of an AWS account
 module "full" {
   source                                       = "git@github.com:ministryofjustice/opg-terraform-aws-account.git?ref=v5.2.0"
   account_name                                 = "full"
