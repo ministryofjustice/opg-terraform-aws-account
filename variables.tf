@@ -24,6 +24,11 @@ variable "aws_slack_cost_anomaly_notification_channel" {
   default = ""
 }
 
+variable "aws_slack_health_notification_channel" {
+  type    = string
+  default = ""
+}
+
 variable "breakglass_base_policy_arn" {
   type    = string
   default = "arn:aws:iam::aws:policy/AdministratorAccess"
@@ -244,4 +249,5 @@ variable "custom_alarms_breakglass_login_alarm_enabled" {
 
 locals {
   aws_cost_anomaly_notifications_enabled = var.aws_slack_notifications_enabled && var.aws_slack_cost_anomaly_notification_channel != "" ? true : false
+  aws_health_notifications_enabled       = var.aws_slack_notifications_enabled && var.aws_slack_health_notification_channel != "" ? true : false
 }

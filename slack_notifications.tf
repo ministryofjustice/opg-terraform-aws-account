@@ -1,3 +1,44 @@
+module "aws_cost_notifier" {
+  count              = local.aws_cost_anomaly_notifications_enabled ? 1 : 0
+  source             = "git@github.com:ministryofjustice/opg-aws-cost-notifier.git?ref=v1.2.0"
+  account_name       = var.account_name
+  ecr_repository_url = data.aws_ecr_repository.cost_notifier_lambda.repository_url
+  slack_channel_id   = var.aws_slack_cost_anomaly_notification_channel
+  slack_secret_arn   = aws_secretsmanager_secret.aws_notifier_slack_token[0].arn
+  sns_topic_arn      = module.cost_anomaly_detection.immediate_schedule_sns_topic.arn
+  version_tag        = "v1.2.0"
+  providers = {
+    aws           = aws
+    aws.us-east-1 = aws.global
+  }
+}
+
+module "aws_health_notifier" {
+  count              = local.aws_health_notifications_enabled ? 1 : 0
+  source             = "git@github.com:ministryofjustice/opg-aws-health-notifier.git?ref=v1.2.0"
+  account_name       = var.account_name
+  ecr_repository_url = data.aws_ecr_repository.health_notifier_lambda.repository_url
+  slack_channel_id   = var.aws_slack_health_notification_channel
+  slack_secret_arn   = aws_secretsmanager_secret.aws_notifier_slack_token[0].arn
+  version_tag        = "v1.2.0"
+  providers = {
+    aws           = aws
+    aws.eu-west-2 = aws.eu-west-2
+    aws.us-east-1 = aws.global
+  }
+}
+
+data "aws_ecr_repository" "cost_notifier_lambda" {
+  name     = "shared/aws-cost-notifier"
+  provider = aws.management
+}
+
+data "aws_ecr_repository" "health_notifier_lambda" {
+  name     = "shared/aws-health-notifier"
+  provider = aws.management
+}
+
+
 data "aws_secretsmanager_secret" "central_aws_notifier_slack_token" {
   count    = var.aws_slack_notifications_enabled ? 1 : 0
   name     = "shared/aws-notifier-slack-bot-token"
