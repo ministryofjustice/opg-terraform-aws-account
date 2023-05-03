@@ -22,16 +22,19 @@ Enables Guardduty
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 4.34.0 |
 | <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 4.34.0 |
+| <a name="provider_aws.management"></a> [aws.management](#provider\_aws.management) | 4.34.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_aws_cost_notifier"></a> [aws\_cost\_notifier](#module\_aws\_cost\_notifier) | git@github.com:ministryofjustice/opg-aws-cost-notifier.git | v1.2.0 |
+| <a name="module_aws_health_notifier"></a> [aws\_health\_notifier](#module\_aws\_health\_notifier) | git@github.com:ministryofjustice/opg-aws-health-notifier.git | v1.2.0 |
 | <a name="module_billing"></a> [billing](#module\_billing) | ./modules/default_roles | n/a |
 | <a name="module_breakglass"></a> [breakglass](#module\_breakglass) | ./modules/default_roles | n/a |
 | <a name="module_ci"></a> [ci](#module\_ci) | ./modules/default_roles | n/a |
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./modules/cloudtrail | n/a |
-| <a name="module_cost_anomaly_detection"></a> [cost\_anomaly\_detection](#module\_cost\_anomaly\_detection) | ./modules/ce_anomoly_detection | n/a |
+| <a name="module_cost_anomaly_detection"></a> [cost\_anomaly\_detection](#module\_cost\_anomaly\_detection) | ./modules/ce_anomaly_detection | n/a |
 | <a name="module_custom_cloudwatch_alarms"></a> [custom\_cloudwatch\_alarms](#module\_custom\_cloudwatch\_alarms) | ./modules/custom_cloudwatch_alarms | n/a |
 | <a name="module_eu-west-1"></a> [eu-west-1](#module\_eu-west-1) | ./modules/region | n/a |
 | <a name="module_eu-west-2"></a> [eu-west-2](#module\_eu-west-2) | ./modules/region | n/a |
@@ -56,11 +59,17 @@ Enables Guardduty
 | [aws_iam_role_policy_attachment.aws_support_access_for_breakglass](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.managed_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_s3_account_public_access_block.block_all](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_account_public_access_block) | resource |
+| [aws_secretsmanager_secret.aws_notifier_slack_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
+| [aws_secretsmanager_secret_version.aws_notifier_slack_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
+| [aws_ecr_repository.cost_notifier_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecr_repository) | data source |
+| [aws_ecr_repository.health_notifier_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecr_repository) | data source |
 | [aws_iam_policy_document.assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.aws_srt_support_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.sns_feedback_actions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.sns_feedback_assume_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
+| [aws_secretsmanager_secret.central_aws_notifier_slack_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
+| [aws_secretsmanager_secret_version.central_aws_notifier_slack_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
 
 ## Inputs
 
@@ -74,6 +83,9 @@ Enables Guardduty
 | <a name="input_aws_s3_account_ignore_public_acls"></a> [aws\_s3\_account\_ignore\_public\_acls](#input\_aws\_s3\_account\_ignore\_public\_acls) | Whether Amazon S3 should ignore public ACLs for buckets in this account. Defaults to true. | `bool` | `true` | no |
 | <a name="input_aws_s3_account_restrict_public_buckets"></a> [aws\_s3\_account\_restrict\_public\_buckets](#input\_aws\_s3\_account\_restrict\_public\_buckets) | Whether Amazon S3 should restrict public bucket policies for buckets in this account. Defaults to true. | `bool` | `true` | no |
 | <a name="input_aws_security_hub_enabled"></a> [aws\_security\_hub\_enabled](#input\_aws\_security\_hub\_enabled) | n/a | `bool` | `false` | no |
+| <a name="input_aws_slack_cost_anomaly_notification_channel"></a> [aws\_slack\_cost\_anomaly\_notification\_channel](#input\_aws\_slack\_cost\_anomaly\_notification\_channel) | n/a | `string` | `""` | no |
+| <a name="input_aws_slack_health_notification_channel"></a> [aws\_slack\_health\_notification\_channel](#input\_aws\_slack\_health\_notification\_channel) | n/a | `string` | `""` | no |
+| <a name="input_aws_slack_notifications_enabled"></a> [aws\_slack\_notifications\_enabled](#input\_aws\_slack\_notifications\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_billing_base_policy_arn"></a> [billing\_base\_policy\_arn](#input\_billing\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/job-function/Billing"` | no |
 | <a name="input_billing_custom_policy_json"></a> [billing\_custom\_policy\_json](#input\_billing\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_breakglass_base_policy_arn"></a> [breakglass\_base\_policy\_arn](#input\_breakglass\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/AdministratorAccess"` | no |

@@ -7,6 +7,7 @@ terraform {
       configuration_aliases = [
         aws.eu-west-2,
         aws.global,
+        aws.management,
       ]
     }
   }
