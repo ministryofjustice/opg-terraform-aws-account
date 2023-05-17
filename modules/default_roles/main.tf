@@ -68,6 +68,7 @@ resource "aws_iam_role_policy_attachment" "base" {
 }
 
 resource "aws_iam_role_policy" "custom" {
+  name   = var.name
   policy = var.custom_policy_json != "" ? var.custom_policy_json : data.aws_iam_policy_document.default.json
   role   = aws_iam_role.role.id
 }
