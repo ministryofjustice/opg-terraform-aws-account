@@ -45,8 +45,8 @@ data "aws_iam_policy_document" "role" {
 }
 
 data "aws_iam_policy_document" "instance_profile" {
-  count       = var.create_instance_profile ? 1 : 0
-  source_json = data.aws_iam_policy_document.role.json
+  count                   = var.create_instance_profile ? 1 : 0
+  source_policy_documents = [data.aws_iam_policy_document.role.json]
 
   statement {
     sid    = "AllowEC2ToAssumeInstanceProfile"
