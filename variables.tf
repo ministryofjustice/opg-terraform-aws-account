@@ -247,6 +247,28 @@ variable "custom_alarms_breakglass_login_alarm_enabled" {
   type        = bool
 }
 
+### security hub >= v4.60 additions
+
+# added in v4.64.0 with a default of 'SECURITY_CONTROL' which breaks current config
+variable "control_finding_generator" {
+  type        = string
+  default     = "STANDARD_CONTROL"
+  description = "Updates whether the calling account has consolidated control findings turned on"
+}
+
+# added in v4.64.0 with a default of true
+variable "auto_enable_controls" {
+  type        = bool
+  default     = true
+  description = "Whether to automatically enable new controls when they are added to standards that are enabled"
+}
+# added in v4.60.0 with default of true, but we'll set to false
+variable "enable_default_standards" {
+  type        = bool
+  default     = false
+  description = "Whether to enable the security standards that Security Hub has designated as automatically enabled"
+}
+
 locals {
   aws_cost_anomaly_notifications_enabled = var.aws_slack_notifications_enabled && var.aws_slack_cost_anomaly_notification_channel != "" ? true : false
   aws_health_notifications_enabled       = var.aws_slack_notifications_enabled && var.aws_slack_health_notification_channel != "" ? true : false
