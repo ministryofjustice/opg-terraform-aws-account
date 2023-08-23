@@ -83,13 +83,13 @@ variable "control_finding_generator" {
   description = "Updates whether the calling account has consolidated control findings turned on"
 }
 
-# added in v4.64.0 with a default of true, so flip to false
+# added in v4.64.0 with a default of true
 variable "auto_enable_controls" {
   type        = bool
-  default     = false
+  default     = true
   description = "Whether to automatically enable new controls when they are added to standards that are enabled"
 }
-# added in v4.60.0 with default of true, so flip
+# added in v4.60.0 with default of true, but we'll set to false
 variable "enable_default_standards" {
   type        = bool
   default     = false
