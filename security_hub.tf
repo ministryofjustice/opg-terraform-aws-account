@@ -17,4 +17,8 @@ module "security_hub" {
   fsbp_standard_control_elb_6_enabled       = var.fsbp_standard_control_elb_6_enabled
   sns_failure_feedback_role_arn             = aws_iam_role.sns_failure_feedback.arn
   sns_success_feedback_role_arn             = aws_iam_role.sns_success_feedback.arn
+
+  control_finding_generator = var.control_finding_generator
+  auto_enable_controls      = var.auto_enable_controls
+  enable_default_standards  = var.enable_default_standards
 }

@@ -72,3 +72,26 @@ variable "sns_success_feedback_role_arn" {
   type        = string
   description = "The ARN of the IAM role that allows Amazon SNS to write logs about SMS deliveries in CloudWatch Logs."
 }
+
+
+### security hub >= v4.60 additions
+
+# added in v4.64.0 with a default of 'SECURITY_CONTROL' which breaks current config
+variable "control_finding_generator" {
+  type        = string
+  default     = "STANDARD_CONTROL"
+  description = "Updates whether the calling account has consolidated control findings turned on"
+}
+
+# added in v4.64.0 with a default of true
+variable "auto_enable_controls" {
+  type        = bool
+  default     = true
+  description = "Whether to automatically enable new controls when they are added to standards that are enabled"
+}
+# added in v4.60.0 with default of true, but we'll set to false
+variable "enable_default_standards" {
+  type        = bool
+  default     = false
+  description = "Whether to enable the security standards that Security Hub has designated as automatically enabled"
+}
