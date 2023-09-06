@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "s3_access_logging" {
   bucket = "s3-access-logs-opg-${var.product}-${var.account_name}-${data.aws_region.current.name}"
-  acl    = "log-delivery-write"
+
   versioning {
     enabled = true
   }
@@ -36,6 +36,14 @@ resource "aws_s3_bucket_ownership_controls" "s3_access_logging" {
     object_ownership = "BucketOwnerPreferred"
   }
 }
+
+resource "aws_s3_bucket_acl" "s3_access_logging" {
+  depends_on = [aws_s3_bucket_ownership_controls.s3_access_logging]
+  bucket     = aws_s3_bucket.s3_access_logging.id
+  acl        = "log-delivery-write"
+}
+
+
 
 resource "aws_s3_bucket_public_access_block" "s3_access_logging" {
   bucket                  = aws_s3_bucket.s3_access_logging.id
