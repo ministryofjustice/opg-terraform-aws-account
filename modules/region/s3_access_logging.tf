@@ -30,7 +30,7 @@ resource "aws_s3_bucket" "s3_access_logging" {
 
 # See AWS bucket change - https://aws.amazon.com/about-aws/whats-new/2022/12/amazon-s3-automatically-enable-block-public-access-disable-access-control-lists-buckets-april-2023/
 resource "aws_s3_bucket_ownership_controls" "s3_access_logging" {
-  bucket = aaws_s3_bucket.s3_access_logging.id
+  bucket = aws_s3_bucket.s3_access_logging.id
 
   rule {
     object_ownership = "BucketOwnerPreferred"
