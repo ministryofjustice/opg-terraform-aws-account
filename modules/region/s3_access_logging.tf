@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "s3_access_logging" {
   bucket = "s3-access-logs-opg-${var.product}-${var.account_name}-${data.aws_region.current.name}"
-  acl    = "log-delivery-write"
+
   versioning {
     enabled = true
   }
@@ -27,6 +27,23 @@ resource "aws_s3_bucket" "s3_access_logging" {
     }
   }
 }
+
+# See AWS bucket change - https://aws.amazon.com/about-aws/whats-new/2022/12/amazon-s3-automatically-enable-block-public-access-disable-access-control-lists-buckets-april-2023/
+resource "aws_s3_bucket_ownership_controls" "s3_access_logging" {
+  bucket = aws_s3_bucket.s3_access_logging.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "s3_access_logging" {
+  depends_on = [aws_s3_bucket_ownership_controls.s3_access_logging]
+  bucket     = aws_s3_bucket.s3_access_logging.id
+  acl        = "log-delivery-write"
+}
+
+
 
 resource "aws_s3_bucket_public_access_block" "s3_access_logging" {
   bucket                  = aws_s3_bucket.s3_access_logging.id

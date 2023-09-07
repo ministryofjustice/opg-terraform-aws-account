@@ -1,5 +1,4 @@
 resource "aws_s3_bucket" "cloudtrail" {
-  acl    = "log-delivery-write"
   bucket = var.bucket_name
   logging {
     target_bucket = var.s3_access_logging_bucket_name
@@ -29,6 +28,22 @@ resource "aws_s3_bucket" "cloudtrail" {
     }
   }
 }
+
+# See AWS bucket change - https://aws.amazon.com/about-aws/whats-new/2022/12/amazon-s3-automatically-enable-block-public-access-disable-access-control-lists-buckets-april-2023/
+resource "aws_s3_bucket_ownership_controls" "cloudtrail" {
+  bucket = aws_s3_bucket.cloudtrail.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "cloudtrail" {
+  depends_on = [aws_s3_bucket_ownership_controls.cloudtrail]
+  bucket     = aws_s3_bucket.cloudtrail.id
+  acl        = "log-delivery-write"
+}
+
 
 
 resource "aws_s3_bucket_public_access_block" "cloudtrail" {
