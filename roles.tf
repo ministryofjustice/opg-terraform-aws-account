@@ -14,6 +14,28 @@ module "billing" {
   custom_policy_json = var.billing_custom_policy_json
 }
 
+data "aws_iam_policy_document" "aws_cost_explorer_access_for_billing" {
+  statement {
+    sid    = "AllowCostExplorerGet"
+    effect = "Allow"
+    actions = [
+      "ce:get*"
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_policy" "aws_cost_explorer_access_for_billing" {
+  name        = "CostExporerAccessForBillingRole"
+  description = "Allow Cost Explorer API Get"
+  policy      = data.aws_iam_policy_document.aws_cost_explorer_access_for_billing.json
+}
+
+resource "aws_iam_role_policy_attachment" "aws_cost_explorer_access_for_billing" {
+  role       = module.billing.aws_iam_role.name
+  policy_arn = aws_iam_policy.aws_cost_explorer_access_for_billing.arn
+}
+
 module "operator" {
   source                  = "./modules/default_roles"
   name                    = "operator"
@@ -21,6 +43,11 @@ module "operator" {
   base_policy_arn         = var.operator_base_policy_arn
   custom_policy_json      = var.operator_custom_policy_json
   create_instance_profile = var.operator_create_instance_profile
+}
+
+resource "aws_iam_role_policy_attachment" "aws_billing_access_for_operator" {
+  role       = module.operator.aws_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
 }
 
 module "breakglass" {
