@@ -65,9 +65,10 @@ module "full" {
   cis_metric_namespace                         = "CISLogMetrics"
   cloudtrail_bucket_name                       = "cloudtrail.full.example.opg.service.justice.gov.uk"
   cloudtrail_trail_name                        = "example-full"
-  cost_anomaly_immediate_schedule_threshold    = 10
+  cost_anomaly_immediate_schedule_threshold    = "10.0"
   cost_anomaly_notification_email_address      = null
-  cost_anomaly_weekly_schedule_threshold       = 100
+  cost_anomaly_weekly_schedule_threshold       = "100.0"
+  cost_anomaly_threshold_expression_type       = "ANOMALY_TOTAL_IMPACT_ABSOLUTE"
   custom_alarms_breakglass_login_alarm_enabled = true
   enable_guardduty                             = true
   fsbp_standard_control_elb_6_enabled          = true

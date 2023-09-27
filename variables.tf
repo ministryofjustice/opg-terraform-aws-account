@@ -230,15 +230,21 @@ variable "cost_anomaly_notification_email_address" {
 }
 
 variable "cost_anomaly_weekly_schedule_threshold" {
-  type        = number
-  default     = 100
-  description = "The dollar value that triggers a weekly notification if the threshold is exceeded."
+  type        = string
+  default     = "100.0"
+  description = "The value that triggers a weekly notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage."
 }
 
 variable "cost_anomaly_immediate_schedule_threshold" {
-  type        = number
-  default     = 10
-  description = "The dollar value that triggers an immediate notification if the threshold is exceeded."
+  type        = string
+  default     = "10.0"
+  description = "The value that triggers an immediate notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage."
+}
+
+variable "cost_anomaly_threshold_expression_type" {
+  type        = string
+  default     = "ANOMALY_TOTAL_IMPACT_ABSOLUTE"
+  description = "Setting passed to the threshold_expression to determine if the value (weekly_schedule_threshold|immediate_schedule_threshold) is an absolute (ANOMALY_TOTAL_IMPACT_ABSOLUTE) or percentage (ANOMALY_TOTAL_IMPACT_PERCENTAGE)"
 }
 
 variable "custom_alarms_breakglass_login_alarm_enabled" {
