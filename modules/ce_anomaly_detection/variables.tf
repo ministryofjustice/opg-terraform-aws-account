@@ -4,13 +4,19 @@ variable "notification_email_address" {
 }
 
 variable "weekly_schedule_threshold" {
-  description = "The dollar value that triggers a weekly notification if the threshold is exceeded."
+  description = "The value that triggers a weekly notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage."
   type        = number
 }
 
 variable "immediate_schedule_threshold" {
-  description = "The dollar value that triggers an immediate notification if the threshold is exceeded."
+  description = "The value that triggers an immediate notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage."
   type        = number
+}
+
+variable "threshold_expression_type" {
+  type        = string
+  default     = "ANOMALY_TOTAL_IMPACT_ABSOLUTE"
+  description = "Setting passed to the threshold_expression to determine if the value (weekly_schedule_threshold|immediate_schedule_threshold) is an absolute (ANOMALY_TOTAL_IMPACT_ABSOLUTE) or percentage (ANOMALY_TOTAL_IMPACT_PERCENTAGE)"
 }
 
 variable "sns_failure_feedback_role_arn" {
