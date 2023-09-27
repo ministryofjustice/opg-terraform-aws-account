@@ -5,12 +5,12 @@ variable "notification_email_address" {
 
 variable "weekly_schedule_threshold" {
   description = "The value that triggers a weekly notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage."
-  type        = number
+  type        = string
 }
 
 variable "immediate_schedule_threshold" {
   description = "The value that triggers an immediate notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage."
-  type        = number
+  type        = string
 }
 
 variable "threshold_expression_type" {

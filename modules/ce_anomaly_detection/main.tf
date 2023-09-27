@@ -17,7 +17,7 @@ resource "aws_ce_anomaly_subscription" "weekly" {
   threshold_expression {
     dimension {
       key           = var.threshold_expression_type
-      values        = [tostring(var.weekly_schedule_threshold)]
+      values        = [var.weekly_schedule_threshold]
       match_options = ["GREATER_THAN_OR_EQUAL"]
     }
   }
@@ -40,7 +40,7 @@ resource "aws_ce_anomaly_subscription" "immediate" {
   threshold_expression {
     dimension {
       key           = var.threshold_expression_type
-      values        = [tostring(var.immediate_schedule_threshold)]
+      values        = [var.immediate_schedule_threshold]
       match_options = ["GREATER_THAN_OR_EQUAL"]
     }
   }
