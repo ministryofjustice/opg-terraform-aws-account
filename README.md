@@ -14,15 +14,15 @@ Enables Guardduty
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.67 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 4.67.0 |
-| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 4.67.0 |
-| <a name="provider_aws.management"></a> [aws.management](#provider\_aws.management) | 4.67.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.18.1 |
+| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 5.18.1 |
+| <a name="provider_aws.management"></a> [aws.management](#provider\_aws.management) | 5.18.1 |
 
 ## Modules
 
@@ -112,9 +112,10 @@ Enables Guardduty
 | <a name="input_cloudtrail_bucket_name"></a> [cloudtrail\_bucket\_name](#input\_cloudtrail\_bucket\_name) | trail name | `string` | `"cloudtrail"` | no |
 | <a name="input_cloudtrail_trail_name"></a> [cloudtrail\_trail\_name](#input\_cloudtrail\_trail\_name) | trail name | `string` | `"cloudtrail"` | no |
 | <a name="input_control_finding_generator"></a> [control\_finding\_generator](#input\_control\_finding\_generator) | Updates whether the calling account has consolidated control findings turned on | `string` | `"STANDARD_CONTROL"` | no |
-| <a name="input_cost_anomaly_immediate_schedule_threshold"></a> [cost\_anomaly\_immediate\_schedule\_threshold](#input\_cost\_anomaly\_immediate\_schedule\_threshold) | The dollar value that triggers an immediate notification if the threshold is exceeded. | `number` | `10` | no |
+| <a name="input_cost_anomaly_immediate_schedule_threshold"></a> [cost\_anomaly\_immediate\_schedule\_threshold](#input\_cost\_anomaly\_immediate\_schedule\_threshold) | The dollar value that triggers an immediate notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage. | `number` | `10` | no |
 | <a name="input_cost_anomaly_notification_email_address"></a> [cost\_anomaly\_notification\_email\_address](#input\_cost\_anomaly\_notification\_email\_address) | Email address to use to send anomaly alerts to | `string` | `null` | no |
-| <a name="input_cost_anomaly_weekly_schedule_threshold"></a> [cost\_anomaly\_weekly\_schedule\_threshold](#input\_cost\_anomaly\_weekly\_schedule\_threshold) | The dollar value that triggers a weekly notification if the threshold is exceeded. | `number` | `100` | no |
+| <a name="input_cost_anomaly_threshold_expression_type"></a> [cost\_anomaly\_threshold\_expression\_type](#input\_cost\_anomaly\_threshold\_expression\_type) | Setting passed to the threshold\_expression to determine if the value (weekly\_schedule\_threshold\|immediate\_schedule\_threshold) is an absolute (ANOMALY\_TOTAL\_IMPACT\_ABSOLUTE) or percentage (ANOMALY\_TOTAL\_IMPACT\_PERCENTAGE) | `string` | `"ANOMALY_TOTAL_IMPACT_ABSOLUTE"` | no |
+| <a name="input_cost_anomaly_weekly_schedule_threshold"></a> [cost\_anomaly\_weekly\_schedule\_threshold](#input\_cost\_anomaly\_weekly\_schedule\_threshold) | The dollar value that triggers a weekly notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage. | `number` | `100` | no |
 | <a name="input_custom_alarms_breakglass_login_alarm_enabled"></a> [custom\_alarms\_breakglass\_login\_alarm\_enabled](#input\_custom\_alarms\_breakglass\_login\_alarm\_enabled) | Enable or disable the breakglass login alarm | `bool` | `true` | no |
 | <a name="input_enable_default_standards"></a> [enable\_default\_standards](#input\_enable\_default\_standards) | Whether to enable the security standards that Security Hub has designated as automatically enabled | `bool` | `false` | no |
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
