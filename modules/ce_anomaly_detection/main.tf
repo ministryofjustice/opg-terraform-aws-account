@@ -12,8 +12,15 @@ resource "aws_ce_anomaly_monitor" "service_monitor" {
 resource "aws_ce_anomaly_subscription" "weekly" {
   count     = var.notification_email_address == null ? 0 : 1
   name      = "Weekly Subscription"
-  threshold = var.weekly_schedule_threshold
   frequency = "WEEKLY"
+
+  threshold_expression {
+    dimension {
+      key           = var.threshold_expression_type
+      values        = [var.weekly_schedule_threshold]
+      match_options = ["GREATER_THAN_OR_EQUAL"]
+    }
+  }
 
   monitor_arn_list = [
     aws_ce_anomaly_monitor.service_monitor.arn,
@@ -28,8 +35,15 @@ resource "aws_ce_anomaly_subscription" "weekly" {
 
 resource "aws_ce_anomaly_subscription" "immediate" {
   name      = "Immediate Subscription"
-  threshold = var.immediate_schedule_threshold
   frequency = "IMMEDIATE"
+
+  threshold_expression {
+    dimension {
+      key           = var.threshold_expression_type
+      values        = [var.immediate_schedule_threshold]
+      match_options = ["GREATER_THAN_OR_EQUAL"]
+    }
+  }
 
   monitor_arn_list = [
     aws_ce_anomaly_monitor.service_monitor.arn,
