@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_query_definition" "cis_1_1" {
   name = "CIS-Queries/CIS-1.1-RootAccountUsage"
 
-  log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
+  log_group_names = [var.cloudtrail_log_group_name]
 
   query_string = <<EOF
 fields @timestamp, sourceIPAddress, eventName, responseElements.ConsoleLogin
@@ -13,7 +13,7 @@ EOF
 resource "aws_cloudwatch_query_definition" "cis_3_1" {
   name = "CIS-Queries/CIS-3.1-UnauthorisedAPICalls"
 
-  log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
+  log_group_names = [var.cloudtrail_log_group_name]
 
   query_string = <<EOF
 fields @timestamp, eventSource, eventName, errorCode, userIdentity.principalId, userIdentity.sessionContext.sessionIssuer.userName
@@ -25,7 +25,7 @@ EOF
 resource "aws_cloudwatch_query_definition" "cis_3_2" {
   name = "CIS-Queries/CIS-3.2-ConsoleSigninWithoutMFA"
 
-  log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
+  log_group_names = [var.cloudtrail_log_group_name]
 
   query_string = <<EOF
 fields @timestamp, sourceIPAddress, userIdentity.arn, eventName, responseElements.ConsoleLogin
@@ -37,7 +37,7 @@ EOF
 resource "aws_cloudwatch_query_definition" "cis_3_4" {
   name = "CIS-Queries/CIS-3.4-IAMPolicyChanges"
 
-  log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
+  log_group_names = [var.cloudtrail_log_group_name]
 
   query_string = <<EOF
 fields @timestamp, eventName, requestParameters.roleName, requestParameters.policyName, userIdentity.sessionContext.sessionIssuer.userName
@@ -49,7 +49,7 @@ EOF
 resource "aws_cloudwatch_query_definition" "cis_3_8" {
   name = "CIS-Queries/CIS-3.8-S3BucketPolicyChanges"
 
-  log_group_names = [aws_cloudwatch_log_group.cloudtrail.name]
+  log_group_names = [var.cloudtrail_log_group_name]
 
   query_string = <<EOF
 fields @timestamp, eventName, userIdentity.sessionContext.sessionIssuer.userName, requestParameters.bucketName

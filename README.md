@@ -21,6 +21,7 @@ Enables Guardduty
 | Name | Version |
 |------|---------|
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 5.18.1 |
+| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 5.18.1 |
 | <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 5.18.1 |
 | <a name="provider_aws.management"></a> [aws.management](#provider\_aws.management) | 5.18.1 |
 
@@ -34,6 +35,8 @@ Enables Guardduty
 | <a name="module_breakglass"></a> [breakglass](#module\_breakglass) | ./modules/default_roles | n/a |
 | <a name="module_ci"></a> [ci](#module\_ci) | ./modules/default_roles | n/a |
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./modules/cloudtrail | n/a |
+| <a name="module_cloudwatch_loginsights_cis_queries_opg"></a> [cloudwatch\_loginsights\_cis\_queries\_opg](#module\_cloudwatch\_loginsights\_cis\_queries\_opg) | ./modules/cis_queries | n/a |
+| <a name="module_cloudwatch_loginsights_cis_queries_provisioned"></a> [cloudwatch\_loginsights\_cis\_queries\_provisioned](#module\_cloudwatch\_loginsights\_cis\_queries\_provisioned) | ./modules/cis_queries | n/a |
 | <a name="module_cost_anomaly_detection"></a> [cost\_anomaly\_detection](#module\_cost\_anomaly\_detection) | ./modules/ce_anomaly_detection | n/a |
 | <a name="module_custom_cloudwatch_alarms"></a> [custom\_cloudwatch\_alarms](#module\_custom\_cloudwatch\_alarms) | ./modules/custom_cloudwatch_alarms | n/a |
 | <a name="module_eu-west-1"></a> [eu-west-1](#module\_eu-west-1) | ./modules/region | n/a |
@@ -64,6 +67,7 @@ Enables Guardduty
 | [aws_s3_account_public_access_block.block_all](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_account_public_access_block) | resource |
 | [aws_secretsmanager_secret.aws_notifier_slack_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret) | resource |
 | [aws_secretsmanager_secret_version.aws_notifier_slack_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/secretsmanager_secret_version) | resource |
+| [aws_cloudwatch_log_group.cloudtrail_log_group_vendored](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudwatch_log_group) | data source |
 | [aws_ecr_repository.cost_notifier_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecr_repository) | data source |
 | [aws_ecr_repository.health_notifier_lambda](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecr_repository) | data source |
 | [aws_iam_policy_document.assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -121,6 +125,7 @@ Enables Guardduty
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
 | <a name="input_fsbp_standard_control_elb_6_enabled"></a> [fsbp\_standard\_control\_elb\_6\_enabled](#input\_fsbp\_standard\_control\_elb\_6\_enabled) | When false, sets standard control to disabled. | `bool` | `true` | no |
 | <a name="input_is_production"></a> [is\_production](#input\_is\_production) | n/a | `bool` | `false` | no |
+| <a name="input_modernisation_platform_account"></a> [modernisation\_platform\_account](#input\_modernisation\_platform\_account) | IF this is a vendored account from the Modernisation Platform | `bool` | `false` | no |
 | <a name="input_operator_base_policy_arn"></a> [operator\_base\_policy\_arn](#input\_operator\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/ReadOnlyAccess"` | no |
 | <a name="input_operator_create_instance_profile"></a> [operator\_create\_instance\_profile](#input\_operator\_create\_instance\_profile) | n/a | `bool` | `false` | no |
 | <a name="input_operator_custom_policy_json"></a> [operator\_custom\_policy\_json](#input\_operator\_custom\_policy\_json) | n/a | `string` | `""` | no |
