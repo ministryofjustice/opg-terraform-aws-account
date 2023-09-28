@@ -1,10 +1,10 @@
 module "security_hub" {
   source                                    = "./modules/security_hub"
-  count                                     = var.aws_security_hub_enabled ? 1 : 0
+  count                                     = local.security_hub_enabled ? 1 : 0
   account_name                              = var.account_name
   product                                   = var.product
   cis_metric_namespace                      = var.cis_metric_namespace
-  aws_cloudwatch_log_group_cloudtrail_name  = module.cloudtrail.cloudtrail_log_group_name
+  aws_cloudwatch_log_group_cloudtrail_name  = local.cloudtrail_log_group_name
   cis_foundation_control_1_14_enabled       = var.cis_foundation_control_1_14_enabled
   cis_foundation_control_3_4_enabled        = var.cis_foundation_control_3_4_enabled
   cis_foundation_control_3_8_enabled        = var.cis_foundation_control_3_8_enabled
