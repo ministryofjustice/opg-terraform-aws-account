@@ -7,5 +7,5 @@ output "aws_sns_topic_ce_detection_immediate_schedule" {
 }
 
 output "aws_sns_topic_custom_cloudwatch_alarms" {
-  value = module.custom_cloudwatch_alarms.aws_sns_topic_custom_cloudwatch_alarms
+  value = var.modernisation_platform_account ? module.custom_cloudwatch_alarms_vendored[0].aws_sns_topic_custom_cloudwatch_alarms : module.custom_cloudwatch_alarms[0].aws_sns_topic_custom_cloudwatch_alarms
 }

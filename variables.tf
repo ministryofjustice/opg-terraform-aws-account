@@ -286,9 +286,9 @@ locals {
   aws_health_notifications_enabled       = var.aws_slack_notifications_enabled && var.aws_slack_health_notification_channel != "" ? true : false
 
   # Locals to control provisioning of Moernisation Platform Provisioned Services in new accounts.
-  cloudtrail_enabled   = !var.modernisation_platform_account
-  config_enabled       = var.aws_config_enabled && !var.modernisation_platform_account ? true : false
-  guardduty_enabled    = var.enable_guardduty && !var.modernisation_platform_account ? true : false
-  security_hub_enabled = var.aws_security_hub_enabled && !var.modernisation_platform_account ? true : false
-
+  cloudtrail_enabled          = !var.modernisation_platform_account
+  config_enabled              = var.aws_config_enabled && !var.modernisation_platform_account ? true : false
+  guardduty_enabled           = var.enable_guardduty && !var.modernisation_platform_account ? true : false
+  security_hub_enabled        = var.aws_security_hub_enabled && !var.modernisation_platform_account ? true : false
+  shield_support_role_enabled = !var.modernisation_platform_account
 }
