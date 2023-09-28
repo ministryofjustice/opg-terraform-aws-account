@@ -39,6 +39,7 @@ Enables Guardduty
 | <a name="module_cloudwatch_loginsights_cis_queries_provisioned"></a> [cloudwatch\_loginsights\_cis\_queries\_provisioned](#module\_cloudwatch\_loginsights\_cis\_queries\_provisioned) | ./modules/cis_queries | n/a |
 | <a name="module_cost_anomaly_detection"></a> [cost\_anomaly\_detection](#module\_cost\_anomaly\_detection) | ./modules/ce_anomaly_detection | n/a |
 | <a name="module_custom_cloudwatch_alarms"></a> [custom\_cloudwatch\_alarms](#module\_custom\_cloudwatch\_alarms) | ./modules/custom_cloudwatch_alarms | n/a |
+| <a name="module_custom_cloudwatch_alarms_vendored"></a> [custom\_cloudwatch\_alarms\_vendored](#module\_custom\_cloudwatch\_alarms\_vendored) | ./modules/custom_cloudwatch_alarms | n/a |
 | <a name="module_eu-west-1"></a> [eu-west-1](#module\_eu-west-1) | ./modules/region | n/a |
 | <a name="module_eu-west-2"></a> [eu-west-2](#module\_eu-west-2) | ./modules/region | n/a |
 | <a name="module_operator"></a> [operator](#module\_operator) | ./modules/default_roles | n/a |
