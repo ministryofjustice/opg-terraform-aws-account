@@ -29,8 +29,8 @@ Enables Guardduty
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_aws_cost_notifier"></a> [aws\_cost\_notifier](#module\_aws\_cost\_notifier) | git@github.com:ministryofjustice/opg-aws-cost-notifier.git | v1.2.0 |
-| <a name="module_aws_health_notifier"></a> [aws\_health\_notifier](#module\_aws\_health\_notifier) | git@github.com:ministryofjustice/opg-aws-health-notifier.git | v1.2.0 |
+| <a name="module_aws_cost_notifier"></a> [aws\_cost\_notifier](#module\_aws\_cost\_notifier) | git@github.com:ministryofjustice/opg-aws-cost-notifier.git | n/a |
+| <a name="module_aws_health_notifier"></a> [aws\_health\_notifier](#module\_aws\_health\_notifier) | git@github.com:ministryofjustice/opg-aws-health-notifier.git | n/a |
 | <a name="module_billing"></a> [billing](#module\_billing) | ./modules/default_roles | n/a |
 | <a name="module_breakglass"></a> [breakglass](#module\_breakglass) | ./modules/default_roles | n/a |
 | <a name="module_ci"></a> [ci](#module\_ci) | ./modules/default_roles | n/a |
@@ -79,6 +79,8 @@ Enables Guardduty
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 | [aws_secretsmanager_secret.central_aws_notifier_slack_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret) | data source |
 | [aws_secretsmanager_secret_version.central_aws_notifier_slack_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/secretsmanager_secret_version) | data source |
+| [aws_ssm_parameter.cost_notifier_lambda_version](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
+| [aws_ssm_parameter.health_notifier_lambda_version](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ssm_parameter) | data source |
 
 ## Inputs
 
