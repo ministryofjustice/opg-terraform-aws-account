@@ -281,20 +281,14 @@ variable "modernisation_platform_account" {
   description = "IF this is a vendored account from the Modernisation Platform"
 }
 
-variable "shield_support_role_enabled" {
-  type        = bool
-  default     = false
-  description = "Whether to create the Shield Support Role to allow AWS security engineers to access the account to assist with DDoS mitigation"
-}
-
 locals {
   aws_cost_anomaly_notifications_enabled = var.aws_slack_notifications_enabled && var.aws_slack_cost_anomaly_notification_channel != "" ? true : false
   aws_health_notifications_enabled       = var.aws_slack_notifications_enabled && var.aws_slack_health_notification_channel != "" ? true : false
 
-  # Locals to control provisioning of Modernisation Platform Provisioned Services in new accounts.
+  # Locals to control provisioning of Moernisation Platform Provisioned Services in new accounts.
   cloudtrail_enabled          = !var.modernisation_platform_account
   config_enabled              = var.aws_config_enabled && !var.modernisation_platform_account ? true : false
   guardduty_enabled           = var.enable_guardduty && !var.modernisation_platform_account ? true : false
   security_hub_enabled        = var.aws_security_hub_enabled && !var.modernisation_platform_account ? true : false
-  shield_support_role_enabled = var.shield_support_role_enabled && !var.modernisation_platform_account ? true : false
+  shield_support_role_enabled = !var.modernisation_platform_account
 }
