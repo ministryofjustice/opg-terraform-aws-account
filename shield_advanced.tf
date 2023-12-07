@@ -37,3 +37,7 @@ resource "aws_iam_role_policy_attachment" "aws_srt_support_managed_policy" {
   role       = aws_iam_role.aws_srt_support[0].name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSShieldDRTAccessPolicy"
 }
+
+resource "aws_shield_drt_access_role_arn_association" "aws_srt_support_association" {
+  role_arn = aws_iam_role.aws_srt_support.arn
+}
