@@ -287,6 +287,11 @@ variable "shield_support_role_enabled" {
   description = "Whether to create the Shield Support Role to allow AWS security engineers to access the account to assist with DDoS mitigation"
 }
 
+variable "oam_xray_sink_identifier_arn" {
+  type        = string
+  description = "The identifier of the OAM Sink to duplicate XRay events to (if desired)"
+}
+
 locals {
   aws_cost_anomaly_notifications_enabled = var.aws_slack_notifications_enabled && var.aws_slack_cost_anomaly_notification_channel != "" ? true : false
   aws_health_notifications_enabled       = var.aws_slack_notifications_enabled && var.aws_slack_health_notification_channel != "" ? true : false
