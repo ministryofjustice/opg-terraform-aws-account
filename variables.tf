@@ -289,6 +289,7 @@ variable "shield_support_role_enabled" {
 
 variable "oam_xray_sink_identifier_arn" {
   type        = string
+  default     = null
   description = "The identifier of the OAM Sink to duplicate XRay events to (if desired)"
 }
 
