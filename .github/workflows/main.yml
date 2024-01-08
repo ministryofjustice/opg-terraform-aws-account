@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: "Parse terraform version"
         id: tf_version
-        uses: ministryofjustice/opg-github-actions/.github/actions/terraform-version@v2.3.1-pathfix.0
+        uses: ministryofjustice/opg-github-actions/.github/actions/terraform-version@v2.3.1-pathfix.1
         with:
           terraform_directory: "./"
       - name: "Setup terraform [version: ${{ steps.tf_version.outputs.version }}]"
@@ -39,7 +39,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: "Generate semver tag and release"
         id: semver_tag
-        uses: ministryofjustice/opg-github-actions/.github/actions/semver-tag@v2.3.1-pathfix.0
+        uses: ministryofjustice/opg-github-actions/.github/actions/semver-tag@v2.3.1-pathfix.1
         with:
           prerelease: ${{ github.ref == 'refs/heads/main' }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
