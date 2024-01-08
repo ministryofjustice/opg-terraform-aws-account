@@ -41,5 +41,5 @@ jobs:
         id: semver_tag
         uses: ministryofjustice/opg-github-actions/.github/actions/semver-tag@v2.3.1-pathfix.1
         with:
-          prerelease: ${{ github.ref == 'refs/heads/main' }}
+          prerelease: ${{ github.ref != 'refs/heads/main' }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
