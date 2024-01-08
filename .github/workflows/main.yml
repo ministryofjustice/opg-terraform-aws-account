@@ -18,10 +18,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: hashicorp/setup-terraform@v1
+      - name: "Parse terraform version"
+        id: tf_version
+        uses: ministryofjustice/opg-github-actions/.github/actions/terraform-version@v2.3.0
         with:
-          terraform_version: 0.14.7
-
+          terraform_directory: "./"
+      - name: "Setup terraform [version: ${{ steps.tf_version.outputs.version }}]"
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ steps.tf_version.outputs.version }}
       - name: terraform fmt
         run: |
           terraform fmt -check -recursive
