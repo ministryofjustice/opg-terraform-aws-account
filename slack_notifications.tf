@@ -8,6 +8,8 @@ module "slack_notifications" {
   aws_security_hub_enabled                    = var.aws_security_hub_enabled
   aws_slack_cost_anomaly_notification_channel = var.aws_slack_cost_anomaly_notification_channel
   aws_slack_health_notification_channel       = var.aws_slack_health_notification_channel
+  sns_failure_feedback_role_arn               = aws_iam_role.sns_failure_feedback.arn
+  sns_success_feedback_role_arn               = aws_iam_role.sns_success_feedback.arn
   providers = {
     aws            = aws
     aws.eu-west-2  = aws.eu-west-2
