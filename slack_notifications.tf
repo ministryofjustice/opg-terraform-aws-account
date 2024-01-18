@@ -1,88 +1,40 @@
-module "aws_cost_notifier" {
-  count              = local.aws_cost_anomaly_notifications_enabled ? 1 : 0
-  source             = "git@github.com:ministryofjustice/opg-aws-cost-notifier.git"
-  account_name       = var.account_name
-  ecr_repository_url = data.aws_ecr_repository.cost_notifier_lambda.repository_url
-  slack_channel_id   = var.aws_slack_cost_anomaly_notification_channel
-  slack_secret_arn   = aws_secretsmanager_secret.aws_notifier_slack_token[0].arn
-  sns_topic_arn      = module.cost_anomaly_detection.immediate_schedule_sns_topic.arn
-  version_tag        = data.aws_ssm_parameter.cost_notifier_lambda_version.value
+module "slack_notifications" {
+  count                                       = local.aws_health_notifications_enabled || local.aws_cost_anomaly_notifications_enabled ? 1 : 0
+  source                                      = "./modules/slack_notifications"
+  account_name                                = var.account_name
+  aws_config_enabled                          = var.aws_config_enabled
+  aws_cost_anomaly_notifications_enabled      = local.aws_cost_anomaly_notifications_enabled
+  aws_health_notifications_enabled            = local.aws_health_notifications_enabled
+  aws_security_hub_enabled                    = var.aws_security_hub_enabled
+  aws_slack_cost_anomaly_notification_channel = var.aws_slack_cost_anomaly_notification_channel
+  aws_slack_health_notification_channel       = var.aws_slack_health_notification_channel
+  cost_anomaly_sns_topic_arn                  = module.cost_anomaly_detection.immediate_schedule_sns_topic.arn
+  sns_failure_feedback_role_arn               = aws_iam_role.sns_failure_feedback.arn
+  sns_success_feedback_role_arn               = aws_iam_role.sns_success_feedback.arn
   providers = {
-    aws           = aws
-    aws.us-east-1 = aws.global
+    aws            = aws
+    aws.eu-west-2  = aws.eu-west-2
+    aws.global     = aws.global
+    aws.management = aws.management
   }
 }
 
-module "aws_health_notifier" {
-  count              = local.aws_health_notifications_enabled ? 1 : 0
-  source             = "git@github.com:ministryofjustice/opg-aws-health-notifier.git"
-  account_name       = var.account_name
-  ecr_repository_url = data.aws_ecr_repository.health_notifier_lambda.repository_url
-  slack_channel_id   = var.aws_slack_health_notification_channel
-  slack_secret_arn   = aws_secretsmanager_secret.aws_notifier_slack_token[0].arn
-  version_tag        = data.aws_ssm_parameter.health_notifier_lambda_version.value
-  providers = {
-    aws           = aws
-    aws.eu-west-2 = aws.eu-west-2
-    aws.us-east-1 = aws.global
-  }
+moved {
+  from = module.aws_cost_notifier[0]
+  to   = module.slack_notifications[0].module.aws_cost_notifier[0]
 }
 
-data "aws_ecr_repository" "cost_notifier_lambda" {
-  name     = "shared/aws-cost-notifier"
-  provider = aws.management
+moved {
+  from = module.aws_health_notifier[0]
+  to   = module.slack_notifications[0].module.aws_health_notifier[0]
 }
 
-data "aws_ecr_repository" "health_notifier_lambda" {
-  name     = "shared/aws-health-notifier"
-  provider = aws.management
+moved {
+  from = aws_secretsmanager_secret.aws_notifier_slack_token[0]
+  to   = module.slack_notifications[0].aws_secretsmanager_secret.aws_notifier_slack_token
 }
 
-data "aws_ssm_parameter" "cost_notifier_lambda_version" {
-  name     = "/shared/aws-cost-notifier-lambda-version"
-  provider = aws.management
-
-  lifecycle {
-    postcondition {
-      condition     = can(regex("^[v][1][.]", self.value))
-      error_message = "Cost Notifier Version Must Be v1.x.x"
-    }
-  }
-}
-
-data "aws_ssm_parameter" "health_notifier_lambda_version" {
-  name     = "/shared/aws-health-notifier-lambda-version"
-  provider = aws.management
-
-  lifecycle {
-    postcondition {
-      condition     = can(regex("^[v][1][.]", self.value))
-      error_message = "Health Notifier Version Must Be v1.x.x"
-    }
-  }
-}
-
-
-data "aws_secretsmanager_secret" "central_aws_notifier_slack_token" {
-  count    = var.aws_slack_notifications_enabled ? 1 : 0
-  name     = "shared/aws-notifier-slack-bot-token"
-  provider = aws.management
-}
-
-data "aws_secretsmanager_secret_version" "central_aws_notifier_slack_token" {
-  count     = var.aws_slack_notifications_enabled ? 1 : 0
-  secret_id = data.aws_secretsmanager_secret.central_aws_notifier_slack_token[0].id
-  provider  = aws.management
-}
-
-resource "aws_secretsmanager_secret" "aws_notifier_slack_token" {
-  count       = var.aws_slack_notifications_enabled ? 1 : 0
-  name        = "org-infra/aws-notifier-slack-bot-token"
-  description = "Secret from management account, managed by org-infra. To be used by aws slack notifier lambdas."
-}
-
-resource "aws_secretsmanager_secret_version" "aws_notifier_slack_token" {
-  count         = var.aws_slack_notifications_enabled ? 1 : 0
-  secret_id     = aws_secretsmanager_secret.aws_notifier_slack_token[0].id
-  secret_string = data.aws_secretsmanager_secret_version.central_aws_notifier_slack_token[0].secret_string
+moved {
+  from = aws_secretsmanager_secret_version.aws_notifier_slack_token[0]
+  to   = module.slack_notifications[0].aws_secretsmanager_secret_version.aws_notifier_slack_token
 }
