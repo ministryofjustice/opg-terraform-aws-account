@@ -1,6 +1,6 @@
 resource "aws_sns_topic" "slack_notification_failures" {
   name                                     = "CloudWatch-Slack-Notification-Failures-${var.account_name}"
-  kms_master_key_id                        = aws_kms_key.cloudwatch_sns.key_id
+  kms_master_key_id                        = aws_kms_key.slack_notification_failures_sns.key_id
   application_failure_feedback_role_arn    = var.sns_failure_feedback_role_arn
   application_success_feedback_role_arn    = var.sns_success_feedback_role_arn
   application_success_feedback_sample_rate = 100

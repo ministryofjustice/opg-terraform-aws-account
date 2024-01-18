@@ -26,6 +26,10 @@ variable "aws_slack_health_notification_channel" {
   type = string
 }
 
+variable "cost_anomaly_sns_topic_arn" {
+  type = string
+}
+
 variable "sns_failure_feedback_role_arn" {
   type = string
 }

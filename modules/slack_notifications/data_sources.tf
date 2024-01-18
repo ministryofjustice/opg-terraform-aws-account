@@ -17,7 +17,7 @@ data "aws_secretsmanager_secret" "central_aws_notifier_slack_token" {
 }
 
 data "aws_secretsmanager_secret_version" "central_aws_notifier_slack_token" {
-  secret_id = data.aws_secretsmanager_secret.central_aws_notifier_slack_token[0].id
+  secret_id = data.aws_secretsmanager_secret.central_aws_notifier_slack_token.id
   provider  = aws.management
 }
 
@@ -27,8 +27,8 @@ resource "aws_secretsmanager_secret" "aws_notifier_slack_token" {
 }
 
 resource "aws_secretsmanager_secret_version" "aws_notifier_slack_token" {
-  secret_id     = aws_secretsmanager_secret.aws_notifier_slack_token[0].id
-  secret_string = data.aws_secretsmanager_secret_version.central_aws_notifier_slack_token[0].secret_string
+  secret_id     = aws_secretsmanager_secret.aws_notifier_slack_token.id
+  secret_string = data.aws_secretsmanager_secret_version.central_aws_notifier_slack_token.secret_string
 }
 
 data "aws_ssm_parameter" "cost_notifier_lambda_version" {
