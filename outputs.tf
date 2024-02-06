@@ -11,6 +11,5 @@ output "aws_sns_topic_custom_cloudwatch_alarms" {
 }
 
 output "aws_sns_topic_slack_notification_failures" {
-  value = module.slack_notifications[0].slack_notification_failures
-
+  value = var.aws_slack_notifications_enabled ? module.slack_notifications[0].slack_notification_failures : null
 }

@@ -1,5 +1,5 @@
 module "slack_notifications" {
-  count                                       = local.aws_health_notifications_enabled || local.aws_cost_anomaly_notifications_enabled ? 1 : 0
+  count                                       = var.aws_slack_notifications_enabled ? 1 : 0
   source                                      = "./modules/slack_notifications"
   account_name                                = var.account_name
   aws_config_enabled                          = var.aws_config_enabled
