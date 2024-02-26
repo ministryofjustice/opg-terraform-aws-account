@@ -20,6 +20,12 @@ variable "config_max_execution_frequency" {
   default     = "TwentyFour_Hours"
 }
 
+variable "config_continuous_resource_recording" {
+  description = "Should the configuration recorder scan constantly or daily (set to false in dev accounts)"
+  type        = bool
+  default     = true
+}
+
 variable "product" {
   default     = ""
   description = "Product/Service name"

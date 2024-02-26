@@ -1,14 +1,3 @@
-# opg-terraform-aws-account
-Managed by opg-org-infra &amp; Terraform
-
-Provides standard default configuration for AWS accounts.
-
-Creates default assumable roles for viewers, operators and breakglass access.
-Creates cloudtrails in each account.
-Sets up a strong password policy for IAM users.
-Enables Guardduty
-
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
 | Name | Version |
@@ -110,6 +99,7 @@ Enables Guardduty
 | <a name="input_cis_metric_namespace"></a> [cis\_metric\_namespace](#input\_cis\_metric\_namespace) | The destination namespace of the CIS CloudWatch metric. | `string` | `"CISLogMetrics"` | no |
 | <a name="input_cloudtrail_bucket_name"></a> [cloudtrail\_bucket\_name](#input\_cloudtrail\_bucket\_name) | trail name | `string` | `"cloudtrail"` | no |
 | <a name="input_cloudtrail_trail_name"></a> [cloudtrail\_trail\_name](#input\_cloudtrail\_trail\_name) | trail name | `string` | `"cloudtrail"` | no |
+| <a name="input_config_continuous_resource_recording"></a> [config\_continuous\_resource\_recording](#input\_config\_continuous\_resource\_recording) | Should the configuration recorder scan constantly or daily (set to false in dev accounts) | `bool` | `true` | no |
 | <a name="input_control_finding_generator"></a> [control\_finding\_generator](#input\_control\_finding\_generator) | Updates whether the calling account has consolidated control findings turned on | `string` | `"STANDARD_CONTROL"` | no |
 | <a name="input_cost_anomaly_immediate_schedule_threshold"></a> [cost\_anomaly\_immediate\_schedule\_threshold](#input\_cost\_anomaly\_immediate\_schedule\_threshold) | The value that triggers an immediate notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage. | `string` | `"10.0"` | no |
 | <a name="input_cost_anomaly_notification_email_address"></a> [cost\_anomaly\_notification\_email\_address](#input\_cost\_anomaly\_notification\_email\_address) | Email address to use to send anomaly alerts to | `string` | `null` | no |
@@ -141,4 +131,3 @@ Enables Guardduty
 | <a name="output_aws_sns_topic_cis_aws_foundations_standard"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard) | n/a |
 | <a name="output_aws_sns_topic_custom_cloudwatch_alarms"></a> [aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
 | <a name="output_aws_sns_topic_slack_notification_failures"></a> [aws\_sns\_topic\_slack\_notification\_failures](#output\_aws\_sns\_topic\_slack\_notification\_failures) | n/a |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

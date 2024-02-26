@@ -6,6 +6,9 @@ resource "aws_config_configuration_recorder" "main" {
     all_supported                 = true
     include_global_resource_types = true
   }
+  recording_mode {
+    recording_frequency = var.config_continuous_resource_recording ? "CONTINUOUS" : "DAILY"
+  }
 }
 
 resource "aws_config_configuration_recorder_status" "main" {
