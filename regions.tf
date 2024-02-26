@@ -1,24 +1,26 @@
 module "eu-west-1" {
-  source                        = "./modules/region"
-  account_name                  = var.account_name
-  aws_config_enabled            = local.config_enabled
-  config_iam_role               = local.config_enabled ? aws_iam_role.config[0] : null
-  product                       = var.product
-  sns_failure_feedback_role_arn = aws_iam_role.sns_failure_feedback.arn
-  sns_success_feedback_role_arn = aws_iam_role.sns_success_feedback.arn
+  source                               = "./modules/region"
+  account_name                         = var.account_name
+  aws_config_enabled                   = local.config_enabled
+  config_iam_role                      = local.config_enabled ? aws_iam_role.config[0] : null
+  config_continuous_resource_recording = var.config_continuous_resource_recording
+  product                              = var.product
+  sns_failure_feedback_role_arn        = aws_iam_role.sns_failure_feedback.arn
+  sns_success_feedback_role_arn        = aws_iam_role.sns_success_feedback.arn
   providers = {
     aws = aws
   }
 }
 
 module "eu-west-2" {
-  source                        = "./modules/region"
-  account_name                  = var.account_name
-  aws_config_enabled            = local.config_enabled
-  config_iam_role               = local.config_enabled ? aws_iam_role.config[0] : null
-  product                       = var.product
-  sns_failure_feedback_role_arn = aws_iam_role.sns_failure_feedback.arn
-  sns_success_feedback_role_arn = aws_iam_role.sns_success_feedback.arn
+  source                               = "./modules/region"
+  account_name                         = var.account_name
+  aws_config_enabled                   = local.config_enabled
+  config_iam_role                      = local.config_enabled ? aws_iam_role.config[0] : null
+  config_continuous_resource_recording = var.config_continuous_resource_recording
+  product                              = var.product
+  sns_failure_feedback_role_arn        = aws_iam_role.sns_failure_feedback.arn
+  sns_success_feedback_role_arn        = aws_iam_role.sns_success_feedback.arn
   providers = {
     aws = aws.eu-west-2
   }
