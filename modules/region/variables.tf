@@ -13,6 +13,13 @@ variable "config_iam_role" {
   description = "Iam role object for the config role."
 }
 
+variable "config_continuous_resource_recording" {
+  description = "Should the configuration recorder scan constantly or daily (set to false in dev accounts)"
+  type        = bool
+  default     = true
+}
+
+
 variable "product" {
   description = "Name of the product"
   type        = string

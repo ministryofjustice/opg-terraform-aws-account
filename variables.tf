@@ -9,6 +9,12 @@ variable "aws_config_enabled" {
   default = false
 }
 
+variable "config_continuous_resource_recording" {
+  description = "Should the configuration recorder scan constantly or daily (set to false in dev accounts)"
+  type        = bool
+  default     = true
+}
+
 variable "aws_security_hub_enabled" {
   type    = bool
   default = false
