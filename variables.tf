@@ -323,3 +323,18 @@ variable "aws_iam_account_alias" {
     error_message = "The AWS IAM Account Alias must only contain alphanumeric characters and hyphens."
   }
 }
+
+variable "aws_account_primary_contact" {
+  description = "The primary contact for the account."
+  type = object({
+    address_line_1  = string
+    address_line_2  = string
+    city            = string
+    company_name    = string
+    country_code    = string
+    phone_number    = string
+    postal_code     = string
+    state_or_region = string
+    full_name       = string
+  })
+}
