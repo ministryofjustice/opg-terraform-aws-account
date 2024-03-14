@@ -15,3 +15,12 @@ resource "aws_account_primary_contact" "main" {
   full_name       = var.aws_account_primary_contact.full_name
   provider        = aws.global
 }
+
+resource "aws_account_alternate_contact" "operations" {
+  alternate_contact_type = "OPERATIONS"
+  name                   = "OPG Webops Community"
+  title                  = "Mx"
+  email_address          = var.aws_account_alternate_contact_operations.email_address
+  phone_number           = var.aws_account_alternate_contact_operations.phone_number
+  provider               = aws.global
+}

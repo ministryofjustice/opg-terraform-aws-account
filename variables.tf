@@ -338,3 +338,10 @@ variable "aws_account_primary_contact" {
     full_name       = string
   })
 }
+
+variable "aws_account_alternate_contact_operations" {
+  type = object({
+    email_address = string
+    phone_number  = string
+  })
+}
