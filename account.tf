@@ -15,3 +15,21 @@ resource "aws_account_primary_contact" "main" {
   full_name       = var.aws_account_primary_contact.full_name
   provider        = aws.global
 }
+
+resource "aws_account_alternate_contact" "operations" {
+  alternate_contact_type = "OPERATIONS"
+  name                   = var.aws_account_alternate_contact.operations.name
+  title                  = var.aws_account_alternate_contact.operations.title
+  email_address          = var.aws_account_alternate_contact.operations.email_address
+  phone_number           = var.aws_account_alternate_contact.operations.phone_number
+  provider               = aws.global
+}
+
+resource "aws_account_alternate_contact" "security" {
+  alternate_contact_type = "SECURITY"
+  name                   = var.aws_account_alternate_contact.security.name
+  title                  = var.aws_account_alternate_contact.security.title
+  email_address          = var.aws_account_alternate_contact.security.email_address
+  phone_number           = var.aws_account_alternate_contact.security.phone_number
+  provider               = aws.global
+}

@@ -338,3 +338,21 @@ variable "aws_account_primary_contact" {
     full_name       = string
   })
 }
+
+variable "aws_account_alternate_contact" {
+  description = "The alternate contacts for the account."
+  type = object({
+    operations = object({
+      name          = string
+      title         = string
+      email_address = string
+      phone_number  = string
+    })
+    security = object({
+      name          = string
+      title         = string
+      email_address = string
+      phone_number  = string
+    })
+  })
+}

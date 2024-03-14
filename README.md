@@ -1,9 +1,10 @@
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.38 |
 
 ## Providers
 
@@ -37,8 +38,12 @@
 
 | Name | Type |
 |------|------|
+| [aws_account_alternate_contact.operations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/account_alternate_contact) | resource |
+| [aws_account_alternate_contact.security](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/account_alternate_contact) | resource |
+| [aws_account_primary_contact.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/account_primary_contact) | resource |
 | [aws_ebs_encryption_by_default.enabled](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_encryption_by_default) | resource |
 | [aws_guardduty_detector.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) | resource |
+| [aws_iam_account_alias.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_alias) | resource |
 | [aws_iam_account_password_policy.strict](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_password_policy) | resource |
 | [aws_iam_policy.aws_cost_explorer_access_for_billing](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.aws_srt_support](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
@@ -69,7 +74,10 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_name"></a> [account\_name](#input\_account\_name) | Account Name | `string` | `""` | no |
 | <a name="input_auto_enable_controls"></a> [auto\_enable\_controls](#input\_auto\_enable\_controls) | Whether to automatically enable new controls when they are added to standards that are enabled | `bool` | `true` | no |
+| <a name="input_aws_account_alternate_contact"></a> [aws\_account\_alternate\_contact](#input\_aws\_account\_alternate\_contact) | n/a | <pre>object({<br>    operations = object({<br>      name          = string<br>      title         = string<br>      email_address = string<br>      phone_number  = string<br>    })<br>    security = object({<br>      name          = string<br>      title         = string<br>      email_address = string<br>      phone_number  = string<br>    })<br>  })</pre> | n/a | yes |
+| <a name="input_aws_account_primary_contact"></a> [aws\_account\_primary\_contact](#input\_aws\_account\_primary\_contact) | The primary contact for the account. | <pre>object({<br>    address_line_1  = string<br>    address_line_2  = string<br>    city            = string<br>    company_name    = string<br>    country_code    = string<br>    phone_number    = string<br>    postal_code     = string<br>    state_or_region = string<br>    full_name       = string<br>  })</pre> | n/a | yes |
 | <a name="input_aws_config_enabled"></a> [aws\_config\_enabled](#input\_aws\_config\_enabled) | n/a | `bool` | `false` | no |
+| <a name="input_aws_iam_account_alias"></a> [aws\_iam\_account\_alias](#input\_aws\_iam\_account\_alias) | The AWS IAM Account Alias to use for the account | `string` | n/a | yes |
 | <a name="input_aws_s3_account_block_public_access_enable"></a> [aws\_s3\_account\_block\_public\_access\_enable](#input\_aws\_s3\_account\_block\_public\_access\_enable) | Whether Amazon S3 should enable public blocks for buckets in this account. Defaults to False. | `bool` | `false` | no |
 | <a name="input_aws_s3_account_block_public_acls"></a> [aws\_s3\_account\_block\_public\_acls](#input\_aws\_s3\_account\_block\_public\_acls) | Whether Amazon S3 should block public ACLs for buckets in this account. Defaults to true. | `bool` | `true` | no |
 | <a name="input_aws_s3_account_block_public_policy"></a> [aws\_s3\_account\_block\_public\_policy](#input\_aws\_s3\_account\_block\_public\_policy) | Whether Amazon S3 should block public bucket policies for buckets in this account. Defaults to true. | `bool` | `true` | no |
@@ -131,3 +139,4 @@
 | <a name="output_aws_sns_topic_cis_aws_foundations_standard"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard) | n/a |
 | <a name="output_aws_sns_topic_custom_cloudwatch_alarms"></a> [aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
 | <a name="output_aws_sns_topic_slack_notification_failures"></a> [aws\_sns\_topic\_slack\_notification\_failures](#output\_aws\_sns\_topic\_slack\_notification\_failures) | n/a |
+<!-- END_TF_DOCS -->
