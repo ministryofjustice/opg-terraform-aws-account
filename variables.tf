@@ -339,11 +339,19 @@ variable "aws_account_primary_contact" {
   })
 }
 
-variable "aws_account_alternate_contact_operations" {
+variable "aws_account_alternate_contact" {
   type = object({
-    name          = string
-    title         = string
-    email_address = string
-    phone_number  = string
+    operations = object({
+      name          = string
+      title         = string
+      email_address = string
+      phone_number  = string
+    })
+    security = object({
+      name          = string
+      title         = string
+      email_address = string
+      phone_number  = string
+    })
   })
 }
