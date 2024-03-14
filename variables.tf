@@ -340,6 +340,7 @@ variable "aws_account_primary_contact" {
 }
 
 variable "aws_account_alternate_contact" {
+  description = "The alternate contacts for the account."
   type = object({
     operations = object({
       name          = string
