@@ -310,3 +310,16 @@ locals {
   security_hub_enabled        = var.aws_security_hub_enabled && !var.modernisation_platform_account ? true : false
   shield_support_role_enabled = var.shield_support_role_enabled && !var.modernisation_platform_account ? true : false
 }
+
+variable "aws_iam_account_alias" {
+  description = "The AWS IAM Account Alias to use for the account"
+  type        = string
+  validation {
+    condition     = length(var.aws_iam_account_alias) > 0
+    error_message = "The AWS IAM Account Alias must be set."
+  }
+  validation {
+    condition     = can(regexall("^[a-zA-Z0-9-]+$", var.aws_iam_account_alias))
+    error_message = "The AWS IAM Account Alias must only contain alphanumeric characters and hyphens."
+  }
+}
