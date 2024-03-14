@@ -341,6 +341,8 @@ variable "aws_account_primary_contact" {
 
 variable "aws_account_alternate_contact_operations" {
   type = object({
+    name          = string
+    title         = string
     email_address = string
     phone_number  = string
   })
