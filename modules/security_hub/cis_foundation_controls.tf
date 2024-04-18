@@ -10,15 +10,15 @@ locals {
   cis_standard_controls_arn_path             = "arn:aws:securityhub:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0"
   cis_foundation_control_3_10_custom_enabled = var.cis_foundation_control_3_10_custom_filter == "" ? false : true
   cis_controls = {
-    cis_1_1_root_account_usage = {
-      metric_name           = "CIS-1.1-RootAccountUsage"
-      standards_control_arn = "${local.cis_standard_controls_arn_path}/1.1"
-      actions_enabled       = true
-      control_status        = "ENABLED"
-      pattern               = "{$.userIdentity.type=\"Root\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType !=\"AwsServiceEvent\"}"
-      alarm_description     = "root login usage count"
-      alarm_threshold       = 1
-    }
+    # cis_1_1_root_account_usage = {
+    #   metric_name           = "CIS-1.1-RootAccountUsage"
+    #   standards_control_arn = "${local.cis_standard_controls_arn_path}/1.1"
+    #   actions_enabled       = true
+    #   control_status        = "ENABLED"
+    #   pattern               = "{$.userIdentity.type=\"Root\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType !=\"AwsServiceEvent\"}"
+    #   alarm_description     = "root login usage count"
+    #   alarm_threshold       = 1
+    # }
     cis_3_1_unauthorised_api_calls = {
       metric_name           = "CIS-3.1-UnauthorizedAPICalls"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.1"
