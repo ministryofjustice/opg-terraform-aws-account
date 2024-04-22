@@ -10,15 +10,6 @@ locals {
   cis_standard_controls_arn_path             = "arn:aws:securityhub:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0"
   cis_foundation_control_3_10_custom_enabled = var.cis_foundation_control_3_10_custom_filter == "" ? false : true
   cis_controls = {
-    cis_1_1_root_account_usage = {
-      metric_name           = "CIS-1.1-RootAccountUsage"
-      standards_control_arn = "${local.cis_standard_controls_arn_path}/1.1"
-      actions_enabled       = true
-      control_status        = "ENABLED"
-      pattern               = "{$.userIdentity.type=\"Root\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType !=\"AwsServiceEvent\"}"
-      alarm_description     = "root login usage count"
-      alarm_threshold       = 1
-    }
     cis_3_1_unauthorised_api_calls = {
       metric_name           = "CIS-3.1-UnauthorizedAPICalls"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.1"
@@ -137,6 +128,15 @@ locals {
       alarm_threshold       = 1
     }
   }
+  cis_metrics_only = {
+    root_account_usage = {
+      metric_name       = "CIS-1.1-RootAccountUsage"
+      actions_enabled   = true
+      pattern           = "{$.userIdentity.type=\"Root\" && $.userIdentity.invokedBy NOT EXISTS && $.eventType !=\"AwsServiceEvent\"}"
+      alarm_description = "root login usage count"
+      alarm_threshold   = 1
+    }
+  }
 }
 
 
@@ -151,7 +151,7 @@ resource "aws_securityhub_standards_control" "toggled_control" {
 }
 
 resource "aws_cloudwatch_log_metric_filter" "toggled_control" {
-  for_each       = local.cis_controls
+  for_each       = merge(local.cis_controls, local.cis_metrics_only)
   name           = each.value.metric_name
   pattern        = each.value.pattern
   log_group_name = var.aws_cloudwatch_log_group_cloudtrail_name
@@ -163,7 +163,7 @@ resource "aws_cloudwatch_log_metric_filter" "toggled_control" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "toggled_control" {
-  for_each            = local.cis_controls
+  for_each            = merge(local.cis_controls, local.cis_metrics_only)
   actions_enabled     = each.value.actions_enabled
   alarm_name          = each.value.metric_name
   alarm_actions       = [aws_sns_topic.cis_aws_foundations_standard.arn]
@@ -178,4 +178,14 @@ resource "aws_cloudwatch_metric_alarm" "toggled_control" {
   statistic           = "Sum"
   threshold           = each.value.alarm_threshold
   treat_missing_data  = "notBreaching"
+}
+
+moved {
+  from = aws_cloudwatch_log_metric_filter.toggled_control["cis_1_1_root_account_usage"]
+  to   = aws_cloudwatch_log_metric_filter.toggled_control["root_account_usage"]
+}
+
+moved {
+  from = aws_cloudwatch_metric_alarm.toggled_control["cis_1_1_root_account_usage"]
+  to   = aws_cloudwatch_metric_alarm.toggled_control["root_account_usage"]
 }
