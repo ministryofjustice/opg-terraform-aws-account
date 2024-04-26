@@ -125,6 +125,7 @@
 | <a name="input_operator_base_policy_arn"></a> [operator\_base\_policy\_arn](#input\_operator\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/ReadOnlyAccess"` | no |
 | <a name="input_operator_create_instance_profile"></a> [operator\_create\_instance\_profile](#input\_operator\_create\_instance\_profile) | n/a | `bool` | `false` | no |
 | <a name="input_operator_custom_policy_json"></a> [operator\_custom\_policy\_json](#input\_operator\_custom\_policy\_json) | n/a | `string` | `""` | no |
+| <a name="input_pagerduty_securityhub_integration_key"></a> [pagerduty\_securityhub\_integration\_key](#input\_pagerduty\_securityhub\_integration\_key) | The PagerDuty integration key to subscribe to SecurityHub findings | `string` | `null` | no |
 | <a name="input_product"></a> [product](#input\_product) | n/a | `string` | n/a | yes |
 | <a name="input_shield_support_role_enabled"></a> [shield\_support\_role\_enabled](#input\_shield\_support\_role\_enabled) | Whether to create the Shield Support Role to allow AWS security engineers to access the account to assist with DDoS mitigation | `bool` | `false` | no |
 | <a name="input_team_email"></a> [team\_email](#input\_team\_email) | Team group email address for use in tags | `string` | `"opgteam@digital.justice.gov.uk"` | no |
