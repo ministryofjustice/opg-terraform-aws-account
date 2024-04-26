@@ -14,6 +14,9 @@ resource "aws_cloudwatch_event_rule" "security_hub" {
       "findings" : {
         "Severity" : {
           "Label" : ["HIGH", "CRITICAL"]
+        },
+        "Workflow" : {
+          "Status" : ["NEW"]
         }
       }
     }
