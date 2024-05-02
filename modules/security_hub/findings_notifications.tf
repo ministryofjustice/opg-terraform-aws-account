@@ -42,3 +42,23 @@ resource "aws_sns_topic_subscription" "security_hub" {
   protocol  = "https"
   endpoint  = "https://events.pagerduty.com/integration/${var.pagerduty_securityhub_integration_key}/enqueue"
 }
+
+resource "aws_sns_topic_policy" "security_hub_topic_policy" {
+  count = local.security_hub_pagerduty_integration_enabled ? 1 : 0
+  arn   = aws_sns_topic.security_hub[0].arn
+
+  policy = data.aws_iam_policy_document.security_hub_sns_topic.json
+}
+
+data "aws_iam_policy_document" "security_hub_sns_topic" {
+  statement {
+    sid    = "AWSEvents_securityhub_findings_${var.account_name}"
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["events.amazonaws.com"]
+    }
+    actions   = ["sns:Publish"]
+    resources = [aws_sns_topic.security_hub[0].arn]
+  }
+}
