@@ -23,6 +23,12 @@ resource "aws_cloudwatch_event_rule" "security_hub" {
   })
 }
 
+resource "aws_cloudwatch_event_target" "sns" {
+  count = local.security_hub_pagerduty_integration_enabled ? 1 : 0
+  arn   = aws_sns_topic.security_hub[0].arn
+  rule  = aws_cloudwatch_event_rule.security_hub[0].name
+}
+
 resource "aws_sns_topic" "security_hub" {
   count             = local.security_hub_pagerduty_integration_enabled ? 1 : 0
   name              = "SecurityHub-to-PagerDuty-${var.account_name}"
