@@ -1,6 +1,6 @@
 locals {
   security_hub_pagerduty_integration_enabled = var.pagerduty_securityhub_integration_key != null ? true : false
-  sns_topic_arn                              = "arn:aws:sns:${data.aws_region.current}:${data.aws_caller_identity.current.account_id}:SecurityHub-to-PagerDuty-${var.account_name}"
+  sns_topic_arn                              = "arn:aws:sns:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:SecurityHub-to-PagerDuty-${var.account_name}"
 }
 
 resource "aws_cloudwatch_event_rule" "security_hub" {
