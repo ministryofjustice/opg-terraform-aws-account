@@ -1,4 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
@@ -24,6 +23,7 @@
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./modules/cloudtrail | n/a |
 | <a name="module_cloudwatch_loginsights_cis_queries_opg"></a> [cloudwatch\_loginsights\_cis\_queries\_opg](#module\_cloudwatch\_loginsights\_cis\_queries\_opg) | ./modules/cis_queries | n/a |
 | <a name="module_cloudwatch_loginsights_cis_queries_provisioned"></a> [cloudwatch\_loginsights\_cis\_queries\_provisioned](#module\_cloudwatch\_loginsights\_cis\_queries\_provisioned) | ./modules/cis_queries | n/a |
+| <a name="module_cloudwatch_reporting"></a> [cloudwatch\_reporting](#module\_cloudwatch\_reporting) | ./modules/default_roles | n/a |
 | <a name="module_cost_anomaly_detection"></a> [cost\_anomaly\_detection](#module\_cost\_anomaly\_detection) | ./modules/ce_anomaly_detection | n/a |
 | <a name="module_custom_cloudwatch_alarms"></a> [custom\_cloudwatch\_alarms](#module\_custom\_cloudwatch\_alarms) | ./modules/custom_cloudwatch_alarms | n/a |
 | <a name="module_custom_cloudwatch_alarms_vendored"></a> [custom\_cloudwatch\_alarms\_vendored](#module\_custom\_cloudwatch\_alarms\_vendored) | ./modules/custom_cloudwatch_alarms | n/a |
@@ -74,7 +74,7 @@
 |------|-------------|------|---------|:--------:|
 | <a name="input_account_name"></a> [account\_name](#input\_account\_name) | Account Name | `string` | `""` | no |
 | <a name="input_auto_enable_controls"></a> [auto\_enable\_controls](#input\_auto\_enable\_controls) | Whether to automatically enable new controls when they are added to standards that are enabled | `bool` | `true` | no |
-| <a name="input_aws_account_alternate_contact"></a> [aws\_account\_alternate\_contact](#input\_aws\_account\_alternate\_contact) | n/a | <pre>object({<br>    operations = object({<br>      name          = string<br>      title         = string<br>      email_address = string<br>      phone_number  = string<br>    })<br>    security = object({<br>      name          = string<br>      title         = string<br>      email_address = string<br>      phone_number  = string<br>    })<br>  })</pre> | n/a | yes |
+| <a name="input_aws_account_alternate_contact"></a> [aws\_account\_alternate\_contact](#input\_aws\_account\_alternate\_contact) | The alternate contacts for the account. | <pre>object({<br>    operations = object({<br>      name          = string<br>      title         = string<br>      email_address = string<br>      phone_number  = string<br>    })<br>    security = object({<br>      name          = string<br>      title         = string<br>      email_address = string<br>      phone_number  = string<br>    })<br>  })</pre> | n/a | yes |
 | <a name="input_aws_account_primary_contact"></a> [aws\_account\_primary\_contact](#input\_aws\_account\_primary\_contact) | The primary contact for the account. | <pre>object({<br>    address_line_1  = string<br>    address_line_2  = string<br>    city            = string<br>    company_name    = string<br>    country_code    = string<br>    phone_number    = string<br>    postal_code     = string<br>    state_or_region = string<br>    full_name       = string<br>  })</pre> | n/a | yes |
 | <a name="input_aws_config_enabled"></a> [aws\_config\_enabled](#input\_aws\_config\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_aws_iam_account_alias"></a> [aws\_iam\_account\_alias](#input\_aws\_iam\_account\_alias) | The AWS IAM Account Alias to use for the account | `string` | n/a | yes |
@@ -107,6 +107,8 @@
 | <a name="input_cis_metric_namespace"></a> [cis\_metric\_namespace](#input\_cis\_metric\_namespace) | The destination namespace of the CIS CloudWatch metric. | `string` | `"CISLogMetrics"` | no |
 | <a name="input_cloudtrail_bucket_name"></a> [cloudtrail\_bucket\_name](#input\_cloudtrail\_bucket\_name) | trail name | `string` | `"cloudtrail"` | no |
 | <a name="input_cloudtrail_trail_name"></a> [cloudtrail\_trail\_name](#input\_cloudtrail\_trail\_name) | trail name | `string` | `"cloudtrail"` | no |
+| <a name="input_cloudwatch_reporting_base_policy_arn"></a> [cloudwatch\_reporting\_base\_policy\_arn](#input\_cloudwatch\_reporting\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"` | no |
+| <a name="input_cloudwatch_reporting_custom_policy_json"></a> [cloudwatch\_reporting\_custom\_policy\_json](#input\_cloudwatch\_reporting\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_config_continuous_resource_recording"></a> [config\_continuous\_resource\_recording](#input\_config\_continuous\_resource\_recording) | Should the configuration recorder scan constantly or daily (set to false in dev accounts) | `bool` | `true` | no |
 | <a name="input_control_finding_generator"></a> [control\_finding\_generator](#input\_control\_finding\_generator) | Updates whether the calling account has consolidated control findings turned on | `string` | `"STANDARD_CONTROL"` | no |
 | <a name="input_cost_anomaly_immediate_schedule_threshold"></a> [cost\_anomaly\_immediate\_schedule\_threshold](#input\_cost\_anomaly\_immediate\_schedule\_threshold) | The value that triggers an immediate notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage. | `string` | `"10.0"` | no |
@@ -114,6 +116,7 @@
 | <a name="input_cost_anomaly_threshold_expression_type"></a> [cost\_anomaly\_threshold\_expression\_type](#input\_cost\_anomaly\_threshold\_expression\_type) | Setting passed to the threshold\_expression to determine if the value (weekly\_schedule\_threshold\|immediate\_schedule\_threshold) is an absolute (ANOMALY\_TOTAL\_IMPACT\_ABSOLUTE) or percentage (ANOMALY\_TOTAL\_IMPACT\_PERCENTAGE) | `string` | `"ANOMALY_TOTAL_IMPACT_ABSOLUTE"` | no |
 | <a name="input_cost_anomaly_weekly_schedule_threshold"></a> [cost\_anomaly\_weekly\_schedule\_threshold](#input\_cost\_anomaly\_weekly\_schedule\_threshold) | The value that triggers a weekly notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage. | `string` | `"100.0"` | no |
 | <a name="input_custom_alarms_breakglass_login_alarm_enabled"></a> [custom\_alarms\_breakglass\_login\_alarm\_enabled](#input\_custom\_alarms\_breakglass\_login\_alarm\_enabled) | Enable or disable the breakglass login alarm | `bool` | `true` | no |
+| <a name="input_enable_cloudwatch_reporting_role"></a> [enable\_cloudwatch\_reporting\_role](#input\_enable\_cloudwatch\_reporting\_role) | n/a | `bool` | `false` | no |
 | <a name="input_enable_default_standards"></a> [enable\_default\_standards](#input\_enable\_default\_standards) | Whether to enable the security standards that Security Hub has designated as automatically enabled | `bool` | `false` | no |
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
 | <a name="input_fsbp_standard_control_elb_6_enabled"></a> [fsbp\_standard\_control\_elb\_6\_enabled](#input\_fsbp\_standard\_control\_elb\_6\_enabled) | When false, sets standard control to disabled. | `bool` | `true` | no |
@@ -127,7 +130,7 @@
 | <a name="input_shield_support_role_enabled"></a> [shield\_support\_role\_enabled](#input\_shield\_support\_role\_enabled) | Whether to create the Shield Support Role to allow AWS security engineers to access the account to assist with DDoS mitigation | `bool` | `false` | no |
 | <a name="input_team_email"></a> [team\_email](#input\_team\_email) | Team group email address for use in tags | `string` | `"opgteam@digital.justice.gov.uk"` | no |
 | <a name="input_team_name"></a> [team\_name](#input\_team\_name) | Name of the Team looking after the Service | `string` | `"OPG"` | no |
-| <a name="input_user_arns"></a> [user\_arns](#input\_user\_arns) | n/a | <pre>object({<br>    view       = list(string)<br>    operation  = list(string)<br>    breakglass = list(string)<br>    ci         = list(string)<br>    billing    = list(string)<br>  })</pre> | n/a | yes |
+| <a name="input_user_arns"></a> [user\_arns](#input\_user\_arns) | n/a | <pre>object({<br>    view                = list(string)<br>    operation           = list(string)<br>    breakglass          = list(string)<br>    ci                  = list(string)<br>    billing             = list(string)<br>    cloudwatch_reportng = list(string)<br>  })</pre> | n/a | yes |
 | <a name="input_viewer_base_policy_arn"></a> [viewer\_base\_policy\_arn](#input\_viewer\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/ReadOnlyAccess"` | no |
 | <a name="input_viewer_custom_policy_json"></a> [viewer\_custom\_policy\_json](#input\_viewer\_custom\_policy\_json) | n/a | `string` | `""` | no |
 
@@ -139,4 +142,3 @@
 | <a name="output_aws_sns_topic_cis_aws_foundations_standard"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard) | n/a |
 | <a name="output_aws_sns_topic_custom_cloudwatch_alarms"></a> [aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
 | <a name="output_aws_sns_topic_slack_notification_failures"></a> [aws\_sns\_topic\_slack\_notification\_failures](#output\_aws\_sns\_topic\_slack\_notification\_failures) | n/a |
-<!-- END_TF_DOCS -->
