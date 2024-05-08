@@ -31,10 +31,9 @@ resource "aws_cloudwatch_event_target" "sns" {
 }
 
 resource "aws_sns_topic" "security_hub" {
-  count             = local.security_hub_pagerduty_integration_enabled ? 1 : 0
-  name              = "SecurityHub-to-PagerDuty-${var.account_name}"
-  fifo_topic        = false
-  kms_master_key_id = aws_kms_key.security_hub_sns.arn
+  count      = local.security_hub_pagerduty_integration_enabled ? 1 : 0
+  name       = "SecurityHub-to-PagerDuty-${var.account_name}"
+  fifo_topic = false
 }
 
 resource "aws_sns_topic_subscription" "security_hub" {
