@@ -75,14 +75,12 @@ module "ci" {
 
 data "aws_iam_policy_document" "cloudwatch_reporting_policy" {
   statement {
-    sid    = "AllowAssumeRole"
+    sid    = "AllowCloudWatchReports"
     effect = "Allow"
     actions = [
-      "cloudwatch:BatchGet*",
-      "cloudwatch:Describe*",
-      "cloudwatch:GenerateQuery",
-      "cloudwatch:Get*",
-      "cloudwatch:List*"
+      "cloudwatch:GetMetricData",
+      "cloudwatch:GetMetricStatistics",
+      "cloudwatch:ListMetrics",
     ]
     resources = ["*"]
   }
