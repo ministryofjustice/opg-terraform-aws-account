@@ -135,13 +135,14 @@ variable "viewer_custom_policy_json" {
 
 variable "user_arns" {
   type = object({
-    view                = list(string)
-    operation           = list(string)
-    breakglass          = list(string)
-    ci                  = list(string)
-    billing             = list(string)
-    cloudwatch_reportng = list(string)
+    view                 = list(string)
+    operation            = list(string)
+    breakglass           = list(string)
+    ci                   = list(string)
+    billing              = list(string)
+    cloudwatch_reporting = list(string)
   })
+
 }
 
 variable "aws_s3_account_block_public_access_enable" {
@@ -306,7 +307,7 @@ locals {
   aws_health_notifications_enabled       = var.aws_slack_notifications_enabled && var.aws_slack_health_notification_channel != "" ? true : false
 
   # locals for cloudwatch reporting role
-  cloudwatch_reporting_role_enabled = length(var.user_arns.cloudwatch_reportng) > 0 ? true : false
+  cloudwatch_reporting_role_enabled = length(var.user_arns.cloudwatch_reporting) > 0 ? true : false
 
   # Locals to control provisioning of Modernisation Platform Provisioned Services in new accounts.
   cloudtrail_enabled          = !var.modernisation_platform_account
