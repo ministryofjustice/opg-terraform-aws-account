@@ -97,5 +97,5 @@ module "cloudwatch_reporting" {
   source          = "./modules/default_roles"
   name            = "cloudwatch-reporting-ci"
   user_arns       = var.user_arns.cloudwatch_reporting
-  base_policy_arn = aws_iam_policy.cloudwatch_reporting
+  base_policy_arn = aws_iam_policy.cloudwatch_reporting.arn
 }
