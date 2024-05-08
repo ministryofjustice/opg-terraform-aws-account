@@ -75,6 +75,21 @@ module "ci" {
 
 data "aws_iam_policy_document" "cloudwatch_reporting_policy" {
   statement {
+    sid    = "DenyOthers"
+    effect = "Deny"
+    actions = [
+      "application-autoscaling:*",
+      "autoscaling:*",
+      "logs:*",
+      "oam:*",
+      "sns:*",
+      "rum:*",
+      "synthetics:*",
+      "xray:*",
+    ]
+    resources = ["*"]
+  }
+  statement {
     sid    = "AllowCloudWatchReports"
     effect = "Allow"
     actions = [
@@ -91,6 +106,6 @@ module "cloudwatch_reporting" {
   source             = "./modules/default_roles"
   name               = "cloudwatch-reporting-ci"
   user_arns          = var.user_arns.cloudwatch_reporting
-  base_policy_arn    = "arn:aws:iam::aws:policy/AWSDenyAll"
+  base_policy_arn    = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
   custom_policy_json = data.aws_iam_policy_document.cloudwatch_reporting_policy.json
 }
