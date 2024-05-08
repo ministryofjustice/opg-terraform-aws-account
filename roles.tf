@@ -86,11 +86,16 @@ data "aws_iam_policy_document" "cloudwatch_reporting_policy" {
   }
 }
 
+resource "aws_iam_policy" "cloudwatch_reporting" {
+  name        = "cloudwatch_metrics_policy"
+  description = "Policy to allow access to only metric information from cloudwatch"
+  policy      = data.aws_iam_policy_document.cloudwatch_reporting_policy.json
+}
+
 module "cloudwatch_reporting" {
-  count              = local.cloudwatch_reporting_role_enabled == true ? 1 : 0
-  source             = "./modules/default_roles"
-  name               = "cloudwatch-reporting-ci"
-  user_arns          = var.user_arns.cloudwatch_reporting
-  base_policy_arn    = "arn:aws:iam::aws:policy/AWSDenyAll"
-  custom_policy_json = data.aws_iam_policy_document.cloudwatch_reporting_policy.json
+  count           = local.cloudwatch_reporting_role_enabled == true ? 1 : 0
+  source          = "./modules/default_roles"
+  name            = "cloudwatch-reporting-ci"
+  user_arns       = var.user_arns.cloudwatch_reporting
+  base_policy_arn = aws_iam_policy.cloudwatch_reporting.arn
 }
