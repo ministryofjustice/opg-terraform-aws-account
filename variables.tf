@@ -142,6 +142,11 @@ variable "user_arns" {
     billing              = list(string)
     cloudwatch_reporting = list(string)
   })
+
+  default = {
+    cloudwatch_reporting = []
+  }
+
 }
 
 variable "aws_s3_account_block_public_access_enable" {
