@@ -46,7 +46,7 @@ module "production" {
   cloudtrail_trail_name                     = "example-production"
   cost_anomaly_notification_email_address   = "opg-team+example-prod@digital.justice.gov.uk"
   product                                   = "example"
-  enable_cloudwatch_reporting_role          = true
+  cloudwatch_reporting_base_policy_arn      = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
   user_arns                                 = local.user_arns
   providers = {
     aws           = aws.production_eu_west_1

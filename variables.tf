@@ -300,14 +300,10 @@ variable "oam_xray_sink_identifier_arn" {
   description = "The identifier of the OAM Sink to duplicate XRay events to (if desired)"
 }
 
-variable "enable_cloudwatch_reporting_role" {
-  type    = bool
-  default = false
-}
-
 variable "cloudwatch_reporting_base_policy_arn" {
-  type    = string
-  default = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
+  type = string
+  # "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
+  default = ""
 }
 
 variable "cloudwatch_reporting_custom_policy_json" {
@@ -319,6 +315,9 @@ variable "cloudwatch_reporting_custom_policy_json" {
 locals {
   aws_cost_anomaly_notifications_enabled = var.aws_slack_notifications_enabled && var.aws_slack_cost_anomaly_notification_channel != "" ? true : false
   aws_health_notifications_enabled       = var.aws_slack_notifications_enabled && var.aws_slack_health_notification_channel != "" ? true : false
+
+  # locals for cloudwatch permissions
+  enable_cloudwatch_reporting_role = length(var.cloudwatch_reporting_base_policy_arn) > 0 ? true : false
 
   # Locals to control provisioning of Modernisation Platform Provisioned Services in new accounts.
   cloudtrail_enabled          = !var.modernisation_platform_account

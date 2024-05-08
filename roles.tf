@@ -74,7 +74,7 @@ module "ci" {
 
 
 module "cloudwatch_reporting" {
-  count              = var.enable_cloudwatch_reporting_role == true ? 1 : 0
+  count              = local.enable_cloudwatch_reporting_role == true ? 1 : 0
   source             = "./modules/default_roles"
   name               = "cloudwatch-reporting-ci"
   user_arns          = var.user_arns.cloudwatch_reportng
