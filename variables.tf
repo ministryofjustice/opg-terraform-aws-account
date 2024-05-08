@@ -144,6 +144,11 @@ variable "user_arns" {
   })
 
   default = {
+    view                 = []
+    operation            = []
+    breakglass           = []
+    ci                   = []
+    billing              = []
     cloudwatch_reporting = []
   }
 
