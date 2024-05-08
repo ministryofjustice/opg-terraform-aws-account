@@ -135,11 +135,12 @@ variable "viewer_custom_policy_json" {
 
 variable "user_arns" {
   type = object({
-    view       = list(string)
-    operation  = list(string)
-    breakglass = list(string)
-    ci         = list(string)
-    billing    = list(string)
+    view                = list(string)
+    operation           = list(string)
+    breakglass          = list(string)
+    ci                  = list(string)
+    billing             = list(string)
+    cloudwatch_reportng = list(string)
   })
 }
 
@@ -298,6 +299,22 @@ variable "oam_xray_sink_identifier_arn" {
   default     = null
   description = "The identifier of the OAM Sink to duplicate XRay events to (if desired)"
 }
+
+variable "enable_cloudwatch_reporting_role" {
+  type    = bool
+  default = false
+}
+
+variable "cloudwatch_reporting_base_policy_arn" {
+  type    = string
+  default = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
+}
+
+variable "cloudwatch_reporting_custom_policy_json" {
+  type    = string
+  default = ""
+}
+
 
 locals {
   aws_cost_anomaly_notifications_enabled = var.aws_slack_notifications_enabled && var.aws_slack_cost_anomaly_notification_channel != "" ? true : false

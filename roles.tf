@@ -71,3 +71,13 @@ module "ci" {
   base_policy_arn    = var.ci_base_policy_arn
   custom_policy_json = var.ci_custom_policy_json
 }
+
+
+module "cloudwatch_reporting" {
+  count              = var.enable_cloudwatch_reporting_role == true ? 1 : 0
+  source             = "./modules/default_roles"
+  name               = "cloudwatch-reporting-ci"
+  user_arns          = var.user_arns.cloudwatch_reportng
+  base_policy_arn    = var.cloudwatch_reporting_base_policy_arn
+  custom_policy_json = var.cloudwatch_reporting_custom_policy_json
+}
