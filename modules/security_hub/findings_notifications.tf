@@ -68,7 +68,7 @@ data "aws_iam_policy_document" "security_hub_sns_topic" {
 
     principals {
       type        = "AWS"
-      identifiers = "*"
+      identifiers = ["*"]
     }
 
     actions = [
