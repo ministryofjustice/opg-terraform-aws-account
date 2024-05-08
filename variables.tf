@@ -143,15 +143,6 @@ variable "user_arns" {
     cloudwatch_reporting = list(string)
   })
 
-  default = {
-    view                 = []
-    operation            = []
-    breakglass           = []
-    ci                   = []
-    billing              = []
-    cloudwatch_reporting = []
-  }
-
 }
 
 variable "aws_s3_account_block_public_access_enable" {
