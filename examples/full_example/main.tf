@@ -26,11 +26,13 @@ data "aws_iam_group" "viewers" {
 
 locals {
   user_arns = {
-    breakglass = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
-    ci         = [aws_iam_user.ci_user.arn]
-    operation  = data.aws_iam_group.operators.users[*].arn
-    view       = data.aws_iam_group.viewers.users[*].arn
-    billing    = data.aws_iam_group.billing.users[*].arn
+    breakglass          = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
+    ci                  = [aws_iam_user.ci_user.arn]
+    cloudwatch_reportng = [aws_iam_user.cloudwatch_ci_user.arn]
+    operation           = data.aws_iam_group.operators.users[*].arn
+    view                = data.aws_iam_group.viewers.users[*].arn
+    billing             = data.aws_iam_group.billing.users[*].arn
+
   }
 }
 
@@ -82,6 +84,10 @@ module "full" {
   user_arns                                    = local.user_arns
   viewer_base_policy_arn                       = "arn:aws:iam::aws:policy/ReadOnlyAccess"
   viewer_custom_policy_json                    = ""
+  enable_cloudwatch_reporting_role             = true
+  cloudwatch_reporting_base_policy_arn         = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
+  cloudwatch_reporting_custom_policy_json      = ""
+
   providers = {
     aws           = aws.production_eu_west_1
     aws.eu-west-2 = aws.production_eu_west_2
