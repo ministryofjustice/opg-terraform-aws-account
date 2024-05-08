@@ -1,6 +1,5 @@
 locals {
   security_hub_pagerduty_integration_enabled = var.pagerduty_securityhub_integration_key != null ? true : false
-  sns_topic_arn                              = "arn:aws:sns:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:SecurityHub-to-PagerDuty-${var.account_name}"
 }
 
 resource "aws_cloudwatch_event_rule" "security_hub" {
@@ -13,11 +12,13 @@ resource "aws_cloudwatch_event_rule" "security_hub" {
     "detail-type" : ["Security Hub Findings - Imported"],
     "detail" : {
       "findings" : {
-        "ProductFields" : {
-          "aws/securityhub/SeverityLabel" : ["HIGH", "CRITICAL"]
-        },
         "RecordState" : ["ACTIVE"],
-        "WorkflowState" : ["NEW"]
+        "Severity" : {
+          "Label" : ["HIGH", "CRITICAL"]
+        },
+        "Workflow" : {
+          "Status" : ["NEW"]
+        }
       }
     }
   })
@@ -61,65 +62,34 @@ data "aws_iam_policy_document" "security_hub_sns_topic" {
     actions   = ["sns:Publish"]
     resources = [aws_sns_topic.security_hub[0].arn]
   }
-}
-
-resource "aws_kms_key" "security_hub_sns" {
-  description = "KMS Key for Security Hub to SNS"
-  policy      = data.aws_iam_policy_document.security_hub_sns_key.json
-}
-
-data "aws_iam_policy_document" "security_hub_sns_key" {
-  statement {
-    sid       = "Enable IAM User Permissions"
-    effect    = "Allow"
-    resources = ["*"]
-    actions   = ["kms:*"]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
-    }
-  }
 
   statement {
-    sid    = "AllowEventBridgeDecrypt"
+    sid    = "default_securityhub_findings"
     effect = "Allow"
-    principals {
-      type        = "Service"
-      identifiers = ["events.amazonaws.com"]
-    }
-    actions = [
-      "kms:Decrypt",
-      "kms:GenerateDataKey*",
-    ]
-    resources = [local.sns_topic_arn]
-  }
-
-  statement {
-    sid       = "Allow access for Key Administrators"
-    effect    = "Allow"
-    resources = ["*"]
-
-    actions = [
-      "kms:Create*",
-      "kms:Describe*",
-      "kms:Enable*",
-      "kms:List*",
-      "kms:Put*",
-      "kms:Update*",
-      "kms:Revoke*",
-      "kms:Disable*",
-      "kms:Get*",
-      "kms:Delete*",
-      "kms:TagResource",
-      "kms:UntagResource",
-      "kms:ScheduleKeyDeletion",
-      "kms:CancelKeyDeletion",
-    ]
 
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/ci"]
+      identifiers = "*"
+    }
+
+    actions = [
+      "SNS:GetTopicAttributes",
+      "SNS:SetTopicAttributes",
+      "SNS:AddPermission",
+      "SNS:RemovePermission",
+      "SNS:DeleteTopic",
+      "SNS:Subscribe",
+      "SNS:ListSubscriptionsByTopic",
+      "SNS:Publish",
+      "SNS:Receive"
+    ]
+
+    resources = [aws_sns_topic.security_hub[0].arn]
+
+    condition {
+      test     = "ForAnyValue:StringEquals"
+      variable = "AWS:SourceOwner"
+      values   = [data.aws_caller_identity.current.account_id]
     }
   }
 }
