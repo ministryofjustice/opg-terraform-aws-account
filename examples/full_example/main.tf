@@ -84,8 +84,6 @@ module "full" {
   user_arns                                    = local.user_arns
   viewer_base_policy_arn                       = "arn:aws:iam::aws:policy/ReadOnlyAccess"
   viewer_custom_policy_json                    = ""
-  cloudwatch_reporting_base_policy_arn         = "arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess"
-  cloudwatch_reporting_custom_policy_json      = ""
 
   providers = {
     aws           = aws.production_eu_west_1

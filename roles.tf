@@ -73,11 +73,26 @@ module "ci" {
 }
 
 
+data "aws_iam_policy_document" "cloudwatch_reporting_policy" {
+  statement {
+    sid    = "AllowAssumeRole"
+    effect = "Allow"
+    actions = [
+      "cloudwatch:BatchGet*",
+      "cloudwatch:Describe*",
+      "cloudwatch:GenerateQuery",
+      "cloudwatch:Get*",
+      "cloudwatch:List*"
+    ]
+    resources = ["*"]
+  }
+}
+
 module "cloudwatch_reporting" {
-  count              = local.enable_cloudwatch_reporting_role == true ? 1 : 0
+  count              = local.cloudwatch_reporting_role_enabled == true ? 1 : 0
   source             = "./modules/default_roles"
   name               = "cloudwatch-reporting-ci"
   user_arns          = var.user_arns.cloudwatch_reportng
-  base_policy_arn    = var.cloudwatch_reporting_base_policy_arn
-  custom_policy_json = var.cloudwatch_reporting_custom_policy_json
+  base_policy_arn    = "arn:aws:iam::aws:policy/AWSDenyAll"
+  custom_policy_json = data.aws_iam_policy_document.cloudwatch_reporting_policy.json
 }
