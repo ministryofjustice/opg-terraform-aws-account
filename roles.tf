@@ -71,3 +71,26 @@ module "ci" {
   base_policy_arn    = var.ci_base_policy_arn
   custom_policy_json = var.ci_custom_policy_json
 }
+
+
+data "aws_iam_policy_document" "cloudwatch_reporting_policy" {
+  statement {
+    sid    = "AllowCloudWatchReports"
+    effect = "Allow"
+    actions = [
+      "cloudwatch:GetMetricData",
+      "cloudwatch:GetMetricStatistics",
+      "cloudwatch:ListMetrics",
+    ]
+    resources = ["*"]
+  }
+}
+
+module "cloudwatch_reporting" {
+  count              = local.cloudwatch_reporting_role_enabled == true ? 1 : 0
+  source             = "./modules/default_roles"
+  name               = "cloudwatch-reporting-ci"
+  user_arns          = var.user_arns.cloudwatch_reportng
+  base_policy_arn    = "arn:aws:iam::aws:policy/AWSDenyAll"
+  custom_policy_json = data.aws_iam_policy_document.cloudwatch_reporting_policy.json
+}
