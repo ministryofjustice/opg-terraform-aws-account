@@ -2,10 +2,6 @@ variable "account_name" {
   type = string
 }
 
-variable "aws_config_enabled" {
-  type = bool
-}
-
 variable "aws_cost_anomaly_notifications_enabled" {
   type = bool
 }
