@@ -21,18 +21,21 @@ variable "aws_security_hub_enabled" {
 }
 
 variable "aws_slack_notifications_enabled" {
-  type    = bool
-  default = false
+  description = "Whether to enable alerting to slack. To be used with slack cost/health notification channel."
+  type        = bool
+  default     = false
 }
 
 variable "aws_slack_cost_anomaly_notification_channel" {
-  type    = string
-  default = ""
+  description = "Slack's internal ID for the channel you want to post cost anomalies to. Format AB1C2DEF"
+  type        = string
+  default     = ""
 }
 
 variable "aws_slack_health_notification_channel" {
-  type    = string
-  default = ""
+  description = "Slack's internal ID for the channel you want to post health alrets to. Format AB1C2DEF"
+  type        = string
+  default     = ""
 }
 
 variable "breakglass_base_policy_arn" {
