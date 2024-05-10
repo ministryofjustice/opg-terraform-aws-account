@@ -1,5 +1,6 @@
 locals {
   security_hub_pagerduty_integration_enabled = var.pagerduty_securityhub_integration_key != null ? true : false
+  security_hub_sns_topic_arn                 = try(aws_sns_topic.security_hub[0].arn, "default")
 }
 
 resource "aws_cloudwatch_event_rule" "security_hub" {
@@ -44,9 +45,8 @@ resource "aws_sns_topic_subscription" "security_hub" {
 }
 
 resource "aws_sns_topic_policy" "security_hub_topic_policy" {
-  count = local.security_hub_pagerduty_integration_enabled ? 1 : 0
-  arn   = aws_sns_topic.security_hub[0].arn
-
+  count  = local.security_hub_pagerduty_integration_enabled ? 1 : 0
+  arn    = aws_sns_topic.security_hub[0].arn
   policy = data.aws_iam_policy_document.security_hub_sns_topic.json
 }
 
@@ -59,7 +59,7 @@ data "aws_iam_policy_document" "security_hub_sns_topic" {
       identifiers = ["events.amazonaws.com"]
     }
     actions   = ["sns:Publish"]
-    resources = [aws_sns_topic.security_hub[0].arn]
+    resources = [local.security_hub_sns_topic_arn]
   }
 
   statement {
@@ -83,7 +83,7 @@ data "aws_iam_policy_document" "security_hub_sns_topic" {
       "SNS:Receive"
     ]
 
-    resources = [aws_sns_topic.security_hub[0].arn]
+    resources = [local.security_hub_sns_topic_arn]
 
     condition {
       test     = "ForAnyValue:StringEquals"
