@@ -17,6 +17,7 @@ module "security_hub" {
   fsbp_standard_control_elb_6_enabled       = var.fsbp_standard_control_elb_6_enabled
   sns_failure_feedback_role_arn             = aws_iam_role.sns_failure_feedback.arn
   sns_success_feedback_role_arn             = aws_iam_role.sns_success_feedback.arn
+  pagerduty_securityhub_integration_key     = var.pagerduty_securityhub_integration_key
 
   control_finding_generator = var.control_finding_generator
   auto_enable_controls      = var.auto_enable_controls

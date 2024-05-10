@@ -365,3 +365,10 @@ variable "aws_account_alternate_contact" {
     })
   })
 }
+
+variable "pagerduty_securityhub_integration_key" {
+  type        = string
+  default     = null
+  description = "The PagerDuty integration key to subscribe to SecurityHub findings"
+  sensitive   = true
+}

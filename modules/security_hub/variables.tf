@@ -95,3 +95,10 @@ variable "enable_default_standards" {
   default     = false
   description = "Whether to enable the security standards that Security Hub has designated as automatically enabled"
 }
+
+variable "pagerduty_securityhub_integration_key" {
+  type        = string
+  default     = null
+  description = "The PagerDuty integration key to subscribe to SecurityHub findings"
+  sensitive   = true
+}
