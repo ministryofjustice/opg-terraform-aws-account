@@ -29,6 +29,7 @@
 | <a name="module_custom_cloudwatch_alarms_vendored"></a> [custom\_cloudwatch\_alarms\_vendored](#module\_custom\_cloudwatch\_alarms\_vendored) | ./modules/custom_cloudwatch_alarms | n/a |
 | <a name="module_eu-west-1"></a> [eu-west-1](#module\_eu-west-1) | ./modules/region | n/a |
 | <a name="module_eu-west-2"></a> [eu-west-2](#module\_eu-west-2) | ./modules/region | n/a |
+| <a name="module_github_oidc_provider"></a> [github\_oidc\_provider](#module\_github\_oidc\_provider) | ./modules/github_oidc_provider | n/a |
 | <a name="module_operator"></a> [operator](#module\_operator) | ./modules/default_roles | n/a |
 | <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | ./modules/security_hub | n/a |
 | <a name="module_slack_notifications"></a> [slack\_notifications](#module\_slack\_notifications) | ./modules/slack_notifications | n/a |
@@ -119,6 +120,7 @@
 | <a name="input_enable_default_standards"></a> [enable\_default\_standards](#input\_enable\_default\_standards) | Whether to enable the security standards that Security Hub has designated as automatically enabled | `bool` | `false` | no |
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
 | <a name="input_fsbp_standard_control_elb_6_enabled"></a> [fsbp\_standard\_control\_elb\_6\_enabled](#input\_fsbp\_standard\_control\_elb\_6\_enabled) | When false, sets standard control to disabled. | `bool` | `true` | no |
+| <a name="input_github_oidc_enabled"></a> [github\_oidc\_enabled](#input\_github\_oidc\_enabled) | Enable an oidc provider in the account for use within github actions. Will create a stored query for the access log. | `bool` | `false` | no |
 | <a name="input_is_production"></a> [is\_production](#input\_is\_production) | n/a | `bool` | `false` | no |
 | <a name="input_modernisation_platform_account"></a> [modernisation\_platform\_account](#input\_modernisation\_platform\_account) | IF this is a vendored account from the Modernisation Platform | `bool` | `false` | no |
 | <a name="input_oam_xray_sink_identifier_arn"></a> [oam\_xray\_sink\_identifier\_arn](#input\_oam\_xray\_sink\_identifier\_arn) | The identifier of the OAM Sink to duplicate XRay events to (if desired) | `string` | `null` | no |
