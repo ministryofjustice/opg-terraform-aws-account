@@ -53,15 +53,6 @@ variable "breakglass_custom_policy_json" {
   default = ""
 }
 
-variable "billing_base_policy_arn" {
-  type    = string
-  default = "arn:aws:iam::aws:policy/job-function/Billing"
-}
-
-variable "billing_custom_policy_json" {
-  type    = string
-  default = ""
-}
 
 variable "ci_base_policy_arn" {
   type    = string
@@ -138,12 +129,10 @@ variable "viewer_custom_policy_json" {
 
 variable "user_arns" {
   type = object({
-    view                 = list(string)
-    operation            = list(string)
-    breakglass           = list(string)
-    ci                   = list(string)
-    billing              = list(string)
-    cloudwatch_reporting = list(string)
+    view       = list(string)
+    operation  = list(string)
+    breakglass = list(string)
+    ci         = list(string)
   })
 
 }
@@ -314,9 +303,6 @@ variable "github_oidc_enabled" {
 locals {
   aws_cost_anomaly_notifications_enabled = var.aws_slack_notifications_enabled && var.aws_slack_cost_anomaly_notification_channel != "" ? true : false
   aws_health_notifications_enabled       = var.aws_slack_notifications_enabled && var.aws_slack_health_notification_channel != "" ? true : false
-
-  # locals for cloudwatch reporting role
-  cloudwatch_reporting_role_enabled = length(var.user_arns.cloudwatch_reporting) > 0 ? true : false
 
   # Locals to control provisioning of Modernisation Platform Provisioned Services in new accounts.
   cloudtrail_enabled          = !var.modernisation_platform_account

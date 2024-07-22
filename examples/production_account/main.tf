@@ -1,9 +1,3 @@
-# Retrieve User ARNs from AWS IAM Groups
-data "aws_iam_group" "billing" {
-  group_name = "billing"
-  provider   = aws.identity
-}
-
 data "aws_iam_group" "breakglass" {
   group_name = "breakglass"
   provider   = aws.identity
@@ -26,12 +20,10 @@ data "aws_iam_group" "viewers" {
 
 locals {
   user_arns = {
-    breakglass           = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
-    ci                   = [aws_iam_user.ci_user.arn]
-    cloudwatch_reporting = [aws_iam_user.reporting_ci_user.arn]
-    operation            = data.aws_iam_group.operators.users[*].arn
-    view                 = data.aws_iam_group.viewers.users[*].arn
-    billing              = data.aws_iam_group.billing.users[*].arn
+    breakglass = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
+    ci         = [aws_iam_user.ci_user.arn]
+    operation  = data.aws_iam_group.operators.users[*].arn
+    view       = data.aws_iam_group.viewers.users[*].arn
   }
 }
 

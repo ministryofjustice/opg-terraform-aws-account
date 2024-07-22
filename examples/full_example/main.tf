@@ -1,9 +1,3 @@
-# Retrieve User ARNs from AWS IAM Groups
-data "aws_iam_group" "billing" {
-  group_name = "billing"
-  provider   = aws.identity
-}
-
 data "aws_iam_group" "breakglass" {
   group_name = "breakglass"
   provider   = aws.identity
@@ -31,7 +25,6 @@ locals {
     cloudwatch_reporting = [aws_iam_user.cloudwatch_ci_user.arn]
     operation            = data.aws_iam_group.operators.users[*].arn
     view                 = data.aws_iam_group.viewers.users[*].arn
-    billing              = data.aws_iam_group.billing.users[*].arn
 
   }
 }
@@ -47,8 +40,6 @@ module "full" {
   aws_s3_account_ignore_public_acls            = true
   aws_s3_account_restrict_public_buckets       = true
   aws_security_hub_enabled                     = true
-  billing_base_policy_arn                      = "arn:aws:iam::aws:policy/job-function/Billing"
-  billing_custom_policy_json                   = ""
   breakglass_base_policy_arn                   = "arn:aws:iam::aws:policy/AdministratorAccess"
   breakglass_create_instance_profile           = false
   breakglass_custom_policy_json                = ""
