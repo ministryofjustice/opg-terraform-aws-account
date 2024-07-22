@@ -15,7 +15,7 @@ resource "aws_iam_openid_connect_provider" "this" {
 
 resource "aws_cloudwatch_query_definition" "oidc_assume_role_with_web_identity_logs" {
   name            = "Github OIDC AssumeRoleWithWebIdentity Logs"
-  log_group_names = var.cloudtrail_trail_name
+  log_group_names = [var.cloudtrail_trail_name]
 
   query_string = <<EOF
 fields @timestamp, errorCode, errorMessage, userIdentity.userName, @message
