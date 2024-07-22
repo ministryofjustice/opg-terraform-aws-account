@@ -1,6 +1,6 @@
 
-variable "s3_access_logging_bucket_names" {
-  type        = list(string)
-  description = "Log group to query for AssumeRoleWithWebIdentity actions"
-  default     = []
+variable "cloudtrail_trail_name" {
+  type        = string
+  description = "Cloud trail log group name to query for AssumeRoleWithWebIdentity actions"
+  default     = ""
 }

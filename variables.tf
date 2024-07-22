@@ -305,7 +305,7 @@ variable "oam_xray_sink_identifier_arn" {
 }
 
 # added to enable github oidc provider in the account
-variable "enable_github_oidc" {
+variable "github_oidc_enabled" {
   type        = bool
   default     = false
   description = "Enable an oidc provider in the account for use within github actions. Will create a stored query for the access log."
@@ -324,9 +324,6 @@ locals {
   guardduty_enabled           = var.enable_guardduty && !var.modernisation_platform_account ? true : false
   security_hub_enabled        = var.aws_security_hub_enabled && !var.modernisation_platform_account ? true : false
   shield_support_role_enabled = var.shield_support_role_enabled && !var.modernisation_platform_account ? true : false
-
-  # locals for oidc
-  github_oidc_enabled = var.enable_github_oidc
 
 }
 
