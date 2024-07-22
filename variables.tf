@@ -300,6 +300,12 @@ variable "github_oidc_enabled" {
   description = "Enable an oidc provider in the account for use within github actions. Will create a stored query for the access log."
 }
 
+variable "github_oidc_repository" {
+  type        = string
+  default     = "opg-reports"
+  description = "Source repository slug where oidc calls will be made from. Default (opg-reports)"
+}
+
 locals {
   aws_cost_anomaly_notifications_enabled = var.aws_slack_notifications_enabled && var.aws_slack_cost_anomaly_notification_channel != "" ? true : false
   aws_health_notifications_enabled       = var.aws_slack_notifications_enabled && var.aws_slack_health_notification_channel != "" ? true : false
