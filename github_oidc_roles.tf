@@ -6,7 +6,7 @@ locals {
   github_oidc_non_production_policy = [
     data.aws_iam_policy_document.cost_data.json
   ]
-  github_oidc_policy = var.is_production ? github_oidc_production_policy : github_oidc_non_production_policy
+  github_oidc_policy = var.is_production ? local.github_oidc_production_policy : local.github_oidc_non_production_policy
 }
 
 module "github_oidc_roles" {
