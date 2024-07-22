@@ -20,11 +20,10 @@ data "aws_iam_group" "viewers" {
 
 locals {
   user_arns = {
-    breakglass           = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
-    ci                   = [aws_iam_user.ci_user.arn]
-    cloudwatch_reporting = [aws_iam_user.cloudwatch_ci_user.arn]
-    operation            = data.aws_iam_group.operators.users[*].arn
-    view                 = data.aws_iam_group.viewers.users[*].arn
+    breakglass = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
+    ci         = [aws_iam_user.ci_user.arn]
+    operation  = data.aws_iam_group.operators.users[*].arn
+    view       = data.aws_iam_group.viewers.users[*].arn
 
   }
 }
