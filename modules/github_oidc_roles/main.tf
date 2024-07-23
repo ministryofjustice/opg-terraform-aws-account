@@ -41,7 +41,7 @@ resource "aws_iam_role" "oidc" {
 data "aws_iam_policy_document" "oidc_assume_roles" {
   count = length(var.assumable_roles) == 0 ? 0 : 1
   statement {
-    sid     = "StsAssume"
+    sid     = "OIDCStsAssume"
     effect  = "Allow"
     actions = ["sts:AssumeRole"]
 

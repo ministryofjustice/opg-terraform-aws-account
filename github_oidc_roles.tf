@@ -1,13 +1,21 @@
 locals {
-  add_uptime_oidc = var.github_oidc_enabled && var.is_production ? true : false
+  oidc_assumable_roles = []
+  oidc_permissions = [
+    "repo:ministryofjustice/opg-reports:pull_request",
+    "repo:ministryofjustice/opg-reports:ref:refs/heads/*"
+  ]
+
+  oidc_uptime_enabled = var.github_oidc_enabled && var.is_production ? true : false
+
 }
 # OIDC role for fetching cost data from the account
 module "github_oidc_role_cost_data" {
-  count       = var.github_oidc_enabled ? 1 : 0
-  source      = "./modules/github_oidc_roles"
-  name        = "gh-actions-cost-metrics"
-  description = "Run OPG costs reports"
-  permissions = var.github_oidc_permissions
+  count           = var.github_oidc_enabled ? 1 : 0
+  source          = "./modules/github_oidc_roles"
+  name            = "gh-actions-cost-metrics"
+  description     = "Run OPG costs reports"
+  permissions     = local.oidc_permissions
+  assumable_roles = local.oidc_assumable_roles
 
   custom_policy_documents = [data.aws_iam_policy_document.cost_metrics.json]
 }
@@ -15,11 +23,12 @@ module "github_oidc_role_cost_data" {
 # OIDC role for fetching cloudwatch metrics relating to uptime checks
 # Only added for production accounts
 module "github_oidc_role_uptime_data" {
-  count       = local.add_uptime_oidc ? 1 : 0
-  source      = "./modules/github_oidc_roles"
-  name        = "gh-actions-uptime-metrics"
-  description = "Run OPG uptime reports"
-  permissions = var.github_oidc_permissions
+  count           = local.oidc_uptime_enabled ? 1 : 0
+  source          = "./modules/github_oidc_roles"
+  name            = "gh-actions-uptime-metrics"
+  description     = "Run OPG uptime reports"
+  permissions     = local.oidc_permissions
+  assumable_roles = local.oidc_assumable_roles
 
   custom_policy_documents = [data.aws_iam_policy_document.uptime_metrics.json]
 }

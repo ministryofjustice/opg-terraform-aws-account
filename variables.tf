@@ -300,14 +300,6 @@ variable "github_oidc_enabled" {
   description = "Enable an oidc provider in the account for use within github actions. Will create a stored query for the access log."
 }
 
-variable "github_oidc_permissions" {
-  type        = list(string)
-  description = "Permissions to scope the oidc role to"
-  default = [
-    "repo:ministryofjustice/opg-reports:pull_request",
-    "repo:ministryofjustice/opg-reports:ref:refs/heads/*"
-  ]
-}
 
 locals {
   aws_cost_anomaly_notifications_enabled = var.aws_slack_notifications_enabled && var.aws_slack_cost_anomaly_notification_channel != "" ? true : false
