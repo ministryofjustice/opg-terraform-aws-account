@@ -8,6 +8,7 @@ data "aws_iam_policy_document" "github_oidc_assume_role" {
   version = "2012-10-17"
 
   statement {
+    sid     = "AllowGitHubOIDCToAssumeRoleViaWebIdentity"
     effect  = "Allow"
     actions = ["sts:AssumeRoleWithWebIdentity"]
 
