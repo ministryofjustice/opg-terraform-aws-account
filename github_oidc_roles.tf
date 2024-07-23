@@ -15,7 +15,7 @@ module "github_oidc_role_cost_data" {
 # OIDC role for fetching cloudwatch metrics relating to uptime checks
 # Only added for production accounts
 module "github_oidc_role_uptime_data" {
-  count       = locals.add_uptime_oidc ? 1 : 0
+  count       = local.add_uptime_oidc ? 1 : 0
   source      = "./modules/github_oidc_roles"
   name        = "gh-actions-uptime-metrics"
   description = "Run OPG uptime reports"
