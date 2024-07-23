@@ -1,26 +1,31 @@
 locals {
-  github_oidc_production_policy = [
-    data.aws_iam_policy_document.uptime_metrics.json,
-    data.aws_iam_policy_document.cost_data.json
-  ]
-  github_oidc_non_production_policy = [
-    data.aws_iam_policy_document.cost_data.json
-  ]
-  github_oidc_policy = var.is_production ? local.github_oidc_production_policy : local.github_oidc_non_production_policy
+  add_uptime_oidc = var.github_oidc_enabled && var.is_production ? true : false
 }
-
-module "github_oidc_roles" {
+# OIDC role for fetching cost data from the account
+module "github_oidc_role_cost_data" {
   count       = var.github_oidc_enabled ? 1 : 0
   source      = "./modules/github_oidc_roles"
-  name        = "reporting-gh-actions-run-reports"
-  description = "Run OPG reports"
+  name        = "gh-actions-cost-metrics"
+  description = "Run OPG costs reports"
   repository  = var.github_oidc_repository
 
-  custom_policy_documents = local.github_oidc_policy
+  custom_policy_documents = data.aws_iam_policy_document.cost_metrics.json
 }
 
+# OIDC role for fetching cloudwatch metrics relating to uptime checks
+# Only added for production accounts
+module "github_oidc_role_uptime_data" {
+  count       = locals.add_uptime_oidc ? 1 : 0
+  source      = "./modules/github_oidc_roles"
+  name        = "gh-actions-uptime-metrics"
+  description = "Run OPG uptime reports"
+  repository  = var.github_oidc_repository
+
+  custom_policy_documents = data.aws_iam_policy_document.uptime_metrics.json
+}
 
 # OIDC polices
+
 # Used to get uptime stats
 data "aws_iam_policy_document" "uptime_metrics" {
   version = "2012-10-17"
@@ -38,7 +43,7 @@ data "aws_iam_policy_document" "uptime_metrics" {
 }
 
 # Used to get cost data
-data "aws_iam_policy_document" "cost_data" {
+data "aws_iam_policy_document" "cost_metrics" {
   version = "2012-10-17"
 
   statement {
