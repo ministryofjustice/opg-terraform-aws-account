@@ -1,10 +1,5 @@
 locals {
   auth_domain = "token.actions.githubusercontent.com"
-  org_name    = "ministryofjustice"
-  permission_list = [
-    "repo:${local.org_name}/${var.repository}:pull_request",
-    "repo:${local.org_name}/${var.repository}:ref:refs/heads/*"
-  ]
 }
 
 data "aws_caller_identity" "current" {}
@@ -30,7 +25,7 @@ data "aws_iam_policy_document" "github_oidc_assume_role" {
     condition {
       test     = "ForAnyValue:StringLike"
       variable = "${local.auth_domain}:sub"
-      values   = local.permission_list
+      values   = var.permissions
     }
   }
 }

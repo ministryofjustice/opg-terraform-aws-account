@@ -7,7 +7,7 @@ module "github_oidc_role_cost_data" {
   source      = "./modules/github_oidc_roles"
   name        = "gh-actions-cost-metrics"
   description = "Run OPG costs reports"
-  repository  = var.github_oidc_repository
+  permissions = var.github_oidc_permissions
 
   custom_policy_documents = [data.aws_iam_policy_document.cost_metrics.json]
 }
@@ -19,7 +19,7 @@ module "github_oidc_role_uptime_data" {
   source      = "./modules/github_oidc_roles"
   name        = "gh-actions-uptime-metrics"
   description = "Run OPG uptime reports"
-  repository  = var.github_oidc_repository
+  permissions = var.github_oidc_permissions
 
   custom_policy_documents = [data.aws_iam_policy_document.uptime_metrics.json]
 }

@@ -300,10 +300,13 @@ variable "github_oidc_enabled" {
   description = "Enable an oidc provider in the account for use within github actions. Will create a stored query for the access log."
 }
 
-variable "github_oidc_repository" {
-  type        = string
-  default     = "opg-reports"
-  description = "Source repository slug where oidc calls will be made from. Default (opg-reports)"
+variable "github_oidc_permissions" {
+  type        = list(string)
+  description = "Permissions to scope the oidc role to"
+  default = [
+    "repo:ministryofjustice/opg-reports:pull_request",
+    "repo:ministryofjustice/opg-reports:ref:refs/heads/*"
+  ]
 }
 
 locals {
