@@ -116,7 +116,6 @@
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
 | <a name="input_fsbp_standard_control_elb_6_enabled"></a> [fsbp\_standard\_control\_elb\_6\_enabled](#input\_fsbp\_standard\_control\_elb\_6\_enabled) | When false, sets standard control to disabled. | `bool` | `true` | no |
 | <a name="input_github_oidc_enabled"></a> [github\_oidc\_enabled](#input\_github\_oidc\_enabled) | Enable an oidc provider in the account for use within github actions. Will create a stored query for the access log. | `bool` | `false` | no |
-| <a name="input_github_oidc_permissions"></a> [github\_oidc\_permissions](#input\_github\_oidc\_permissions) | Permissions to scope the oidc role to | `list(string)` | <pre>[<br>  "repo:ministryofjustice/opg-reports:pull_request",<br>  "repo:ministryofjustice/opg-reports:ref:refs/heads/*"<br>]</pre> | no |
 | <a name="input_is_production"></a> [is\_production](#input\_is\_production) | n/a | `bool` | `false` | no |
 | <a name="input_modernisation_platform_account"></a> [modernisation\_platform\_account](#input\_modernisation\_platform\_account) | IF this is a vendored account from the Modernisation Platform | `bool` | `false` | no |
 | <a name="input_oam_xray_sink_identifier_arn"></a> [oam\_xray\_sink\_identifier\_arn](#input\_oam\_xray\_sink\_identifier\_arn) | The identifier of the OAM Sink to duplicate XRay events to (if desired) | `string` | `null` | no |
