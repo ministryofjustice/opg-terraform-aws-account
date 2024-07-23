@@ -1,8 +1,3 @@
-# Retrieve User ARNs from AWS IAM Groups
-data "aws_iam_group" "billing" {
-  group_name = "billing"
-  provider   = aws.identity
-}
 
 data "aws_iam_group" "breakglass" {
   group_name = "breakglass"
@@ -30,7 +25,6 @@ locals {
     ci         = [aws_iam_user.ci_user.arn]
     operation  = data.aws_iam_group.operators.users[*].arn
     view       = data.aws_iam_group.viewers.users[*].arn
-    billing    = data.aws_iam_group.billing.users[*].arn
   }
 }
 # Description: This module configures an AWS account with some security controls turned off for development purposes.

@@ -6,35 +6,6 @@ module "viewer" {
   custom_policy_json = var.viewer_custom_policy_json
 }
 
-module "billing" {
-  source             = "./modules/default_roles"
-  name               = "billing"
-  user_arns          = var.user_arns.billing
-  base_policy_arn    = var.billing_base_policy_arn
-  custom_policy_json = var.billing_custom_policy_json
-}
-
-data "aws_iam_policy_document" "aws_cost_explorer_access_for_billing" {
-  statement {
-    sid    = "AllowCostExplorerGet"
-    effect = "Allow"
-    actions = [
-      "ce:get*"
-    ]
-    resources = ["*"]
-  }
-}
-
-resource "aws_iam_policy" "aws_cost_explorer_access_for_billing" {
-  name        = "CostExporerAccessForBillingRole"
-  description = "Allow Cost Explorer API Get"
-  policy      = data.aws_iam_policy_document.aws_cost_explorer_access_for_billing.json
-}
-
-resource "aws_iam_role_policy_attachment" "aws_cost_explorer_access_for_billing" {
-  role       = module.billing.aws_iam_role.name
-  policy_arn = aws_iam_policy.aws_cost_explorer_access_for_billing.arn
-}
 
 module "operator" {
   source                  = "./modules/default_roles"
@@ -70,32 +41,4 @@ module "ci" {
   user_arns          = var.user_arns.ci
   base_policy_arn    = var.ci_base_policy_arn
   custom_policy_json = var.ci_custom_policy_json
-}
-
-
-data "aws_iam_policy_document" "cloudwatch_reporting_policy" {
-  statement {
-    sid    = "AllowCloudWatchReports"
-    effect = "Allow"
-    actions = [
-      "cloudwatch:GetMetricData",
-      "cloudwatch:GetMetricStatistics",
-      "cloudwatch:ListMetrics",
-    ]
-    resources = ["*"]
-  }
-}
-
-resource "aws_iam_policy" "cloudwatch_reporting" {
-  name        = "cloudwatch_metrics_policy"
-  description = "Policy to allow access to only metric information from cloudwatch"
-  policy      = data.aws_iam_policy_document.cloudwatch_reporting_policy.json
-}
-
-module "cloudwatch_reporting" {
-  count           = local.cloudwatch_reporting_role_enabled == true ? 1 : 0
-  source          = "./modules/default_roles"
-  name            = "cloudwatch-reporting-ci"
-  user_arns       = var.user_arns.cloudwatch_reporting
-  base_policy_arn = aws_iam_policy.cloudwatch_reporting.arn
 }
