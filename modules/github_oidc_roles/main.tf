@@ -1,20 +1,10 @@
 locals {
   auth_domain = "token.actions.githubusercontent.com"
   org_name    = "ministryofjustice"
-  branch_and_main_sub_list = [
+  permission_list = [
     "repo:${local.org_name}/${var.repository}:pull_request",
     "repo:${local.org_name}/${var.repository}:ref:refs/heads/*"
   ]
-  main_sub_list = [
-    "repo:${local.org_name}/${var.repository}:ref:refs/heads/main"
-  ]
-  environment_sub_list = [
-    "repo:${local.org_name}/${var.repository}:environment:${var.github_environment}"
-  ]
-
-  # Defaults to main and branch. Can be overriden with variables main_only or github_environment
-  sub_list       = var.main_only == true ? local.main_sub_list : local.branch_and_main_sub_list
-  final_sub_list = var.github_environment == "" ? local.sub_list : local.environment_sub_list
 }
 
 data "aws_caller_identity" "current" {}
@@ -40,7 +30,7 @@ data "aws_iam_policy_document" "github_oidc_assume_role" {
     condition {
       test     = "ForAnyValue:StringLike"
       variable = "${local.auth_domain}:sub"
-      values   = local.final_sub_list
+      values   = local.permission_list
     }
   }
 }
