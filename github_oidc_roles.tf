@@ -9,7 +9,7 @@ module "github_oidc_role_cost_data" {
   description = "Run OPG costs reports"
   repository  = var.github_oidc_repository
 
-  custom_policy_documents = data.aws_iam_policy_document.cost_metrics.json
+  custom_policy_documents = [data.aws_iam_policy_document.cost_metrics.json]
 }
 
 # OIDC role for fetching cloudwatch metrics relating to uptime checks
@@ -21,7 +21,7 @@ module "github_oidc_role_uptime_data" {
   description = "Run OPG uptime reports"
   repository  = var.github_oidc_repository
 
-  custom_policy_documents = data.aws_iam_policy_document.uptime_metrics.json
+  custom_policy_documents = [data.aws_iam_policy_document.uptime_metrics.json]
 }
 
 # OIDC polices
