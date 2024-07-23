@@ -1,6 +1,5 @@
 locals {
-  oidc_assumable_roles = []
-  oidc_permissions = [
+  opg_reports_oidc_permissions = [
     "repo:ministryofjustice/opg-reports:pull_request",
     "repo:ministryofjustice/opg-reports:ref:refs/heads/*"
   ]
@@ -14,8 +13,8 @@ module "github_oidc_role_cost_data" {
   source          = "./modules/github_oidc_roles"
   name            = "gh-actions-cost-metrics"
   description     = "Run OPG costs reports"
-  permissions     = local.oidc_permissions
-  assumable_roles = local.oidc_assumable_roles
+  permissions     = local.opg_reports_oidc_permissions
+  assumable_roles = []
 
   custom_policy_documents = [data.aws_iam_policy_document.cost_metrics.json]
 }
@@ -27,8 +26,8 @@ module "github_oidc_role_uptime_data" {
   source          = "./modules/github_oidc_roles"
   name            = "gh-actions-uptime-metrics"
   description     = "Run OPG uptime reports"
-  permissions     = local.oidc_permissions
-  assumable_roles = local.oidc_assumable_roles
+  permissions     = local.opg_reports_oidc_permissions
+  assumable_roles = []
 
   custom_policy_documents = [data.aws_iam_policy_document.uptime_metrics.json]
 }

@@ -5,7 +5,8 @@ locals {
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "github_oidc_assume_role" {
-  version = "2012-10-17"
+  policy_id = "OIDCAssumeRole"
+  version   = "2012-10-17"
 
   statement {
     sid     = "AllowGitHubOIDCToAssumeRoleViaWebIdentity"
