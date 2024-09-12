@@ -1,13 +1,20 @@
 resource "aws_s3_bucket" "s3_access_logging" {
   bucket = "s3-access-logs-opg-${var.product}-${var.account_name}-${data.aws_region.current.name}"
+}
 
-  versioning {
-    enabled = true
+resource "aws_s3_bucket_versioning" "s3_access_logging" {
+  bucket = aws_s3_bucket.s3_access_logging.id
+  versioning_configuration {
+    status = "Enabled"
   }
+}
 
-  lifecycle_rule {
-    id      = "log"
-    enabled = true
+resource "aws_s3_bucket_lifecycle_configuration" "s3_access_logging" {
+  bucket = aws_s3_bucket.s3_access_logging.id
+
+  rule {
+    status = "Enabled"
+    id     = "expire-after-490-days"
 
     transition {
       days          = 30
@@ -19,11 +26,22 @@ resource "aws_s3_bucket" "s3_access_logging" {
     }
   }
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+  rule {
+    id = "abort-incomplete-multipart-upload"
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
+    }
+
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "s3_access_logging" {
+  bucket = aws_s3_bucket.s3_access_logging.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
   }
 }
