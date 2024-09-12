@@ -2,37 +2,63 @@ data "aws_region" "current" {}
 
 resource "aws_s3_bucket" "config" {
   bucket        = "config-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
-  acl           = "private"
   force_destroy = true
+}
 
-  logging {
-    target_bucket = var.s3_access_logging_bucket_name
-    target_prefix = "log/config-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
+resource "aws_s3_bucket_versioning" "config" {
+  bucket = aws_s3_bucket.config.id
+  versioning_configuration {
+    status = "Enabled"
   }
-  versioning {
-    enabled = true
-  }
+}
 
-  lifecycle_rule {
-    enabled = true
+resource "aws_s3_bucket_acl" "config" {
+  bucket = aws_s3_bucket.config.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_logging" "config" {
+  bucket        = aws_s3_bucket.config.id
+  target_bucket = var.s3_access_logging_bucket_name
+  target_prefix = "log/config-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "config" {
+  bucket = aws_s3_bucket.config.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "config" {
+  bucket = aws_s3_bucket.config.id
+
+  rule {
+    status = "Enabled"
+    id     = "expire-after-490-days"
+
+    noncurrent_version_expiration {
+      noncurrent_days = 10
+    }
 
     expiration {
       days = 490
     }
-
-    noncurrent_version_expiration {
-      days = 10
-    }
   }
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+  rule {
+    id = "abort-incomplete-multipart-upload"
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
     }
+
+    status = "Enabled"
   }
 }
+
 
 resource "aws_s3_bucket_public_access_block" "config" {
   bucket = aws_s3_bucket.config.bucket
