@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "cloudtrail" {
 }
 
 resource "aws_s3_bucket_logging" "cloudtrail" {
-  bucket        = aws_s3_bucket.bucket.id
+  bucket        = aws_s3_bucket.cloudtrail.id
   target_bucket = var.s3_access_logging_bucket_name
   target_prefix = "log/${aws_s3_bucket.cloudtrial.id}/"
 }
@@ -19,7 +19,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail" {
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
-  bucket = aws_s3_bucket.bucket.id
+  bucket = aws_s3_bucket.cloudtrail.id
 
   rule {
     status = "Enabled"
