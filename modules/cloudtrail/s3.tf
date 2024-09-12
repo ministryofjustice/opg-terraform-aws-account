@@ -1,16 +1,33 @@
 resource "aws_s3_bucket" "cloudtrail" {
   bucket = var.bucket_name
-  logging {
-    target_bucket = var.s3_access_logging_bucket_name
-    target_prefix = "log/${var.bucket_name}/"
-  }
+}
 
-  lifecycle_rule {
-    enabled = true
-    id      = "archive-after-30-days"
+resource "aws_s3_bucket_logging" "cloudtrail" {
+  bucket        = aws_s3_bucket.bucket.id
+  target_bucket = var.s3_access_logging_bucket_name
+  target_prefix = "log/${aws_s3_bucket.cloudtrial.id}/"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail" {
+  bucket = aws_s3_bucket.cloudtrail.id
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm     = "aws:kms"
+      kms_master_key_id = aws_kms_key.cloudtrail_s3.key_id
+    }
+  }
+}
+
+resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
+  bucket = aws_s3_bucket.bucket.id
+
+  rule {
+    status = "Enabled"
+    id     = "archive-after-30-days"
+
     noncurrent_version_transition {
-      days          = 30
-      storage_class = "GLACIER"
+      noncurrent_days = 30
+      storage_class   = "GLACIER"
     }
 
     transition {
@@ -19,13 +36,14 @@ resource "aws_s3_bucket" "cloudtrail" {
     }
   }
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm     = "aws:kms"
-        kms_master_key_id = aws_kms_key.cloudtrail_s3.key_id
-      }
+  rule {
+    id = "abort-incomplete-multipart-upload"
+
+    abort_incomplete_multipart_upload {
+      days_after_initiation = 7
     }
+
+    status = "Enabled"
   }
 }
 
