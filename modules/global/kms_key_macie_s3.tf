@@ -1,6 +1,6 @@
 #TODO: make these resources in the root or a global module.
 module "macie_findings_encryption_key" {
-  source                  = "../kms_key"
+  source                  = "../kms_key_multi_region"
   encrypted_resource      = "Macie S3 bucket"
   kms_key_alias_name      = "${data.aws_default_tags.current.tags.application}-macie-findings-s3-bucket-encryption"
   enable_key_rotation     = true
