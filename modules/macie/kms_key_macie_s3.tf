@@ -1,5 +1,5 @@
-module "macie_findings" {
-  source                  = "./modules/kms_key"
+module "macie_findings_encryption_key" {
+  source                  = "../modules/kms_key"
   encrypted_resource      = "Macie S3 bucket"
   kms_key_alias_name      = "${local.default_tags.application}-macie-findings-s3-bucket-encryption"
   enable_key_rotation     = true
