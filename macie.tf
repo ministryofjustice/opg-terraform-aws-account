@@ -7,6 +7,6 @@ module "macie" {
   s3_access_logging_bucket_name        = module.eu-west-1.access_logging_bucket.bucket
   providers = {
     aws.eu_west_1 = aws
-    aws.eu_west_2 = aws.eu_west_2
+    aws.eu_west_2 = aws.eu-west-2
   }
 }
