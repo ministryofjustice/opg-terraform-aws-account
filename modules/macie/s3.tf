@@ -61,7 +61,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
 
 
 resource "aws_s3_bucket_public_access_block" "bucket" {
-  bucket                  = aws_s3_bucket.config.bucket
+  bucket                  = aws_s3_bucket.bucket.bucket
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
@@ -69,12 +69,12 @@ resource "aws_s3_bucket_public_access_block" "bucket" {
 }
 
 resource "aws_s3_bucket_policy" "config_bucket" {
-  bucket = aws_s3_bucket_public_access_block.config.bucket
-  policy = data.aws_iam_policy_document.config_bucket.json
+  bucket = aws_s3_bucket_public_access_block.bucket.bucket
+  policy = data.aws_iam_policy_document.bucket.json
 }
 
 #need a policy document for macie to write to the bucket
-data "aws_iam_policy_document" "config_bucket" {
+data "aws_iam_policy_document" "bucket" {
   statement {
     actions = [
       "s3:PutObject",
