@@ -13,3 +13,18 @@ variable "status" {
     error_message = "Invalid value for status"
   }
 }
+
+variable "s3_access_logging_bucket_name" {
+  description = "The name of the bucket that will receive the log objects"
+  type        = string
+}
+
+variable "account_name" {
+  description = "Account Name"
+  type        = string
+}
+
+variable "product" {
+  description = "Product/Service name"
+  type        = string
+}
