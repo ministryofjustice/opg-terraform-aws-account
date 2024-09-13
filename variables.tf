@@ -366,3 +366,19 @@ variable "pagerduty_securityhub_integration_key" {
   description = "The PagerDuty integration key to subscribe to SecurityHub findings"
   sensitive   = true
 }
+
+variable "aws_macie2_account_finding_publishing_frequency" {
+  default = "SIX_HOURS"
+  validation {
+    condition     = contains(["FIFTEEN_MINUTES", "ONE_HOUR", "SIX_HOURS"], var.aws_macie2_account_finding_publishing_frequency)
+    error_message = "Invalid value for aws_macie2_account_finding_publishing_frequency"
+  }
+}
+
+variable "aws_macie2_status" {
+  default = "ENABLED"
+  validation {
+    condition     = contains(["ENABLED", "PAUSED"], var.aws_macie2_status)
+    error_message = "Invalid value for aws_macie2_status"
+  }
+}
