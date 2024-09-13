@@ -1,3 +1,4 @@
+#TODO: make these resources in the root or a global module.
 module "macie_findings_encryption_key" {
   source                  = "../kms_key"
   encrypted_resource      = "Macie S3 bucket"
@@ -12,21 +13,7 @@ module "macie_findings_encryption_key" {
   }
 }
 
-resource "aws_kms_replica_key" "macie_findings_encryption_key_replica_global" {
-  description             = "${data.aws_default_tags.current.tags.application} Macie S3 bucket multi-region replica key"
-  deletion_window_in_days = 10
-  primary_key_arn         = module.macie_findings_encryption_key_kms.eu_west_1_target_key_arn
-  policy                  = data.aws_iam_policy_document.macie_findings.json
-  provider                = aws.global
-}
-
-resource "aws_kms_alias" "macie_findings_encryption_key_alias_global" {
-  name          = "alias/${data.aws_default_tags.current.tags.application}-macie-findings-s3-bucket-encryption"
-  target_key_id = aws_kms_replica_key.macie_findings_encryption_key_replica_global.key_id
-  provider      = aws.global
-}
-
-
+#TODO: make this key policy specific for Macie
 # See the following link for further information
 # https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html
 data "aws_iam_policy_document" "macie_findings" {

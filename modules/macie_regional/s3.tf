@@ -1,8 +1,7 @@
-data "aws_region" "current" {}
-
 resource "aws_s3_bucket" "bucket" {
   bucket        = "macie-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
   force_destroy = true
+  provider      = aws.region
 }
 
 resource "aws_s3_bucket_versioning" "bucket" {
@@ -10,17 +9,20 @@ resource "aws_s3_bucket_versioning" "bucket" {
   versioning_configuration {
     status = "Enabled"
   }
+  provider = aws.region
 }
 
 resource "aws_s3_bucket_acl" "bucket" {
-  bucket = aws_s3_bucket.bucket.id
-  acl    = "private"
+  bucket   = aws_s3_bucket.bucket.id
+  acl      = "private"
+  provider = aws.region
 }
 
 resource "aws_s3_bucket_logging" "bucket" {
   bucket        = aws_s3_bucket.bucket.id
   target_bucket = var.s3_access_logging_bucket_name
   target_prefix = "log/${aws_s3_bucket.bucket.id}"
+  provider      = aws.region
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "bucket" {
@@ -28,9 +30,10 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "bucket" {
   rule {
     apply_server_side_encryption_by_default {
       sse_algorithm     = "aws:kms"
-      kms_master_key_id = module.macie_findings.eu_west_1_kms_key_arn
+      kms_master_key_id = var.macie_findings_s3_bucket_kms_key.target_key_id
     }
   }
+  provider = aws.region
 }
 
 resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
@@ -58,6 +61,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
 
     status = "Enabled"
   }
+  provider = aws.region
 }
 
 
@@ -67,11 +71,13 @@ resource "aws_s3_bucket_public_access_block" "bucket" {
   block_public_policy     = true
   ignore_public_acls      = true
   restrict_public_buckets = true
+  provider                = aws.region
 }
 
 resource "aws_s3_bucket_policy" "config_bucket" {
-  bucket = aws_s3_bucket_public_access_block.bucket.bucket
-  policy = data.aws_iam_policy_document.bucket.json
+  bucket   = aws_s3_bucket_public_access_block.bucket.bucket
+  policy   = data.aws_iam_policy_document.bucket.json
+  provider = aws.region
 }
 
 #need a policy document for macie to write to the bucket
@@ -92,4 +98,5 @@ data "aws_iam_policy_document" "bucket" {
       identifiers = ["macie.amazonaws.com"]
     }
   }
+  provider = aws.region
 }
