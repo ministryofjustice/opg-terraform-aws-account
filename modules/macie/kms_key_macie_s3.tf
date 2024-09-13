@@ -1,7 +1,7 @@
 module "macie_findings_encryption_key" {
   source                  = "../kms_key"
   encrypted_resource      = "Macie S3 bucket"
-  kms_key_alias_name      = "${local.default_tags.application}-macie-findings-s3-bucket-encryption"
+  kms_key_alias_name      = "${data.aws_default_tags.current.tags.application}-macie-findings-s3-bucket-encryption"
   enable_key_rotation     = true
   enable_multi_region     = true
   deletion_window_in_days = 10
@@ -11,6 +11,21 @@ module "macie_findings_encryption_key" {
     aws.eu_west_2 = aws.eu_west_2
   }
 }
+
+resource "aws_kms_replica_key" "macie_findings_encryption_key_replica_global" {
+  description             = "${data.aws_default_tags.current.tags.application} Macie S3 bucket multi-region replica key"
+  deletion_window_in_days = 10
+  primary_key_arn         = module.macie_findings_encryption_key_kms.eu_west_1_target_key_arn
+  policy                  = data.aws_iam_policy_document.macie_findings.json
+  provider                = aws.global
+}
+
+resource "aws_kms_alias" "macie_findings_encryption_key_alias_global" {
+  name          = "alias/${data.aws_default_tags.current.tags.application}-macie-findings-s3-bucket-encryption"
+  target_key_id = aws_kms_replica_key.macie_findings_encryption_key_replica_global.key_id
+  provider      = aws.global
+}
+
 
 # See the following link for further information
 # https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html
