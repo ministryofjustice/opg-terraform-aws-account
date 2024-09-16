@@ -24,7 +24,7 @@ data "aws_iam_policy_document" "macie_findings" {
     effect = "Allow"
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.global.account_id}:root"]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
     actions = [
       "kms:*",
@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "macie_findings" {
     sid    = "Allow Key to be used for Encryption"
     effect = "Allow"
     resources = [
-      "arn:aws:kms:*:${data.aws_caller_identity.global.account_id}:key/*"
+      "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
     ]
     actions = [
       "kms:Encrypt",
@@ -51,7 +51,7 @@ data "aws_iam_policy_document" "macie_findings" {
     principals {
       type = "AWS"
       identifiers = [
-        local.account.account_name == "development" ? "arn:aws:iam::${data.aws_caller_identity.global.account_id}:root" : "arn:aws:iam::${data.aws_caller_identity.global.account_id}:role/opensearch-pipeline-role-${local.account.account_name}",
+        local.account.account_name == "development" ? "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/opensearch-pipeline-role-${local.account.account_name}",
       ]
     }
     condition {
@@ -68,7 +68,7 @@ data "aws_iam_policy_document" "macie_findings" {
     sid    = "General View Access"
     effect = "Allow"
     resources = [
-      "arn:aws:kms:*:${data.aws_caller_identity.global.account_id}:key/*"
+      "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
     ]
     actions = [
       "kms:DescribeKey",
@@ -80,7 +80,7 @@ data "aws_iam_policy_document" "macie_findings" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.global.account_id}:root"
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
       ]
     }
   }
@@ -89,7 +89,7 @@ data "aws_iam_policy_document" "macie_findings" {
     sid    = "Key Administrator"
     effect = "Allow"
     resources = [
-      "arn:aws:kms:*:${data.aws_caller_identity.global.account_id}:key/*"
+      "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
     ]
     actions = [
       "kms:Create*",
@@ -112,8 +112,8 @@ data "aws_iam_policy_document" "macie_findings" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.global.account_id}:role/breakglass",
-        "arn:aws:iam::${data.aws_caller_identity.global.account_id}:role/modernising-lpa-ci",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/breakglass",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/modernising-lpa-ci",
       ]
     }
   }
@@ -122,7 +122,7 @@ data "aws_iam_policy_document" "macie_findings" {
     sid    = "Key Administrator Decryption"
     effect = "Allow"
     resources = [
-      "arn:aws:kms:*:${data.aws_caller_identity.global.account_id}:key/*"
+      "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
     ]
     actions = [
       "kms:Decrypt",
@@ -131,7 +131,7 @@ data "aws_iam_policy_document" "macie_findings" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.global.account_id}:role/breakglass",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/breakglass",
       ]
     }
   }
@@ -143,7 +143,7 @@ data "aws_iam_policy_document" "macie_findings_development_account_operator_admi
     sid    = "Dev Account Key Administrator"
     effect = "Allow"
     resources = [
-      "arn:aws:kms:*:${data.aws_caller_identity.global.account_id}:key/*"
+      "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
     ]
     actions = [
       "kms:Create*",
@@ -165,7 +165,7 @@ data "aws_iam_policy_document" "macie_findings_development_account_operator_admi
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.global.account_id}:role/operator"
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/operator"
       ]
     }
   }
