@@ -12,10 +12,6 @@ The repository could be better organised to see and understand the organisation 
 
 ## Decision
 
-- specify a provider for every resource using configuration_aliases in versions.tf provider blocks
-
-TODO: provide reasoning for this decision
-
 - move modules that create regional resources into modules/region/modules
 - move modules that create account/global or multi-region resources into modules/global/modules
 - or refactor modules that create multi-region resources so that they are aware of being primary or secondary and create the right resources
