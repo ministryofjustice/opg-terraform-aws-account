@@ -6,7 +6,7 @@ module "macie_findings_encryption_key" {
   enable_key_rotation     = true
   enable_multi_region     = true
   deletion_window_in_days = 10
-  kms_key_policy          = data.aws_iam_policy_document.macie_findings.json
+  kms_key_policy          = data.aws_default_tags.current.tags.account-name == "development" ? data.aws_iam_policy_document.macie_findings_merged.json : data.aws_iam_policy_document.macie_findings.json
   providers = {
     aws.eu_west_1 = aws.eu_west_1
     aws.eu_west_2 = aws.eu_west_2
@@ -16,6 +16,15 @@ module "macie_findings_encryption_key" {
 #TODO: make this key policy specific for Macie
 # See the following link for further information
 # https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html
+
+data "aws_iam_policy_document" "macie_findings_merged" {
+  provider = aws.global
+  source_policy_documents = [
+    data.aws_iam_policy_document.macie_findings.json,
+    data.aws_iam_policy_document.macie_findings_development_account_operator_admin.json
+  ]
+}
+
 data "aws_iam_policy_document" "macie_findings" {
   provider = aws.global
 
@@ -51,7 +60,7 @@ data "aws_iam_policy_document" "macie_findings" {
     principals {
       type = "AWS"
       identifiers = [
-        local.account.account_name == "development" ? "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/opensearch-pipeline-role-${local.account.account_name}",
+        data.aws_default_tags.current.tags.account-name == "development" ? "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/opensearch-pipeline-role-${data.aws_default_tags.current.tags.account-name}",
       ]
     }
     condition {
