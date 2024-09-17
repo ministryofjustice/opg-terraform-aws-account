@@ -1,5 +1,4 @@
 variable "account_name" {
-  default     = ""
   description = "Account Name"
   type        = string
 }

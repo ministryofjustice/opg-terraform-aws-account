@@ -6,7 +6,7 @@ module "macie_findings_encryption_key" {
   enable_key_rotation     = true
   enable_multi_region     = true
   deletion_window_in_days = 10
-  kms_key_policy          = data.aws_default_tags.current.tags.account-name == "development" ? data.aws_iam_policy_document.macie_findings_merged.json : data.aws_iam_policy_document.macie_findings.json
+  kms_key_policy          = var.account_name == "development" ? data.aws_iam_policy_document.macie_findings_merged.json : data.aws_iam_policy_document.macie_findings.json
   providers = {
     aws.eu_west_1 = aws.eu_west_1
     aws.eu_west_2 = aws.eu_west_2
@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "macie_findings" {
     principals {
       type = "AWS"
       identifiers = [
-        data.aws_default_tags.current.tags.account-name == "development" ? "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/opensearch-pipeline-role-${data.aws_default_tags.current.tags.account-name}",
+        var.account_name == "development" ? "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/opensearch-pipeline-role-${var.account_name}",
       ]
     }
     condition {
