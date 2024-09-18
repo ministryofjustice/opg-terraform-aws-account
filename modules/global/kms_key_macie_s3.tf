@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "macie_findings" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AmazonMacieServiceRole",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSServiceRoleForAmazonMacie",
       ]
     }
 
