@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "macie_findings" {
   }
 
   statement {
-    sid    = "Allow Key to be used for Encryption"
+    sid    = "Allow Key to be used for Encryption by Macie"
     effect = "Allow"
     resources = [
       "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "macie_findings" {
     principals {
       type = "AWS"
       identifiers = [
-        var.account_name == "development" ? "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root" : "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/opensearch-pipeline-role-${var.account_name}",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AmazonMacieServiceRole",
       ]
     }
     condition {
@@ -116,25 +116,6 @@ data "aws_iam_policy_document" "macie_findings" {
       "kms:ScheduleKeyDeletion",
       "kms:CancelKeyDeletion",
       "kms:ReplicateKey",
-    ]
-
-    principals {
-      type = "AWS"
-      identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/breakglass",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/modernising-lpa-ci",
-      ]
-    }
-  }
-
-  statement {
-    sid    = "Key Administrator Decryption"
-    effect = "Allow"
-    resources = [
-      "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
-    ]
-    actions = [
-      "kms:Decrypt",
     ]
 
     principals {
