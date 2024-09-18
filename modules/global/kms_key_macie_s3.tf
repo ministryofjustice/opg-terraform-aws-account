@@ -50,30 +50,28 @@ data "aws_iam_policy_document" "macie_findings" {
       "arn:aws:kms:*:${data.aws_caller_identity.current.account_id}:key/*"
     ]
     actions = [
-      "kms:Encrypt",
-      "kms:Decrypt",
-      "kms:ReEncrypt*",
-      "kms:GenerateDataKey*",
-      "kms:DescribeKey",
+      "kms:GenerateDataKey",
+      "kms:Encrypt"
     ]
 
-    principals {
-      type = "AWS"
-      identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/macie.amazonaws.com/AWSServiceRoleForAmazonMacie"
-      ]
-    }
     principals {
       type        = "Service"
       identifiers = ["macie.amazonaws.com"]
     }
-
     condition {
-      test     = "StringLike"
-      variable = "kms:ViaService"
+      test     = "StringEquals"
+      variable = "aws:SourceAccount"
 
       values = [
-        "s3.*.amazonaws.com"
+        data.aws_caller_identity.current.account_id
+      ]
+    }
+    condition {
+      test     = "ArnLike"
+      variable = "aws:SourceArn"
+      values = [
+        "arn:aws:macie2:*:${data.aws_caller_identity.current.account_id}:export-configuration:*",
+        "arn:aws:macie2:*:${data.aws_caller_identity.current.account_id}:classification-job/*"
       ]
     }
   }
