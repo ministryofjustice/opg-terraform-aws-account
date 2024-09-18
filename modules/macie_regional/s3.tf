@@ -74,7 +74,7 @@ resource "aws_s3_bucket_public_access_block" "bucket" {
   provider                = aws.region
 }
 
-resource "aws_s3_bucket_policy" "config_bucket" {
+resource "aws_s3_bucket_policy" "bucket" {
   bucket   = aws_s3_bucket_public_access_block.bucket.bucket
   policy   = data.aws_iam_policy_document.bucket.json
   provider = aws.region
@@ -96,7 +96,7 @@ data "aws_iam_policy_document" "bucket" {
     principals {
       type = "AWS"
       identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSServiceRoleForAmazonMacie",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/macie.amazonaws.com/AWSServiceRoleForAmazonMacie"
       ]
     }
   }
