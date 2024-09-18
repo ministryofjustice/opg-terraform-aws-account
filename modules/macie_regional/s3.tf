@@ -30,7 +30,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "bucket" {
   rule {
     apply_server_side_encryption_by_default {
       sse_algorithm     = "aws:kms"
-      kms_master_key_id = var.macie_findings_s3_bucket_kms_key.target_key_id
+      kms_master_key_id = "alias/aws/s3"
     }
   }
   provider = aws.region
