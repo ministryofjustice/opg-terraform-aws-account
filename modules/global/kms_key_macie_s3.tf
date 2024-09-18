@@ -63,6 +63,10 @@ data "aws_iam_policy_document" "macie_findings" {
         "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/aws-service-role/macie.amazonaws.com/AWSServiceRoleForAmazonMacie"
       ]
     }
+    principals {
+      type        = "Service"
+      identifiers = ["macie.amazonaws.com"]
+    }
 
     condition {
       test     = "StringLike"
