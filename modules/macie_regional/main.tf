@@ -10,7 +10,7 @@ resource "aws_macie2_classification_export_configuration" "main" {
   ]
   s3_destination {
     bucket_name = aws_s3_bucket.bucket.bucket
-    kms_key_arn = "alias/aws/s3"
+    kms_key_arn = data.aws_kms_alias.s3.target_key_arn
   }
   provider = aws.region
 }
