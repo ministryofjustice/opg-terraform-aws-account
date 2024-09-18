@@ -94,8 +94,10 @@ data "aws_iam_policy_document" "bucket" {
     ]
 
     principals {
-      type        = "Service"
-      identifiers = ["macie.amazonaws.com"]
+      type = "AWS"
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AmazonMacieServiceRole",
+      ]
     }
   }
   provider = aws.region
