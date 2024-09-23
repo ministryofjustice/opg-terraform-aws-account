@@ -1,5 +1,5 @@
 module "macie" {
-  source                           = "./modules/macie_regional"
+  source                           = "../macie_regional"
   finding_publishing_frequency     = var.aws_macie2_finding_publishing_frequency
   status                           = var.aws_macie2_status
   account_name                     = var.account_name
