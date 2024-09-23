@@ -103,46 +103,6 @@ data "aws_iam_policy_document" "bucket" {
     }
   }
 
-  # statement {
-  #   sid    = "Deny incorrect encryption header. This is optional"
-  #   effect = "Deny"
-  #   actions = [
-  #     "s3:PutObject"
-  #   ]
-  #   resources = [
-  #     "${aws_s3_bucket.bucket.arn}/*"
-  #   ]
-  #   principals {
-  #     type        = "Service"
-  #     identifiers = ["macie.amazonaws.com"]
-  #   }
-  #   condition {
-  #     test     = "StringNotEquals"
-  #     variable = "s3:x-amz-server-side-encryption-aws-kms-key-id"
-  #     values   = [var.macie_findings_s3_bucket_kms_key.target_key_id]
-  #   }
-  # }
-
-  # statement {
-  #   sid    = "Deny unencrypted object uploads. This is optional"
-  #   effect = "Deny"
-  #   actions = [
-  #     "s3:PutObject"
-  #   ]
-  #   resources = [
-  #     "${aws_s3_bucket.bucket.arn}/*"
-  #   ]
-  #   principals {
-  #     type        = "Service"
-  #     identifiers = ["macie.amazonaws.com"]
-  #   }
-  #   condition {
-  #     test     = "StringNotEquals"
-  #     variable = "s3:x-amz-server-side-encryption"
-  #     values   = ["aws:kms"]
-  #   }
-  # }
-
   statement {
     sid    = "Allow Macie to upload objects to the bucket"
     effect = "Allow"
@@ -168,26 +128,6 @@ data "aws_iam_policy_document" "bucket" {
       values = [
         "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
         "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:classification-job/*"
-      ]
-    }
-  }
-
-  statement {
-    sid    = "Allow Breakglass and operator to upload objects to the bucket"
-    effect = "Allow"
-    actions = [
-      "s3:PutObject",
-      "s3:ListBucket",
-    ]
-    resources = [
-      "${aws_s3_bucket.bucket.arn}/*"
-    ]
-    # allow breakglass/operator to upload to the bucket
-    principals {
-      type = "AWS"
-      identifiers = [
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/breakglass",
-        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/operator"
       ]
     }
   }
