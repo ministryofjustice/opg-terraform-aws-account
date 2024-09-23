@@ -1,4 +1,3 @@
-#TODO: make these resources in the root or a global module.
 module "macie_findings_encryption_key" {
   source                  = "../kms_key_multi_region"
   encrypted_resource      = "Macie S3 bucket"
@@ -13,7 +12,6 @@ module "macie_findings_encryption_key" {
   }
 }
 
-#TODO: make this key policy specific for Macie
 # See the following link for further information
 # https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html
 
