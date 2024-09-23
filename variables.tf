@@ -367,6 +367,7 @@ variable "pagerduty_securityhub_integration_key" {
 }
 
 variable "aws_macie2_finding_publishing_frequency" {
+  type    = string
   default = "SIX_HOURS"
   validation {
     condition     = contains(["FIFTEEN_MINUTES", "ONE_HOUR", "SIX_HOURS"], var.aws_macie2_finding_publishing_frequency)
@@ -375,6 +376,7 @@ variable "aws_macie2_finding_publishing_frequency" {
 }
 
 variable "aws_macie2_status" {
+  type    = string
   default = "ENABLED"
   validation {
     condition     = contains(["ENABLED", "PAUSED"], var.aws_macie2_status)
