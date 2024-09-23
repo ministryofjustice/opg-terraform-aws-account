@@ -83,25 +83,26 @@ resource "aws_s3_bucket_policy" "bucket" {
 #need a policy document for macie to write to the bucket
 
 data "aws_iam_policy_document" "bucket" {
-  statement {
-    sid    = "Deny non-HTTPS access"
-    effect = "Deny"
-    actions = [
-      "s3:*"
-    ]
-    resources = [
-      "${aws_s3_bucket.bucket.arn}/*"
-    ]
-    principals {
-      type        = "AWS"
-      identifiers = ["*"]
-    }
-    condition {
-      test     = "Bool"
-      variable = "aws:SecureTransport"
-      values   = ["false"]
-    }
-  }
+  # statement {
+  #   sid    = "Deny non-HTTPS access"
+  #   effect = "Deny"
+  #   actions = [
+  #     "s3:*"
+  #   ]
+  #   resources = [
+  #     "${aws_s3_bucket.bucket.arn}/*",
+  #     "${aws_s3_bucket.bucket.arn}"
+  #   ]
+  #   principals {
+  #     type        = "AWS"
+  #     identifiers = ["*"]
+  #   }
+  #   condition {
+  #     test     = "Bool"
+  #     variable = "aws:SecureTransport"
+  #     values   = ["false"]
+  #   }
+  # }
 
   statement {
     sid    = "Allow Macie to upload objects to the bucket"
