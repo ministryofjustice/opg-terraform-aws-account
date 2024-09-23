@@ -4,8 +4,8 @@ module "macie" {
   status                               = var.aws_macie2_status
   account_name                         = var.account_name
   product                              = var.product
-  s3_access_logging_bucket_name        = module.eu-west-1.access_logging_bucket.bucket
-  macie_findings_s3_bucket_kms_key     = module.global_multiregion_resources.eu_west_1_macie_findings_encryption_key
+  s3_access_logging_bucket_name        = aws_s3_bucket.s3_access_logging.bucket
+  macie_findings_s3_bucket_kms_key     = var.macie_findings_s3_bucket_kms_key
   providers = {
     aws.region = aws
   }
