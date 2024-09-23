@@ -12,12 +12,6 @@ resource "aws_s3_bucket_versioning" "bucket" {
   provider = aws.region
 }
 
-resource "aws_s3_bucket_acl" "bucket" {
-  bucket   = aws_s3_bucket.bucket.id
-  acl      = "private"
-  provider = aws.region
-}
-
 resource "aws_s3_bucket_logging" "bucket" {
   bucket        = aws_s3_bucket.bucket.id
   target_bucket = var.s3_access_logging_bucket_name
