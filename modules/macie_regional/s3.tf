@@ -12,11 +12,11 @@ resource "aws_s3_bucket_versioning" "bucket" {
   provider = aws.region
 }
 
-# resource "aws_s3_bucket_acl" "bucket" {
-#   bucket   = aws_s3_bucket.bucket.id
-#   acl      = "private"
-#   provider = aws.region
-# }
+resource "aws_s3_bucket_acl" "bucket" {
+  bucket   = aws_s3_bucket.bucket.id
+  acl      = "private"
+  provider = aws.region
+}
 
 resource "aws_s3_bucket_logging" "bucket" {
   bucket        = aws_s3_bucket.bucket.id
@@ -42,11 +42,9 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
   rule {
     status = "Enabled"
     id     = "expire-after-490-days"
-
     noncurrent_version_expiration {
       noncurrent_days = 10
     }
-
     expiration {
       days = 490
     }
@@ -64,7 +62,6 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
   provider = aws.region
 }
 
-
 resource "aws_s3_bucket_public_access_block" "bucket" {
   bucket                  = aws_s3_bucket.bucket.bucket
   block_public_acls       = true
@@ -80,29 +77,7 @@ resource "aws_s3_bucket_policy" "bucket" {
   provider = aws.region
 }
 
-#need a policy document for macie to write to the bucket
-
 data "aws_iam_policy_document" "bucket" {
-  # statement {
-  #   sid    = "Deny non-HTTPS access"
-  #   effect = "Deny"
-  #   actions = [
-  #     "s3:*"
-  #   ]
-  #   resources = [
-  #     "${aws_s3_bucket.bucket.arn}/*"
-  #   ]
-  #   principals {
-  #     type        = "AWS"
-  #     identifiers = ["*"]
-  #   }
-  #   condition {
-  #     test     = "Bool"
-  #     variable = "aws:SecureTransport"
-  #     values   = ["false"]
-  #   }
-  # }
-
   statement {
     sid    = "Allow Macie to upload objects to the bucket"
     effect = "Allow"
