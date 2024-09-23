@@ -104,18 +104,6 @@ variable "product" {
   type = string
 }
 
-variable "team_name" {
-  default     = "OPG"
-  description = "Name of the Team looking after the Service"
-  type        = string
-}
-
-variable "team_email" {
-  default     = "opgteam@digital.justice.gov.uk"
-  description = "Team group email address for use in tags"
-  type        = string
-}
-
 variable "viewer_base_policy_arn" {
   type    = string
   default = "arn:aws:iam::aws:policy/ReadOnlyAccess"
