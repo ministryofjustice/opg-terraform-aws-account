@@ -111,7 +111,8 @@ data "aws_iam_policy_document" "bucket" {
       "s3:ListBucket",
     ]
     resources = [
-      "${aws_s3_bucket.bucket.arn}/*"
+      "${aws_s3_bucket.bucket.arn}/*",
+      "${aws_s3_bucket.bucket.arn}"
     ]
     principals {
       type        = "Service"
