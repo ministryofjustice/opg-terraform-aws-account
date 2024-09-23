@@ -40,18 +40,16 @@ variable "sns_success_feedback_role_arn" {
   description = "The ARN of the IAM role that allows Amazon SNS to write logs about SMS deliveries in CloudWatch Logs."
 }
 
-variable "aws_macie2_account_finding_publishing_frequency" {
-  default = "SIX_HOURS"
-  type    = string
+variable "aws_macie2_finding_publishing_frequency" {
+  type = string
   validation {
-    condition     = contains(["FIFTEEN_MINUTES", "ONE_HOUR", "SIX_HOURS"], var.account_finding_publishing_frequency)
-    error_message = "Invalid value for account_finding_publishing_frequency"
+    condition     = contains(["FIFTEEN_MINUTES", "ONE_HOUR", "SIX_HOURS"], var.finding_publishing_frequency)
+    error_message = "Invalid value for finding_publishing_frequency"
   }
 }
 
 variable "aws_macie2_status" {
-  default = "ENABLED"
-  type    = string
+  type = string
   validation {
     condition     = contains(["ENABLED", "PAUSED"], var.status)
     error_message = "Invalid value for status"
