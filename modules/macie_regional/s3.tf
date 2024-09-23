@@ -173,6 +173,26 @@ data "aws_iam_policy_document" "bucket" {
   }
 
   statement {
+    sid    = "Allow Breakglass and operator to upload objects to the bucket"
+    effect = "Allow"
+    actions = [
+      "s3:PutObject",
+      "s3:ListBucket",
+    ]
+    resources = [
+      "${aws_s3_bucket.bucket.arn}/*"
+    ]
+    # allow breakglass/operator to upload to the bucket
+    principals {
+      type = "AWS"
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/breakglass",
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/operator"
+      ]
+    }
+  }
+
+  statement {
     sid    = "Allow Macie to use the getBucketLocation operation"
     effect = "Allow"
     actions = [
