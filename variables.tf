@@ -133,31 +133,36 @@ variable "user_arns" {
     breakglass = list(string)
     ci         = list(string)
   })
-
 }
 
 variable "aws_s3_account_block_public_access_enable" {
+  type        = bool
   default     = false
   description = "Whether Amazon S3 should enable public blocks for buckets in this account. Defaults to False."
 }
 variable "aws_s3_account_block_public_acls" {
+  type        = bool
   default     = true
   description = "Whether Amazon S3 should block public ACLs for buckets in this account. Defaults to true."
 }
 variable "aws_s3_account_block_public_policy" {
+  type        = bool
   default     = true
   description = "Whether Amazon S3 should block public bucket policies for buckets in this account. Defaults to true."
 }
 variable "aws_s3_account_ignore_public_acls" {
+  type        = bool
   default     = true
   description = "Whether Amazon S3 should ignore public ACLs for buckets in this account. Defaults to true."
 }
 variable "aws_s3_account_restrict_public_buckets" {
+  type        = bool
   default     = true
   description = "Whether Amazon S3 should restrict public bucket policies for buckets in this account. Defaults to true."
 }
 
 variable "cis_foundation_alarms_enabled" {
+  type        = bool
   default     = true
   description = "Whether to create metrics alarms to support CIS Foundation compliance. Defaults to true."
 }
