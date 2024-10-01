@@ -369,8 +369,7 @@ variable "aws_macie2_finding_publishing_frequency" {
 }
 
 variable "aws_macie2_status" {
-  type    = string
-  default = "ENABLED"
+  type = string
   validation {
     condition     = contains(["ENABLED", "PAUSED"], var.aws_macie2_status)
     error_message = "Invalid value for aws_macie2_status"
