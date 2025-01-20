@@ -6,6 +6,7 @@ module "security_hub" {
   cis_metric_namespace                      = var.cis_metric_namespace
   aws_cloudwatch_log_group_cloudtrail_name  = local.cloudtrail_log_group_name
   cis_foundation_control_1_14_enabled       = var.cis_foundation_control_1_14_enabled
+  cis_foundation_control_2_5_enabled        = var.cis_foundation_control_2_5_enabled
   cis_foundation_control_3_4_enabled        = var.cis_foundation_control_3_4_enabled
   cis_foundation_control_3_8_enabled        = var.cis_foundation_control_3_8_enabled
   cis_foundation_control_3_10_custom_filter = var.cis_foundation_control_3_10_custom_filter
