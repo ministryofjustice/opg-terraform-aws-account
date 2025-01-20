@@ -1,6 +1,7 @@
 resource "aws_iam_role" "config" {
   count              = local.config_enabled ? 1 : 0
-  name               = "aws-config-${var.product}-${var.account_name}"
+  name               = "AWSServiceRoleForConfig"
+  path               = "/aws-service-role/config.amazonaws.com/"
   assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 

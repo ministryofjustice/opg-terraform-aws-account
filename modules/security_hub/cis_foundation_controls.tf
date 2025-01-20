@@ -137,11 +137,17 @@ locals {
       alarm_threshold   = 1
     }
   }
+  cis_controls_only = {
+    cis_2_5_config_service_role_used = {
+      standards_control_arn = "${local.cis_standard_controls_arn_path}/2.5"
+      control_status        = var.cis_foundation_control_2_5_enabled ? "ENABLED" : "DISABLED"
+    }
+  }
 }
 
 
 resource "aws_securityhub_standards_control" "toggled_control" {
-  for_each              = local.cis_controls
+  for_each              = merge(local.cis_controls, local.cis_controls_only)
   standards_control_arn = each.value.standards_control_arn
   control_status        = each.value.control_status
   disabled_reason       = each.value.control_status == "ENABLED" ? null : "Not appropriate for our usage"
