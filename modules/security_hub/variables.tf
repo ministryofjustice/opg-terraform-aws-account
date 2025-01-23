@@ -76,10 +76,10 @@ variable "sns_success_feedback_role_arn" {
 
 ### security hub >= v4.60 additions
 
-# added in v4.64.0 with a default of 'SECURITY_CONTROL' which breaks current config
+# 'SECURITY_CONTROL' is now the consolidated security hub default
 variable "control_finding_generator" {
   type        = string
-  default     = "STANDARD_CONTROL"
+  default     = "SECURITY_CONTROL"
   description = "Updates whether the calling account has consolidated control findings turned on"
 }
 
