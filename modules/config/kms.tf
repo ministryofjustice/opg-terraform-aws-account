@@ -5,6 +5,11 @@ resource "aws_kms_key" "config_sns" {
   enable_key_rotation     = true
 }
 
+resource "aws_kms_alias" "main_eu_west_1" {
+  name          = "alias/config_sns"
+  target_key_id = aws_kms_key.config_sns.key_id
+}
+
 data "aws_iam_policy_document" "sns_kms" {
   statement {
     sid       = "Enable Root account permissions on Key"
