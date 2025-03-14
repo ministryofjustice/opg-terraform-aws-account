@@ -89,6 +89,11 @@ data "aws_iam_policy_document" "config_bucket" {
 
     actions   = ["s3:GetBucketAcl"]
     resources = [aws_s3_bucket.config.arn]
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
   }
 
   statement {
@@ -100,6 +105,11 @@ data "aws_iam_policy_document" "config_bucket" {
       type        = "Service"
     }
     resources = [aws_s3_bucket.config.arn]
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
   }
 
   statement {
@@ -118,6 +128,11 @@ data "aws_iam_policy_document" "config_bucket" {
       test     = "StringEquals"
       values   = ["bucket-owner-full-control"]
       variable = "s3:x-amz-acl"
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
     }
   }
 
