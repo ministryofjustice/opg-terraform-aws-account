@@ -1,5 +1,4 @@
 variable "account_name" {
-  default     = ""
   description = "Account Name"
   type        = string
 }
@@ -105,18 +104,6 @@ variable "product" {
   type = string
 }
 
-variable "team_name" {
-  default     = "OPG"
-  description = "Name of the Team looking after the Service"
-  type        = string
-}
-
-variable "team_email" {
-  default     = "opgteam@digital.justice.gov.uk"
-  description = "Team group email address for use in tags"
-  type        = string
-}
-
 variable "viewer_base_policy_arn" {
   type    = string
   default = "arn:aws:iam::aws:policy/ReadOnlyAccess"
@@ -134,31 +121,36 @@ variable "user_arns" {
     breakglass = list(string)
     ci         = list(string)
   })
-
 }
 
 variable "aws_s3_account_block_public_access_enable" {
+  type        = bool
   default     = false
   description = "Whether Amazon S3 should enable public blocks for buckets in this account. Defaults to False."
 }
 variable "aws_s3_account_block_public_acls" {
+  type        = bool
   default     = true
   description = "Whether Amazon S3 should block public ACLs for buckets in this account. Defaults to true."
 }
 variable "aws_s3_account_block_public_policy" {
+  type        = bool
   default     = true
   description = "Whether Amazon S3 should block public bucket policies for buckets in this account. Defaults to true."
 }
 variable "aws_s3_account_ignore_public_acls" {
+  type        = bool
   default     = true
   description = "Whether Amazon S3 should ignore public ACLs for buckets in this account. Defaults to true."
 }
 variable "aws_s3_account_restrict_public_buckets" {
+  type        = bool
   default     = true
   description = "Whether Amazon S3 should restrict public bucket policies for buckets in this account. Defaults to true."
 }
 
 variable "cis_foundation_alarms_enabled" {
+  type        = bool
   default     = true
   description = "Whether to create metrics alarms to support CIS Foundation compliance. Defaults to true."
 }
@@ -365,4 +357,21 @@ variable "pagerduty_securityhub_integration_key" {
   default     = null
   description = "The PagerDuty integration key to subscribe to SecurityHub findings"
   sensitive   = true
+}
+
+variable "aws_macie2_finding_publishing_frequency" {
+  type    = string
+  default = "SIX_HOURS"
+  validation {
+    condition     = contains(["FIFTEEN_MINUTES", "ONE_HOUR", "SIX_HOURS"], var.aws_macie2_finding_publishing_frequency)
+    error_message = "Invalid value for aws_macie2_finding_publishing_frequency"
+  }
+}
+
+variable "aws_macie2_status" {
+  type = string
+  validation {
+    condition     = contains(["ENABLED", "PAUSED"], var.aws_macie2_status)
+    error_message = "Invalid value for aws_macie2_status"
+  }
 }
