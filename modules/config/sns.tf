@@ -57,7 +57,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     effect = "Allow"
     principals {
       type        = "service"
-      identifiers = "config.amazonaws.com"
+      identifiers = ["config.amazonaws.com"]
     }
     actions   = ["SNS:Publish"]
     resources = [aws_sns_topic.config.arn]
