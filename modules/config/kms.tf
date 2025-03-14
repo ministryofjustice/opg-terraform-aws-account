@@ -12,6 +12,24 @@ resource "aws_kms_alias" "main_eu_west_1" {
 
 data "aws_iam_policy_document" "sns_kms" {
   statement {
+    sid    = "Allow Key to be used for Encryption by AWS Config Role"
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["config.amazonaws.com"]
+    }
+    actions = [
+      "kms:Decrypt",
+      "kms:GenerateDataKey"
+    ]
+    resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
+  }
+  statement {
     sid       = "Enable Root account permissions on Key"
     effect    = "Allow"
     actions   = ["kms:*"]
@@ -48,24 +66,6 @@ data "aws_iam_policy_document" "sns_kms" {
     principals {
       type        = "AWS"
       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/breakglass"]
-    }
-  }
-  statement {
-    sid    = "AWSConfigKMSPolicy"
-    effect = "Allow"
-    principals {
-      type        = "Service"
-      identifiers = ["config.amazonaws.com"]
-    }
-    actions = [
-      "kms:Decrypt",
-      "kms:GenerateDataKey"
-    ]
-    resources = ["*"]
-    condition {
-      test     = "StringEquals"
-      variable = "AWS:SourceAccount"
-      values   = [data.aws_caller_identity.current.account_id]
     }
   }
 }
