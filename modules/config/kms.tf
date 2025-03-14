@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "sns_kms" {
     sid    = "AWSConfigKMSPolicy"
     effect = "Allow"
     principals {
-      type        = "service"
+      type        = "Service"
       identifiers = ["config.amazonaws.com"]
     }
     actions = [

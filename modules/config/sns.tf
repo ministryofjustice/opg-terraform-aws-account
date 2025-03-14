@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     sid    = "AWSConfigSNSPolicy"
     effect = "Allow"
     principals {
-      type        = "service"
+      type        = "Service"
       identifiers = ["config.amazonaws.com"]
     }
     actions   = ["SNS:Publish"]
