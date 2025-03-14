@@ -50,7 +50,7 @@ data "aws_iam_policy_document" "sns_kms" {
     effect = "Allow"
     principals {
       type        = "service"
-      identifiers = "config.amazonaws.com"
+      identifiers = ["config.amazonaws.com"]
     }
     actions = [
       "kms:Decrypt",
