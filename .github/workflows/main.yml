@@ -30,7 +30,6 @@ jobs:
       - name: terraform fmt
         run: |
           terraform fmt -check -recursive
-
   versioning:
     name: Bump Version
     runs-on: ubuntu-latest

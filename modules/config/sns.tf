@@ -52,16 +52,20 @@ data "aws_iam_policy_document" "sns_topic_policy" {
     resources = [aws_sns_topic.config.arn]
     sid       = "DefaultSNSPolicy"
   }
-
   statement {
-    actions = ["SNS:Publish"]
-    effect  = "Allow"
+    sid    = "AWSConfigSNSPolicy"
+    effect = "Allow"
     principals {
-      type        = "AWS"
-      identifiers = [var.config_iam_role.arn]
+      type        = "Service"
+      identifiers = ["config.amazonaws.com"]
     }
+    actions   = ["SNS:Publish"]
     resources = [aws_sns_topic.config.arn]
-    sid       = "AWSConfigSNSPolicyAllowRole"
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
+    }
   }
 }
 

@@ -5,18 +5,28 @@ resource "aws_kms_key" "config_sns" {
   enable_key_rotation     = true
 }
 
+resource "aws_kms_alias" "main_eu_west_1" {
+  name          = "alias/config_sns"
+  target_key_id = aws_kms_key.config_sns.key_id
+}
+
 data "aws_iam_policy_document" "sns_kms" {
   statement {
-    sid       = "Allow Key to be used for Encryption by AWS Config Role"
-    effect    = "Allow"
-    resources = ["*"]
+    sid    = "Allow Key to be used for Encryption by AWS Config Role"
+    effect = "Allow"
+    principals {
+      type        = "Service"
+      identifiers = ["config.amazonaws.com"]
+    }
     actions = [
       "kms:Decrypt",
-      "kms:GenerateDataKey*",
+      "kms:GenerateDataKey"
     ]
-    principals {
-      type        = "AWS"
-      identifiers = [var.config_iam_role.arn]
+    resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceAccount"
+      values   = [data.aws_caller_identity.current.account_id]
     }
   }
   statement {
