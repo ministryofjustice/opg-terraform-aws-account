@@ -20,10 +20,11 @@ data "aws_iam_group" "viewers" {
 
 locals {
   user_arns = {
-    breakglass = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
-    ci         = [aws_iam_user.ci_user.arn]
-    operation  = data.aws_iam_group.operators.users[*].arn
-    view       = data.aws_iam_group.viewers.users[*].arn
+    breakglass  = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
+    ci          = [aws_iam_user.ci_user.arn]
+    operation   = data.aws_iam_group.operators.users[*].arn
+    data_access = data.aws_iam_group.operators.users[*].arn
+    view        = data.aws_iam_group.viewers.users[*].arn
 
   }
 }
@@ -62,6 +63,7 @@ module "full" {
   cost_anomaly_weekly_schedule_threshold       = "100.0"
   cost_anomaly_threshold_expression_type       = "ANOMALY_TOTAL_IMPACT_ABSOLUTE"
   custom_alarms_breakglass_login_alarm_enabled = true
+  data_access_base_policy_arn                  = "arn:aws:iam::aws:policy/AdministratorAccess"
   enable_guardduty                             = true
   fsbp_standard_control_elb_6_enabled          = true
   is_production                                = true
