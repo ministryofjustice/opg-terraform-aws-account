@@ -44,7 +44,7 @@ variable "breakglass_base_policy_arn" {
 
 variable "data_access_base_policy_arn" {
   type    = string
-  default = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+  default = "arn:aws:iam::aws:policy/ViewOnlyAccess"
 }
 
 variable "breakglass_create_instance_profile" {
