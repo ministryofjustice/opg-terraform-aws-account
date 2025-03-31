@@ -28,6 +28,11 @@ locals {
     view        = data.aws_iam_group.viewers.users[*].arn
   }
 }
+
+
+
+
+
 # Description: This module configures an AWS account with some security controls turned off for development purposes.
 module "development" {
   source                                    = "git@github.com:ministryofjustice/opg-terraform-aws-account.git?ref=v5.2.0"
@@ -40,7 +45,7 @@ module "development" {
   cloudtrail_trail_name                     = "example-development"
   cost_anomaly_notification_email_address   = "opg-team+example-dev@digital.justice.gov.uk"
   operator_base_policy_arn                  = "arn:aws:iam::aws:policy/AdministratorAccess"
-  data_access_base_policy_arn               = "arn:aws:iam::aws:policy/AdministratorAccess"
+  data_access_custom_policy_json            = data.aws_iam_policy_document.data_access.json
   product                                   = "example"
   user_arns                                 = local.user_arns
   aws_security_hub_enabled                  = true

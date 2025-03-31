@@ -38,7 +38,7 @@ module "production" {
   cloudtrail_bucket_name                    = "cloudtrail.production.example.opg.service.justice.gov.uk"
   cloudtrail_trail_name                     = "example-production"
   cost_anomaly_notification_email_address   = "opg-team+example-prod@digital.justice.gov.uk"
-  data_access_base_policy_arn               = "arn:aws:iam::aws:policy/AdministratorAccess"
+  data_access_custom_policy_json            = data.aws_iam_policy_document.data_access.json
   product                                   = "example"
   user_arns                                 = local.user_arns
   providers = {

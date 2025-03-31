@@ -63,7 +63,7 @@ module "full" {
   cost_anomaly_weekly_schedule_threshold       = "100.0"
   cost_anomaly_threshold_expression_type       = "ANOMALY_TOTAL_IMPACT_ABSOLUTE"
   custom_alarms_breakglass_login_alarm_enabled = true
-  data_access_base_policy_arn                  = "arn:aws:iam::aws:policy/AdministratorAccess"
+  data_access_custom_policy_json               = data.aws_iam_policy_document.data_access.json
   enable_guardduty                             = true
   fsbp_standard_control_elb_6_enabled          = true
   is_production                                = true
