@@ -30,6 +30,15 @@ module "breakglass" {
   create_instance_profile = var.breakglass_create_instance_profile
 }
 
+module "data_access" {
+  source                  = "./modules/default_roles"
+  name                    = "data-access"
+  user_arns               = var.user_arns.data_access
+  base_policy_arn         = var.data_access_base_policy_arn
+  custom_policy_json      = var.data_access_custom_policy_json
+  create_instance_profile = var.data_access_create_instance_profile
+}
+
 resource "aws_iam_role_policy_attachment" "aws_support_access_for_breakglass" {
   role       = module.breakglass.aws_iam_role.name
   policy_arn = "arn:aws:iam::aws:policy/AWSSupportAccess"

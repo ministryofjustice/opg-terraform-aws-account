@@ -42,12 +42,22 @@ variable "breakglass_base_policy_arn" {
   default = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
+variable "data_access_base_policy_arn" {
+  type    = string
+  default = "arn:aws:iam::aws:policy/ViewOnlyAccess"
+}
+
 variable "breakglass_create_instance_profile" {
   type    = bool
   default = false
 }
 
 variable "breakglass_custom_policy_json" {
+  type    = string
+  default = ""
+}
+
+variable "data_access_custom_policy_json" {
   type    = string
   default = ""
 }
@@ -100,6 +110,11 @@ variable "operator_create_instance_profile" {
   default = false
 }
 
+variable "data_access_create_instance_profile" {
+  type    = bool
+  default = false
+}
+
 variable "product" {
   type = string
 }
@@ -116,10 +131,11 @@ variable "viewer_custom_policy_json" {
 
 variable "user_arns" {
   type = object({
-    view       = list(string)
-    operation  = list(string)
-    breakglass = list(string)
-    ci         = list(string)
+    view        = list(string)
+    operation   = list(string)
+    breakglass  = list(string)
+    data_access = list(string)
+    ci          = list(string)
   })
 }
 

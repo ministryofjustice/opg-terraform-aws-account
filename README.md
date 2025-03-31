@@ -9,9 +9,9 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.18.1 |
-| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 5.18.1 |
-| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 5.18.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.88.0 |
+| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 5.88.0 |
+| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 5.88.0 |
 
 ## Modules
 
@@ -25,11 +25,13 @@
 | <a name="module_cost_anomaly_detection"></a> [cost\_anomaly\_detection](#module\_cost\_anomaly\_detection) | ./modules/ce_anomaly_detection | n/a |
 | <a name="module_custom_cloudwatch_alarms"></a> [custom\_cloudwatch\_alarms](#module\_custom\_cloudwatch\_alarms) | ./modules/custom_cloudwatch_alarms | n/a |
 | <a name="module_custom_cloudwatch_alarms_vendored"></a> [custom\_cloudwatch\_alarms\_vendored](#module\_custom\_cloudwatch\_alarms\_vendored) | ./modules/custom_cloudwatch_alarms | n/a |
+| <a name="module_data_access"></a> [data\_access](#module\_data\_access) | ./modules/default_roles | n/a |
 | <a name="module_eu-west-1"></a> [eu-west-1](#module\_eu-west-1) | ./modules/region | n/a |
 | <a name="module_eu-west-2"></a> [eu-west-2](#module\_eu-west-2) | ./modules/region | n/a |
 | <a name="module_github_oidc_provider"></a> [github\_oidc\_provider](#module\_github\_oidc\_provider) | ./modules/github_oidc_provider | n/a |
 | <a name="module_github_oidc_role_cost_data"></a> [github\_oidc\_role\_cost\_data](#module\_github\_oidc\_role\_cost\_data) | ./modules/github_oidc_roles | n/a |
 | <a name="module_github_oidc_role_uptime_data"></a> [github\_oidc\_role\_uptime\_data](#module\_github\_oidc\_role\_uptime\_data) | ./modules/github_oidc_roles | n/a |
+| <a name="module_global_multiregion_resources"></a> [global\_multiregion\_resources](#module\_global\_multiregion\_resources) | ./modules/global | n/a |
 | <a name="module_operator"></a> [operator](#module\_operator) | ./modules/default_roles | n/a |
 | <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | ./modules/security_hub | n/a |
 | <a name="module_slack_notifications"></a> [slack\_notifications](#module\_slack\_notifications) | ./modules/slack_notifications | n/a |
@@ -47,7 +49,6 @@
 | [aws_iam_account_alias.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_alias) | resource |
 | [aws_iam_account_password_policy.strict](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_password_policy) | resource |
 | [aws_iam_role.aws_srt_support](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
-| [aws_iam_role.config](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.sns_failure_feedback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.sns_success_feedback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.sns_failure_feedback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
@@ -55,29 +56,29 @@
 | [aws_iam_role_policy_attachment.aws_billing_access_for_operator](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.aws_srt_support_managed_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.aws_support_access_for_breakglass](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
-| [aws_iam_role_policy_attachment.managed_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_service_linked_role.config](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) | resource |
 | [aws_oam_link.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/oam_link) | resource |
 | [aws_s3_account_public_access_block.block_all](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_account_public_access_block) | resource |
 | [aws_shield_drt_access_role_arn_association.aws_srt_support_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_drt_access_role_arn_association) | resource |
 | [aws_cloudwatch_log_group.cloudtrail_log_group_vendored](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudwatch_log_group) | data source |
-| [aws_iam_policy_document.assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.aws_srt_support_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.cost_metrics](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.sns_feedback_actions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.sns_feedback_assume_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.uptime_metrics](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
-| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_account_name"></a> [account\_name](#input\_account\_name) | Account Name | `string` | `""` | no |
+| <a name="input_account_name"></a> [account\_name](#input\_account\_name) | Account Name | `string` | n/a | yes |
 | <a name="input_auto_enable_controls"></a> [auto\_enable\_controls](#input\_auto\_enable\_controls) | Whether to automatically enable new controls when they are added to standards that are enabled | `bool` | `true` | no |
-| <a name="input_aws_account_alternate_contact"></a> [aws\_account\_alternate\_contact](#input\_aws\_account\_alternate\_contact) | The alternate contacts for the account. | <pre>object({<br>    operations = object({<br>      name          = string<br>      title         = string<br>      email_address = string<br>      phone_number  = string<br>    })<br>    security = object({<br>      name          = string<br>      title         = string<br>      email_address = string<br>      phone_number  = string<br>    })<br>  })</pre> | n/a | yes |
-| <a name="input_aws_account_primary_contact"></a> [aws\_account\_primary\_contact](#input\_aws\_account\_primary\_contact) | The primary contact for the account. | <pre>object({<br>    address_line_1  = string<br>    address_line_2  = string<br>    city            = string<br>    company_name    = string<br>    country_code    = string<br>    phone_number    = string<br>    postal_code     = string<br>    state_or_region = string<br>    full_name       = string<br>  })</pre> | n/a | yes |
+| <a name="input_aws_account_alternate_contact"></a> [aws\_account\_alternate\_contact](#input\_aws\_account\_alternate\_contact) | The alternate contacts for the account. | <pre>object({<br/>    operations = object({<br/>      name          = string<br/>      title         = string<br/>      email_address = string<br/>      phone_number  = string<br/>    })<br/>    security = object({<br/>      name          = string<br/>      title         = string<br/>      email_address = string<br/>      phone_number  = string<br/>    })<br/>  })</pre> | n/a | yes |
+| <a name="input_aws_account_primary_contact"></a> [aws\_account\_primary\_contact](#input\_aws\_account\_primary\_contact) | The primary contact for the account. | <pre>object({<br/>    address_line_1  = string<br/>    address_line_2  = string<br/>    city            = string<br/>    company_name    = string<br/>    country_code    = string<br/>    phone_number    = string<br/>    postal_code     = string<br/>    state_or_region = string<br/>    full_name       = string<br/>  })</pre> | n/a | yes |
 | <a name="input_aws_config_enabled"></a> [aws\_config\_enabled](#input\_aws\_config\_enabled) | n/a | `bool` | `false` | no |
 | <a name="input_aws_iam_account_alias"></a> [aws\_iam\_account\_alias](#input\_aws\_iam\_account\_alias) | The AWS IAM Account Alias to use for the account | `string` | n/a | yes |
+| <a name="input_aws_macie2_finding_publishing_frequency"></a> [aws\_macie2\_finding\_publishing\_frequency](#input\_aws\_macie2\_finding\_publishing\_frequency) | n/a | `string` | `"SIX_HOURS"` | no |
+| <a name="input_aws_macie2_status"></a> [aws\_macie2\_status](#input\_aws\_macie2\_status) | n/a | `string` | n/a | yes |
 | <a name="input_aws_s3_account_block_public_access_enable"></a> [aws\_s3\_account\_block\_public\_access\_enable](#input\_aws\_s3\_account\_block\_public\_access\_enable) | Whether Amazon S3 should enable public blocks for buckets in this account. Defaults to False. | `bool` | `false` | no |
 | <a name="input_aws_s3_account_block_public_acls"></a> [aws\_s3\_account\_block\_public\_acls](#input\_aws\_s3\_account\_block\_public\_acls) | Whether Amazon S3 should block public ACLs for buckets in this account. Defaults to true. | `bool` | `true` | no |
 | <a name="input_aws_s3_account_block_public_policy"></a> [aws\_s3\_account\_block\_public\_policy](#input\_aws\_s3\_account\_block\_public\_policy) | Whether Amazon S3 should block public bucket policies for buckets in this account. Defaults to true. | `bool` | `true` | no |
@@ -112,6 +113,9 @@
 | <a name="input_cost_anomaly_threshold_expression_type"></a> [cost\_anomaly\_threshold\_expression\_type](#input\_cost\_anomaly\_threshold\_expression\_type) | Setting passed to the threshold\_expression to determine if the value (weekly\_schedule\_threshold\|immediate\_schedule\_threshold) is an absolute (ANOMALY\_TOTAL\_IMPACT\_ABSOLUTE) or percentage (ANOMALY\_TOTAL\_IMPACT\_PERCENTAGE) | `string` | `"ANOMALY_TOTAL_IMPACT_ABSOLUTE"` | no |
 | <a name="input_cost_anomaly_weekly_schedule_threshold"></a> [cost\_anomaly\_weekly\_schedule\_threshold](#input\_cost\_anomaly\_weekly\_schedule\_threshold) | The value that triggers a weekly notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage. | `string` | `"100.0"` | no |
 | <a name="input_custom_alarms_breakglass_login_alarm_enabled"></a> [custom\_alarms\_breakglass\_login\_alarm\_enabled](#input\_custom\_alarms\_breakglass\_login\_alarm\_enabled) | Enable or disable the breakglass login alarm | `bool` | `true` | no |
+| <a name="input_data_access_base_policy_arn"></a> [data\_access\_base\_policy\_arn](#input\_data\_access\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/ViewOnlyAccess"` | no |
+| <a name="input_data_access_create_instance_profile"></a> [data\_access\_create\_instance\_profile](#input\_data\_access\_create\_instance\_profile) | n/a | `bool` | `false` | no |
+| <a name="input_data_access_custom_policy_json"></a> [data\_access\_custom\_policy\_json](#input\_data\_access\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_enable_default_standards"></a> [enable\_default\_standards](#input\_enable\_default\_standards) | Whether to enable the security standards that Security Hub has designated as automatically enabled | `bool` | `false` | no |
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
 | <a name="input_fsbp_standard_control_elb_6_enabled"></a> [fsbp\_standard\_control\_elb\_6\_enabled](#input\_fsbp\_standard\_control\_elb\_6\_enabled) | When false, sets standard control to disabled. | `bool` | `true` | no |
@@ -125,9 +129,7 @@
 | <a name="input_pagerduty_securityhub_integration_key"></a> [pagerduty\_securityhub\_integration\_key](#input\_pagerduty\_securityhub\_integration\_key) | The PagerDuty integration key to subscribe to SecurityHub findings | `string` | `null` | no |
 | <a name="input_product"></a> [product](#input\_product) | n/a | `string` | n/a | yes |
 | <a name="input_shield_support_role_enabled"></a> [shield\_support\_role\_enabled](#input\_shield\_support\_role\_enabled) | Whether to create the Shield Support Role to allow AWS security engineers to access the account to assist with DDoS mitigation | `bool` | `false` | no |
-| <a name="input_team_email"></a> [team\_email](#input\_team\_email) | Team group email address for use in tags | `string` | `"opgteam@digital.justice.gov.uk"` | no |
-| <a name="input_team_name"></a> [team\_name](#input\_team\_name) | Name of the Team looking after the Service | `string` | `"OPG"` | no |
-| <a name="input_user_arns"></a> [user\_arns](#input\_user\_arns) | n/a | <pre>object({<br>    view       = list(string)<br>    operation  = list(string)<br>    breakglass = list(string)<br>    ci         = list(string)<br>  })</pre> | n/a | yes |
+| <a name="input_user_arns"></a> [user\_arns](#input\_user\_arns) | n/a | <pre>object({<br/>    view        = list(string)<br/>    operation   = list(string)<br/>    breakglass  = list(string)<br/>    data_access = list(string)<br/>    ci          = list(string)<br/>  })</pre> | n/a | yes |
 | <a name="input_viewer_base_policy_arn"></a> [viewer\_base\_policy\_arn](#input\_viewer\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/ReadOnlyAccess"` | no |
 | <a name="input_viewer_custom_policy_json"></a> [viewer\_custom\_policy\_json](#input\_viewer\_custom\_policy\_json) | n/a | `string` | `""` | no |
 

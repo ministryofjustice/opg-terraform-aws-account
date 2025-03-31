@@ -24,6 +24,12 @@ variable "custom_alarms_breakglass_login_alarm_enabled" {
   type        = bool
 }
 
+variable "custom_alarms_data_access_login_alarm_enabled" {
+  default     = true
+  description = "Enable or disable the breakglass login alarm"
+  type        = bool
+}
+
 variable "cloudtrail_log_group_name" {
   description = "Name of the cloudtrail log group"
   type        = string

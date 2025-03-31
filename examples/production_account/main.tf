@@ -20,10 +20,11 @@ data "aws_iam_group" "viewers" {
 
 locals {
   user_arns = {
-    breakglass = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
-    ci         = [aws_iam_user.ci_user.arn]
-    operation  = data.aws_iam_group.operators.users[*].arn
-    view       = data.aws_iam_group.viewers.users[*].arn
+    breakglass  = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
+    ci          = [aws_iam_user.ci_user.arn]
+    operation   = data.aws_iam_group.operators.users[*].arn
+    data_access = data.aws_iam_group.operators.users[*].arn
+    view        = data.aws_iam_group.viewers.users[*].arn
   }
 }
 
@@ -37,6 +38,7 @@ module "production" {
   cloudtrail_bucket_name                    = "cloudtrail.production.example.opg.service.justice.gov.uk"
   cloudtrail_trail_name                     = "example-production"
   cost_anomaly_notification_email_address   = "opg-team+example-prod@digital.justice.gov.uk"
+  data_access_custom_policy_json            = data.aws_iam_policy_document.data_access.json
   product                                   = "example"
   user_arns                                 = local.user_arns
   providers = {
