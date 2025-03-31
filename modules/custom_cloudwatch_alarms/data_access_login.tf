@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_log_metric_filter" "data_access_metric" {
   count          = var.custom_alarms_data_access_login_alarm_enabled ? 1 : 0
   name           = "DataAccessConsoleLogin"
-  pattern        = "{ ($.eventType = \"AwsConsoleSignIn\") && ($.userIdentity.arn = \"arn:aws:sts::${data.aws_caller_identity.current.account_id}:assumed-role/breakglass/*\") }"
+  pattern        = "{ ($.eventType = \"AwsConsoleSignIn\") && ($.userIdentity.arn = \"arn:aws:sts::${data.aws_caller_identity.current.account_id}:assumed-role/data-access/*\") }"
   log_group_name = var.cloudtrail_log_group_name
 
   metric_transformation {
