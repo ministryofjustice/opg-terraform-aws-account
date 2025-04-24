@@ -18,18 +18,24 @@ data "aws_iam_group" "viewers" {
   provider   = aws.identity
 }
 
+data "aws_iam_group" "onboarding" {
+  group_name = "onboarding"
+  provider   = aws.identity
+}
+
 locals {
   user_arns = {
     breakglass  = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
     ci          = [aws_iam_user.ci_user.arn]
     operation   = data.aws_iam_group.operators.users[*].arn
     data_access = data.aws_iam_group.operators.users[*].arn
+    onboarding  = data.aws_iam_group.onboarding.users[*].arn
     view        = data.aws_iam_group.viewers.users[*].arn
 
   }
 }
 
-# Description: Full confuguration of an AWS account
+# Description: Full configuration of an AWS account
 module "full" {
   source                                       = "git@github.com:ministryofjustice/opg-terraform-aws-account.git?ref=v5.2.0"
   account_name                                 = "full"
@@ -76,6 +82,7 @@ module "full" {
   user_arns                                    = local.user_arns
   viewer_base_policy_arn                       = "arn:aws:iam::aws:policy/ReadOnlyAccess"
   viewer_custom_policy_json                    = ""
+  has_onboarding_role                          = false
 
   providers = {
     aws           = aws.production_eu_west_1
