@@ -1,3 +1,12 @@
+module "onboarding" {
+  count              = var.has_onboarding_role ? 1 : 0
+  source             = "./modules/default_roles"
+  name               = "onboarding"
+  user_arns          = var.user_arns.onboarding
+  base_policy_arn    = var.onboarding_base_policy_arn
+  custom_policy_json = var.onboarding_custom_policy_json
+}
+
 module "viewer" {
   source             = "./modules/default_roles"
   name               = "viewer"

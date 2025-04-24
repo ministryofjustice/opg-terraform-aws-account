@@ -129,12 +129,29 @@ variable "viewer_custom_policy_json" {
   default = ""
 }
 
+variable "onboarding_base_policy_arn" {
+  type    = string
+  default = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+}
+
+variable "onboarding_custom_policy_json" {
+  type    = string
+  default = ""
+}
+
+variable "has_onboarding_role" {
+  type        = bool
+  default     = false
+  description = "Whether the account has an onboarding role (only for development accounts)"
+}
+
 variable "user_arns" {
   type = object({
     view        = list(string)
     operation   = list(string)
     breakglass  = list(string)
     data_access = list(string)
+    onboarding  = list(string)
     ci          = list(string)
   })
 }
