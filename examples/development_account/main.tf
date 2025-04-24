@@ -19,12 +19,18 @@ data "aws_iam_group" "viewers" {
   provider   = aws.identity
 }
 
+data "aws_iam_group" "onboarding" {
+  group_name = "onboarding"
+  provider   = aws.identity
+}
+
 locals {
   user_arns = {
     breakglass  = concat(data.aws_iam_group.breakglass.users[*].arn, data.aws_iam_group.breakglass_product.users[*].arn)
     ci          = [aws_iam_user.ci_user.arn]
     operation   = data.aws_iam_group.operators.users[*].arn
     data_access = data.aws_iam_group.operators.users[*].arn
+    onboarding  = data.aws_iam_group.onboarding.users[*].arn
     view        = data.aws_iam_group.viewers.users[*].arn
   }
 }
@@ -50,6 +56,8 @@ module "development" {
   user_arns                                 = local.user_arns
   aws_security_hub_enabled                  = true
   aws_config_enabled                        = true
+  has_onboarding_role                       = true
+
   providers = {
     aws           = aws.development_eu_west_1
     aws.eu-west-2 = aws.development_eu_west_2
