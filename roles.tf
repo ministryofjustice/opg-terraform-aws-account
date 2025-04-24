@@ -40,6 +40,7 @@ module "breakglass" {
 }
 
 module "data_access" {
+  count                   = length(var.user_arns.data_access) > 0 ? 1 : 0
   source                  = "./modules/default_roles"
   name                    = "data-access"
   user_arns               = var.user_arns.data_access
