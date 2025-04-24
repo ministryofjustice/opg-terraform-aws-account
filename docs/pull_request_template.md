@@ -10,4 +10,4 @@ Explain how your code addresses the purpose of the change
 
 ## Learning
 
-Any tips and tricks, blog posts or tools which helped you. Plus anything notable you've discovered about the Modernising LPA service
+Any tips and tricks, blog posts or tools which helped you. Plus anything notable you've discovered.

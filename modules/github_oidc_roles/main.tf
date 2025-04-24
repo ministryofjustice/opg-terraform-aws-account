@@ -34,8 +34,9 @@ data "aws_iam_policy_document" "github_oidc_assume_role" {
 
 # Role to create
 resource "aws_iam_role" "oidc" {
-  name               = var.name
-  assume_role_policy = data.aws_iam_policy_document.github_oidc_assume_role.json
+  name                 = var.name
+  assume_role_policy   = data.aws_iam_policy_document.github_oidc_assume_role.json
+  max_session_duration = var.max_session_duration
 }
 
 # Roles the OIDC role is allowed to assume
