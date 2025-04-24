@@ -25,3 +25,9 @@ variable "permissions" {
   type        = list(string)
   description = "List of github permissions to scope the role to"
 }
+
+variable "max_session_duration" {
+  type        = number
+  description = "Maximum duration in seconds a role can be assumed for"
+  default     = 3600
+}
