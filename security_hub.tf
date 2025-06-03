@@ -15,6 +15,7 @@ module "security_hub" {
   cis_foundation_control_3_13_enabled       = var.cis_foundation_control_3_13_enabled
   cis_foundation_control_3_14_enabled       = var.cis_foundation_control_3_14_enabled
   fsbp_standard_control_elb_6_enabled       = var.fsbp_standard_control_elb_6_enabled
+  macie_enabled                             = local.macie_enabled
   sns_failure_feedback_role_arn             = aws_iam_role.sns_failure_feedback.arn
   sns_success_feedback_role_arn             = aws_iam_role.sns_success_feedback.arn
   pagerduty_securityhub_integration_key     = var.pagerduty_securityhub_integration_key

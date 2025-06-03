@@ -40,6 +40,7 @@ module "full" {
   source                                       = "git@github.com:ministryofjustice/opg-terraform-aws-account.git?ref=v5.2.0"
   account_name                                 = "full"
   aws_config_enabled                           = false
+  aws_macie2_status                            = "ENABLED"
   aws_s3_account_block_public_access_enable    = true
   aws_s3_account_block_public_acls             = true
   aws_s3_account_block_public_policy           = true
@@ -66,12 +67,13 @@ module "full" {
   cloudtrail_trail_name                        = "example-full"
   cost_anomaly_immediate_schedule_threshold    = "10.0"
   cost_anomaly_notification_email_address      = null
-  cost_anomaly_weekly_schedule_threshold       = "100.0"
   cost_anomaly_threshold_expression_type       = "ANOMALY_TOTAL_IMPACT_ABSOLUTE"
+  cost_anomaly_weekly_schedule_threshold       = "100.0"
   custom_alarms_breakglass_login_alarm_enabled = true
   data_access_custom_policy_json               = data.aws_iam_policy_document.data_access.json
   enable_guardduty                             = true
   fsbp_standard_control_elb_6_enabled          = true
+  has_onboarding_role                          = false
   is_production                                = true
   operator_base_policy_arn                     = "arn:aws:iam::aws:policy/ReadOnlyAccess"
   operator_create_instance_profile             = false
@@ -82,7 +84,6 @@ module "full" {
   user_arns                                    = local.user_arns
   viewer_base_policy_arn                       = "arn:aws:iam::aws:policy/ReadOnlyAccess"
   viewer_custom_policy_json                    = ""
-  has_onboarding_role                          = false
 
   providers = {
     aws           = aws.production_eu_west_1

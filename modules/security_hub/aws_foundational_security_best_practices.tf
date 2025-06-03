@@ -19,3 +19,21 @@ resource "aws_securityhub_standards_control" "elb_6_application_load_balancer_de
     aws_securityhub_account.main
   ]
 }
+
+resource "aws_securityhub_standards_control" "macie_1_macie_should_be_enabled" {
+  standards_control_arn = "${local.fsbp_standard_controls_arn_path}/Macie.1"
+  control_status        = var.macie_enabled ? "ENABLED" : "DISABLED"
+  disabled_reason       = var.macie_enabled ? null : "Macie has been intentionally Disabled"
+  depends_on = [
+    aws_securityhub_account.main
+  ]
+}
+
+resource "aws_securityhub_standards_control" "macie_2_macie_should_be_enabled" {
+  standards_control_arn = "${local.fsbp_standard_controls_arn_path}/Macie.2"
+  control_status        = var.macie_enabled ? "ENABLED" : "DISABLED"
+  disabled_reason       = var.macie_enabled ? null : "Macie has been intentionally Disabled"
+  depends_on = [
+    aws_securityhub_account.main
+  ]
+}

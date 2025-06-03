@@ -1,11 +1,12 @@
 module "macie_findings_encryption_key" {
+  count                   = var.macie_enabled ? 1 : 0
   source                  = "../kms_key_multi_region"
   encrypted_resource      = "Macie S3 bucket"
   kms_key_alias_name      = "${data.aws_default_tags.current.tags.application}-macie-findings-s3-bucket-encryption"
   enable_key_rotation     = true
   enable_multi_region     = true
   deletion_window_in_days = 10
-  kms_key_policy          = var.account_name == "development" ? data.aws_iam_policy_document.macie_findings_merged.json : data.aws_iam_policy_document.macie_findings.json
+  kms_key_policy          = var.account_name == "development" ? data.aws_iam_policy_document.macie_findings_merged[0].json : data.aws_iam_policy_document.macie_findings[0].json
   providers = {
     aws.eu_west_1 = aws.eu_west_1
     aws.eu_west_2 = aws.eu_west_2
@@ -16,14 +17,16 @@ module "macie_findings_encryption_key" {
 # https://docs.aws.amazon.com/kms/latest/developerguide/key-policies.html
 
 data "aws_iam_policy_document" "macie_findings_merged" {
+  count    = var.macie_enabled ? 1 : 0
   provider = aws.global
   source_policy_documents = [
-    data.aws_iam_policy_document.macie_findings.json,
-    data.aws_iam_policy_document.macie_findings_development_account_operator_admin.json
+    data.aws_iam_policy_document.macie_findings[0].json,
+    data.aws_iam_policy_document.macie_findings_development_account_operator_admin[0].json
   ]
 }
 
 data "aws_iam_policy_document" "macie_findings" {
+  count    = var.macie_enabled ? 1 : 0
   provider = aws.global
 
   statement {
@@ -129,6 +132,7 @@ data "aws_iam_policy_document" "macie_findings" {
 }
 
 data "aws_iam_policy_document" "macie_findings_development_account_operator_admin" {
+  count    = var.macie_enabled ? 1 : 0
   provider = aws.global
   statement {
     sid    = "Dev Account Key Administrator"
