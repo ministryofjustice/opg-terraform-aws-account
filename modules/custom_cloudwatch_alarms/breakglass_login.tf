@@ -16,7 +16,6 @@ resource "aws_cloudwatch_metric_alarm" "breakglass_login_alarm" {
   actions_enabled     = true
   alarm_name          = "${var.account_name} breakglass console login check"
   alarm_actions       = [aws_sns_topic.custom_cloudwatch_alarms.arn]
-  ok_actions          = [aws_sns_topic.custom_cloudwatch_alarms.arn]
   alarm_description   = "number of breakglass logins"
   namespace           = "${var.product}/Cloudtrail"
   metric_name         = "BreakglassLoginCount"
