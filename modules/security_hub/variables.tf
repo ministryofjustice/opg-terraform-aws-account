@@ -102,3 +102,9 @@ variable "pagerduty_securityhub_integration_key" {
   description = "The PagerDuty integration key to subscribe to SecurityHub findings"
   sensitive   = true
 }
+
+variable "macie_enabled" {
+  type        = bool
+  default     = true
+  description = "Whether AWS Macie has been intentionally disabled in the account."
+}

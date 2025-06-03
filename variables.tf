@@ -334,6 +334,7 @@ locals {
   cloudtrail_enabled          = !var.modernisation_platform_account
   config_enabled              = var.aws_config_enabled && !var.modernisation_platform_account ? true : false
   guardduty_enabled           = var.enable_guardduty && !var.modernisation_platform_account ? true : false
+  macie_enabled               = var.aws_macie2_status == "DISABLED" ? false : true
   security_hub_enabled        = var.aws_security_hub_enabled && !var.modernisation_platform_account ? true : false
   shield_support_role_enabled = var.shield_support_role_enabled && !var.modernisation_platform_account ? true : false
 
@@ -404,7 +405,7 @@ variable "aws_macie2_finding_publishing_frequency" {
 variable "aws_macie2_status" {
   type = string
   validation {
-    condition     = contains(["ENABLED", "PAUSED"], var.aws_macie2_status)
+    condition     = contains(["ENABLED", "PAUSED", "DISABLED"], var.aws_macie2_status)
     error_message = "Invalid value for aws_macie2_status"
   }
 }
