@@ -403,7 +403,8 @@ variable "aws_macie2_finding_publishing_frequency" {
 }
 
 variable "aws_macie2_status" {
-  type = string
+  description = "Whether AWS Macie Infra in created in either 'ENABLED' or 'PAUSED' mode, or not created and 'DISABLED' completely"
+  type        = string
   validation {
     condition     = contains(["ENABLED", "PAUSED", "DISABLED"], var.aws_macie2_status)
     error_message = "Invalid value for aws_macie2_status"

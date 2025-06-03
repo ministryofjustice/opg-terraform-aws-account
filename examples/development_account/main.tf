@@ -43,20 +43,21 @@ locals {
 module "development" {
   source                                    = "git@github.com:ministryofjustice/opg-terraform-aws-account.git?ref=v5.2.0"
   account_name                              = "development"
+  aws_config_enabled                        = true
+  aws_macie2_status                         = "ENABLED"
   aws_s3_account_block_public_access_enable = true
-  cis_foundation_control_3_4_enabled        = false
+  aws_security_hub_enabled                  = true
   cis_foundation_control_3_10_enabled       = false
-  fsbp_standard_control_elb_6_enabled       = false
+  cis_foundation_control_3_4_enabled        = false
   cloudtrail_bucket_name                    = "cloudtrail.development.example.opg.service.justice.gov.uk"
   cloudtrail_trail_name                     = "example-development"
   cost_anomaly_notification_email_address   = "opg-team+example-dev@digital.justice.gov.uk"
-  operator_base_policy_arn                  = "arn:aws:iam::aws:policy/AdministratorAccess"
   data_access_custom_policy_json            = data.aws_iam_policy_document.data_access.json
+  fsbp_standard_control_elb_6_enabled       = false
+  has_onboarding_role                       = true
+  operator_base_policy_arn                  = "arn:aws:iam::aws:policy/AdministratorAccess"
   product                                   = "example"
   user_arns                                 = local.user_arns
-  aws_security_hub_enabled                  = true
-  aws_config_enabled                        = true
-  has_onboarding_role                       = true
 
   providers = {
     aws           = aws.development_eu_west_1

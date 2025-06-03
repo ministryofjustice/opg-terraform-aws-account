@@ -38,9 +38,10 @@ locals {
 module "production" {
   source                                    = "git@github.com:ministryofjustice/opg-terraform-aws-account.git?ref=v5.2.0"
   account_name                              = "production"
+  aws_config_enabled                        = true
+  aws_macie2_status                         = "ENABLED"
   aws_s3_account_block_public_access_enable = true
   aws_security_hub_enabled                  = true
-  aws_config_enabled                        = true
   cloudtrail_bucket_name                    = "cloudtrail.production.example.opg.service.justice.gov.uk"
   cloudtrail_trail_name                     = "example-production"
   cost_anomaly_notification_email_address   = "opg-team+example-prod@digital.justice.gov.uk"

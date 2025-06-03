@@ -105,6 +105,5 @@ variable "pagerduty_securityhub_integration_key" {
 
 variable "macie_enabled" {
   type        = bool
-  default     = true
   description = "Whether AWS Macie has been intentionally disabled in the account."
 }
