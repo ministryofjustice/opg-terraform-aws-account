@@ -22,7 +22,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "s3_access_logging" {
     }
 
     expiration {
-      days = 365
+      days = 490
     }
   }
 
