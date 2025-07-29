@@ -167,7 +167,6 @@ resource "aws_cloudwatch_metric_alarm" "toggled_control" {
   actions_enabled     = each.value.actions_enabled
   alarm_name          = each.value.metric_name
   alarm_actions       = [aws_sns_topic.cis_aws_foundations_standard.arn]
-  ok_actions          = [aws_sns_topic.cis_aws_foundations_standard.arn]
   alarm_description   = each.value.alarm_description
   namespace           = "CISLogMetrics"
   metric_name         = each.value.metric_name
