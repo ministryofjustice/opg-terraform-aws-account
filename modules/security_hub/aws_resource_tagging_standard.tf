@@ -5,5 +5,4 @@ resource "aws_securityhub_standards_subscription" "resource_tagging" {
     create = "10m"
     delete = "10m"
   }
-
 }
