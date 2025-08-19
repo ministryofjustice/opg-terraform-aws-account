@@ -107,3 +107,15 @@ variable "macie_enabled" {
   type        = bool
   description = "Whether AWS Macie has been intentionally disabled in the account."
 }
+
+variable "cis_1_2_subscription_enabled" {
+  type        = bool
+  description = "Subscribes to Security Hub standard CIS 1.2.0"
+  default     = true
+}
+
+variable "cis_3_0_subscription_enabled" {
+  type        = bool
+  description = "Subscribes to Security Hub standard CIS 3.0.0"
+  default     = true
+}
