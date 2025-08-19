@@ -1,7 +1,7 @@
 resource "aws_securityhub_standards_subscription" "cis_1_2" {
   count         = var.cis_1_2_subscription_enabled ? 1 : 0
   depends_on    = [aws_securityhub_account.main]
-  standards_arn = "arn:aws:securityhub:${data.aws_region.current.region}::standards/cis-aws-foundations-benchmark/v/1.2.0"
+  standards_arn = "arn:aws:securityhub:${data.aws_region.current.region}::ruleset/cis-aws-foundations-benchmark/v/1.2.0"
 }
 
 resource "aws_securityhub_standards_control" "cis_1_14_ensure_hardware_mfa_is_enabled_for_the_root_account" {
