@@ -61,3 +61,33 @@ module "ci" {
   base_policy_arn    = var.ci_base_policy_arn
   custom_policy_json = var.ci_custom_policy_json
 }
+
+resource "aws_iam_policy" "missing_view_only_access" {
+  name        = "missing-view-only-access-policy"
+  description = "Additional permissions that view only needs to view the console without errors."
+  policy      = data.aws_iam_policy_document.missing_view_only_access.json
+}
+
+data "aws_iam_policy_document" "missing_view_only_access" {
+  statement {
+    sid    = "AllowFreetierGetAccount"
+    effect = "Allow"
+    actions = [
+      "freetier:GetAccountPlanState",
+      "freetier:ListAccountActivities",
+      "uxc:GetAccountColor"
+    ]
+    resources = ["*"]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "additional_data_access" {
+  depends_on = [module.data_access[0].aws_iam_role]
+  role       = module.data_access[0].aws_iam_role.name
+  policy_arn = aws_iam_policy.missing_view_only_access.arn
+}
+
+resource "aws_iam_role_policy_attachment" "additional_viewer" {
+  role       = module.viewer.aws_iam_role.name
+  policy_arn = aws_iam_policy.missing_view_only_access.arn
+}
