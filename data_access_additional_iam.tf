@@ -1,0 +1,24 @@
+resource "aws_iam_role_policy_attachment" "additional_data_access" {
+  role       = module.data_access.aws_iam_role.name
+  policy_arn = aws_iam_policy.additional_data_access.arn
+}
+
+
+resource "aws_iam_policy" "additional_data_access" {
+  name        = "additional-data-access-policy"
+  description = "Additional permissions that data access needs, left out by the AWS managed readonly policy."
+  policy      = data.aws_iam_policy_document.additional_data_access.json
+}
+
+data "aws_iam_policy_document" "additional_data_access" {
+  statement {
+    sid    = "AllowFreetierGetAccount"
+    effect = "Allow"
+    actions = [
+      "freetier:GetAccountPlanState",
+      "freetier:ListAccountActivities",
+      "uxc:GetAccountColor"
+    ]
+    resources = ["*"]
+  }
+}
