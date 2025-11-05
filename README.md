@@ -3,15 +3,15 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 5.38 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.38 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.99.1 |
-| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 5.99.1 |
-| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 5.99.1 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
+| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 5.100.0 |
+| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 5.100.0 |
 
 ## Modules
 
@@ -49,11 +49,14 @@
 | [aws_guardduty_detector.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) | resource |
 | [aws_iam_account_alias.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_alias) | resource |
 | [aws_iam_account_password_policy.strict](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_password_policy) | resource |
+| [aws_iam_policy.missing_view_only_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_role.aws_srt_support](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.sns_failure_feedback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role.sns_success_feedback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy.sns_failure_feedback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
 | [aws_iam_role_policy.sns_success_feedback](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy) | resource |
+| [aws_iam_role_policy_attachment.additional_data_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.additional_viewer](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.aws_billing_access_for_operator](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.aws_srt_support_managed_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.aws_support_access_for_breakglass](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
@@ -64,6 +67,7 @@
 | [aws_cloudwatch_log_group.cloudtrail_log_group_vendored](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudwatch_log_group) | data source |
 | [aws_iam_policy_document.aws_srt_support_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.cost_metrics](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.missing_view_only_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.sns_feedback_actions](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.sns_feedback_assume_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.uptime_metrics](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -94,16 +98,18 @@
 | <a name="input_breakglass_custom_policy_json"></a> [breakglass\_custom\_policy\_json](#input\_breakglass\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_ci_base_policy_arn"></a> [ci\_base\_policy\_arn](#input\_ci\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/AdministratorAccess"` | no |
 | <a name="input_ci_custom_policy_json"></a> [ci\_custom\_policy\_json](#input\_ci\_custom\_policy\_json) | n/a | `string` | `""` | no |
+| <a name="input_cis_1_2_foundation_control_1_14_enabled"></a> [cis\_1\_2\_foundation\_control\_1\_14\_enabled](#input\_cis\_1\_2\_foundation\_control\_1\_14\_enabled) | When true, creates a metric filter and alarm for CIS.1.14. When false, sets standard control to disabled. | `bool` | `false` | no |
+| <a name="input_cis_1_2_foundation_control_3_10_custom_filter"></a> [cis\_1\_2\_foundation\_control\_3\_10\_custom\_filter](#input\_cis\_1\_2\_foundation\_control\_3\_10\_custom\_filter) | When provided, creates a custom metric filter and alarm for CIS.3.10 and disables the control in security hub. | `string` | `""` | no |
+| <a name="input_cis_1_2_foundation_control_3_10_enabled"></a> [cis\_1\_2\_foundation\_control\_3\_10\_enabled](#input\_cis\_1\_2\_foundation\_control\_3\_10\_enabled) | When true, creates a metric filter and alarm for CIS.3.10. When false, sets standard control to disabled. | `bool` | `true` | no |
+| <a name="input_cis_1_2_foundation_control_3_11_enabled"></a> [cis\_1\_2\_foundation\_control\_3\_11\_enabled](#input\_cis\_1\_2\_foundation\_control\_3\_11\_enabled) | When true, creates a metric filter and alarm for CIS.3.11. When false, sets standard control to disabled. | `bool` | `true` | no |
+| <a name="input_cis_1_2_foundation_control_3_12_enabled"></a> [cis\_1\_2\_foundation\_control\_3\_12\_enabled](#input\_cis\_1\_2\_foundation\_control\_3\_12\_enabled) | When true, creates a metric filter and alarm for CIS.3.12. When false, sets standard control to disabled. | `bool` | `true` | no |
+| <a name="input_cis_1_2_foundation_control_3_13_enabled"></a> [cis\_1\_2\_foundation\_control\_3\_13\_enabled](#input\_cis\_1\_2\_foundation\_control\_3\_13\_enabled) | When true, creates a metric filter and alarm for CIS.3.13. When false, sets standard control to disabled. | `bool` | `true` | no |
+| <a name="input_cis_1_2_foundation_control_3_14_enabled"></a> [cis\_1\_2\_foundation\_control\_3\_14\_enabled](#input\_cis\_1\_2\_foundation\_control\_3\_14\_enabled) | When true, creates a metric filter and alarm for CIS.3.14. When false, sets standard control to disabled. | `bool` | `true` | no |
+| <a name="input_cis_1_2_foundation_control_3_4_enabled"></a> [cis\_1\_2\_foundation\_control\_3\_4\_enabled](#input\_cis\_1\_2\_foundation\_control\_3\_4\_enabled) | When true, creates a metric filter and alarm for CIS.3.4. When false, sets standard control to disabled. | `bool` | `true` | no |
+| <a name="input_cis_1_2_foundation_control_3_8_enabled"></a> [cis\_1\_2\_foundation\_control\_3\_8\_enabled](#input\_cis\_1\_2\_foundation\_control\_3\_8\_enabled) | When true, creates a metric filter and alarm for CIS.3.8. When false, sets standard control to disabled. | `bool` | `true` | no |
+| <a name="input_cis_1_2_subscription_enabled"></a> [cis\_1\_2\_subscription\_enabled](#input\_cis\_1\_2\_subscription\_enabled) | Subscribes to Security Hub standard CIS 1.2.0 | `bool` | `true` | no |
+| <a name="input_cis_3_0_subscription_enabled"></a> [cis\_3\_0\_subscription\_enabled](#input\_cis\_3\_0\_subscription\_enabled) | Subscribes to Security Hub standard CIS 3.0.0 | `bool` | `true` | no |
 | <a name="input_cis_foundation_alarms_enabled"></a> [cis\_foundation\_alarms\_enabled](#input\_cis\_foundation\_alarms\_enabled) | Whether to create metrics alarms to support CIS Foundation compliance. Defaults to true. | `bool` | `true` | no |
-| <a name="input_cis_foundation_control_1_14_enabled"></a> [cis\_foundation\_control\_1\_14\_enabled](#input\_cis\_foundation\_control\_1\_14\_enabled) | When true, creates a metric filter and alarm for CIS.1.14. When false, sets standard control to disabled. | `bool` | `false` | no |
-| <a name="input_cis_foundation_control_3_10_custom_filter"></a> [cis\_foundation\_control\_3\_10\_custom\_filter](#input\_cis\_foundation\_control\_3\_10\_custom\_filter) | When provided, creates a custom metric filter and alarm for CIS.3.10 and disables the control in security hub. | `string` | `""` | no |
-| <a name="input_cis_foundation_control_3_10_enabled"></a> [cis\_foundation\_control\_3\_10\_enabled](#input\_cis\_foundation\_control\_3\_10\_enabled) | When true, creates a metric filter and alarm for CIS.3.10. When false, sets standard control to disabled. | `bool` | `true` | no |
-| <a name="input_cis_foundation_control_3_11_enabled"></a> [cis\_foundation\_control\_3\_11\_enabled](#input\_cis\_foundation\_control\_3\_11\_enabled) | When true, creates a metric filter and alarm for CIS.3.11. When false, sets standard control to disabled. | `bool` | `true` | no |
-| <a name="input_cis_foundation_control_3_12_enabled"></a> [cis\_foundation\_control\_3\_12\_enabled](#input\_cis\_foundation\_control\_3\_12\_enabled) | When true, creates a metric filter and alarm for CIS.3.12. When false, sets standard control to disabled. | `bool` | `true` | no |
-| <a name="input_cis_foundation_control_3_13_enabled"></a> [cis\_foundation\_control\_3\_13\_enabled](#input\_cis\_foundation\_control\_3\_13\_enabled) | When true, creates a metric filter and alarm for CIS.3.13. When false, sets standard control to disabled. | `bool` | `true` | no |
-| <a name="input_cis_foundation_control_3_14_enabled"></a> [cis\_foundation\_control\_3\_14\_enabled](#input\_cis\_foundation\_control\_3\_14\_enabled) | When true, creates a metric filter and alarm for CIS.3.14. When false, sets standard control to disabled. | `bool` | `true` | no |
-| <a name="input_cis_foundation_control_3_4_enabled"></a> [cis\_foundation\_control\_3\_4\_enabled](#input\_cis\_foundation\_control\_3\_4\_enabled) | When true, creates a metric filter and alarm for CIS.3.4. When false, sets standard control to disabled. | `bool` | `true` | no |
-| <a name="input_cis_foundation_control_3_8_enabled"></a> [cis\_foundation\_control\_3\_8\_enabled](#input\_cis\_foundation\_control\_3\_8\_enabled) | When true, creates a metric filter and alarm for CIS.3.8. When false, sets standard control to disabled. | `bool` | `true` | no |
 | <a name="input_cis_metric_namespace"></a> [cis\_metric\_namespace](#input\_cis\_metric\_namespace) | The destination namespace of the CIS CloudWatch metric. | `string` | `"CISLogMetrics"` | no |
 | <a name="input_cloudtrail_bucket_name"></a> [cloudtrail\_bucket\_name](#input\_cloudtrail\_bucket\_name) | trail name | `string` | `"cloudtrail"` | no |
 | <a name="input_cloudtrail_trail_name"></a> [cloudtrail\_trail\_name](#input\_cloudtrail\_trail\_name) | trail name | `string` | `"cloudtrail"` | no |
@@ -145,3 +151,4 @@
 | <a name="output_aws_sns_topic_cis_aws_foundations_standard"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard) | n/a |
 | <a name="output_aws_sns_topic_custom_cloudwatch_alarms"></a> [aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
 | <a name="output_aws_sns_topic_slack_notification_failures"></a> [aws\_sns\_topic\_slack\_notification\_failures](#output\_aws\_sns\_topic\_slack\_notification\_failures) | n/a |
+| <a name="output_ci_iam_role"></a> [ci\_iam\_role](#output\_ci\_iam\_role) | n/a |
