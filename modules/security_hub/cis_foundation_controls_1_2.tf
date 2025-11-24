@@ -19,8 +19,8 @@ locals {
     cis_3_1_unauthorised_api_calls = {
       metric_name           = "CIS-3.1-UnauthorizedAPICalls"
       standards_control_arn = "${local.cis_standard_controls_arn_path}/3.1"
-      actions_enabled       = true
-      control_status        = "ENABLED"
+      actions_enabled       = var.cis_1_2_foundation_control_3_1_enabled
+      control_status        = var.cis_1_2_foundation_control_3_1_enabled ? "ENABLED" : "DISABLED"
       pattern               = "{($.errorCode=\"*UnauthorizedOperation\") || ($.errorCode=\"AccessDenied*\")}"
       alarm_description     = "unauthorised api call"
       alarm_threshold       = 3
