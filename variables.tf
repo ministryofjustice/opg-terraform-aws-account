@@ -212,6 +212,12 @@ variable "cis_1_2_foundation_control_1_14_enabled" {
   description = "When true, creates a metric filter and alarm for CIS.1.14. When false, sets standard control to disabled."
 }
 
+variable "cis_1_2_foundation_control_3_1_enabled" {
+  type        = bool
+  default     = true
+  description = "When true, creates a metric filter and alarm for CIS.3.1. When false, sets standard control to disabled."
+}
+
 variable "cis_1_2_foundation_control_3_4_enabled" {
   type        = bool
   default     = true

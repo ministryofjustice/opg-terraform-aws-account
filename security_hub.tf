@@ -8,6 +8,7 @@ module "security_hub" {
   cis_1_2_subscription_enabled                  = var.cis_1_2_subscription_enabled
   cis_3_0_subscription_enabled                  = var.cis_3_0_subscription_enabled
   cis_1_2_foundation_control_1_14_enabled       = var.cis_1_2_foundation_control_1_14_enabled
+  cis_1_2_foundation_control_3_1_enabled        = var.cis_1_2_foundation_control_3_1_enabled
   cis_1_2_foundation_control_3_4_enabled        = var.cis_1_2_foundation_control_3_4_enabled
   cis_1_2_foundation_control_3_8_enabled        = var.cis_1_2_foundation_control_3_8_enabled
   cis_1_2_foundation_control_3_10_custom_filter = var.cis_1_2_foundation_control_3_10_custom_filter
