@@ -1,15 +1,26 @@
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 ---
-    repos:
-      - repo: https://github.com/pre-commit/pre-commit-hooks
-        rev: v2.0.0
-        hooks:
-          - id: trailing-whitespace
-          - id: end-of-file-fixer
-          - id: check-yaml
-      - repo: https://github.com/antonbabenko/pre-commit-terraform
-        rev: v1.44.0
-        hooks:
-          - id: terraform_fmt
-          - id: terraform_docs_without_aggregate_type_defaults
+  repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v2.0.0
+      hooks:
+        - id: trailing-whitespace # trims trailing whitespace.
+        - id: end-of-file-fixer # ensures that a file is either empty, or ends with one newline.
+        - id: check-added-large-files # prevents giant files from being committed.
+          args: [ "--maxkb=20480" ]
+        - id: check-case-conflict # checks for files that would conflict in case-insensitive filesystems.
+        - id: check-json # Attempts to load all json files to verify syntax.
+        - id: check-merge-conflict # checks for files that contain merge conflict strings.
+        - id: check-yaml # checks yaml files for parseable syntax.
+        - id: detect-private-key # detects the presence of private keys.
+        - id: mixed-line-ending # replaces or checks mixed line ending.
+          args: [ "--fix=auto" ]
+        - id: no-commit-to-branch
+          args:
+          - --branch=main
+    - repo: https://github.com/antonbabenko/pre-commit-terraform
+      rev: v1.44.0
+      hooks:
+        - id: terraform_fmt
+        - id: terraform_docs_without_aggregate_type_defaults
