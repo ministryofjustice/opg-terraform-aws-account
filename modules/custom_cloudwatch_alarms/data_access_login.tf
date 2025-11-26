@@ -33,9 +33,8 @@ resource "aws_cloudwatch_query_definition" "data_access_login_alarm" {
   name            = "Custom Cloudwatch Alarms/data-access Login"
   log_group_names = [var.cloudtrail_log_group_name]
   query_string    = <<EOF
-fields @timestamp, sourceIPAddress, eventName, responseElements.ConsoleLogin
-| filter userIdentity.arn like "arn:aws:sts::${data.aws_caller_identity.current.account_id}:assumed-role/data-access"
-| filter eventType ="AwsConsoleSignIn"
+fields @timestamp, sourceIPAddress, eventType, eventName, userIdentity.arn
+| filter userIdentity.arn like "arn:aws:sts::${data.aws_caller_identity.current.account_id}:assumed-role/data-access" and eventType ="AwsConsoleSignIn"
 | sort @timestamp desc
 EOF
 }

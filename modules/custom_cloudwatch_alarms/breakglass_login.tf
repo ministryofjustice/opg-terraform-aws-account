@@ -33,9 +33,8 @@ resource "aws_cloudwatch_query_definition" "breakglass_login_alarm" {
   name            = "Custom Cloudwatch Alarms/Breakglass Login"
   log_group_names = [var.cloudtrail_log_group_name]
   query_string    = <<EOF
-fields @timestamp, sourceIPAddress, eventName, responseElements.ConsoleLogin
-| filter userIdentity.arn like "arn:aws:sts::${data.aws_caller_identity.current.account_id}:assumed-role/breakglass"
-| filter eventType ="AwsConsoleSignIn"
+fields @timestamp, sourceIPAddress, eventType, eventName, userIdentity.arn
+| filter userIdentity.arn like "arn:aws:sts::${data.aws_caller_identity.current.account_id}:assumed-role/breakglass" and eventType ="AwsConsoleSignIn"
 | sort @timestamp desc
 EOF
 }
