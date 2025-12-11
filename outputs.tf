@@ -15,5 +15,5 @@ output "aws_sns_topic_slack_notification_failures" {
 }
 
 output "ci_iam_role" {
-  value = module.ci.aws_iam_role
+  value = length(var.user_arns.ci) > 0 ? module.ci.aws_iam_role[0] : null
 }
