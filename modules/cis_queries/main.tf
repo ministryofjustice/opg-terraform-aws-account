@@ -46,6 +46,18 @@ fields @timestamp, eventName, requestParameters.roleName, requestParameters.poli
 EOF
 }
 
+resource "aws_cloudwatch_query_definition" "cis_3_6" {
+  name = "CIS-Queries/CIS-3.6-ConsoleAuthenticationFailure"
+
+  log_group_names = [var.cloudtrail_log_group_name]
+
+  query_string = <<EOF
+fields @timestamp, sourceIPAddress, userIdentity.userName, eventName, responseElements.ConsoleLogin
+| filter eventName = "ConsoleLogin" and responseElements.ConsoleLogin = "Failure"
+| sort @timestamp desc
+EOF
+}
+
 resource "aws_cloudwatch_query_definition" "cis_3_8" {
   name = "CIS-Queries/CIS-3.8-S3BucketPolicyChanges"
 
