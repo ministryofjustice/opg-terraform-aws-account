@@ -54,7 +54,13 @@ resource "aws_iam_role_policy_attachment" "aws_support_access_for_breakglass" {
   policy_arn = "arn:aws:iam::aws:policy/AWSSupportAccess"
 }
 
+moved {
+  from = module.ci
+  to   = module.ci[0]
+}
+
 module "ci" {
+  count              = length(var.user_arns.ci) > 0 ? 1 : 0
   source             = "./modules/default_roles"
   name               = "${var.product}-ci"
   user_arns          = var.user_arns.ci
