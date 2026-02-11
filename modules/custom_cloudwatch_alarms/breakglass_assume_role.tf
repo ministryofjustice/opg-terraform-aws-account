@@ -21,7 +21,7 @@ resource "aws_cloudwatch_metric_alarm" "breakglass_assume_role_alarm" {
   namespace           = "${var.product}/Cloudtrail"
   metric_name         = "BreakglassAssumeRoleCount"
   comparison_operator = "GreaterThanOrEqualToThreshold"
-  period              = 60
+  period              = 300
   evaluation_periods  = 1
   datapoints_to_alarm = 1
   statistic           = "Sum"
