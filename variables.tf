@@ -296,6 +296,18 @@ variable "custom_alarms_breakglass_login_alarm_enabled" {
   type        = bool
 }
 
+variable "custom_alarms_breakglass_assume_role_alarm_enabled" {
+  default     = true
+  description = "Enable or disable the breakglass assume role alarm"
+  type        = bool
+}
+
+variable "custom_alarms_data_access_assume_role_alarm_enabled" {
+  default     = true
+  description = "Enable or disable the data access assume role alarm"
+  type        = bool
+}
+
 ### security hub >= v4.60 additions
 
 # added in v4.64.0 with a default of 'SECURITY_CONTROL' which breaks current config
