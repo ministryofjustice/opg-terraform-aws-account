@@ -17,14 +17,14 @@ jobs:
     name: Lint Terraform
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: "Parse terraform version"
         id: tf_version
-        uses: ministryofjustice/opg-github-actions/.github/actions/terraform-version@v3.1.7
+        uses: ministryofjustice/opg-github-actions/actions/terraform-version@b605e1e2c94b399e8139c4c2be2c8730700e0004
         with:
           terraform_directory: "./"
       - name: "Setup terraform [version: ${{ steps.tf_version.outputs.version }}]"
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@5e8dbf3c6d9deaf4193ca7a8fb23f2ac83bb6c85
         with:
           terraform_version: ${{ steps.tf_version.outputs.version }}
       - name: terraform fmt
@@ -35,10 +35,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: lint
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+            fetch-depth: "0"
       - name: "Generate semver tag and release"
         id: semver_tag
-        uses: ministryofjustice/opg-github-actions/.github/actions/semver-tag@v3.1.7
+        uses: ministryofjustice/opg-github-actions/actions/semver@b605e1e2c94b399e8139c4c2be2c8730700e0004
         with:
           prerelease: ${{ github.ref != 'refs/heads/main' }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
