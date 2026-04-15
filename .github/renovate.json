@@ -7,29 +7,35 @@
   ],
   "branchPrefix": "renovate-",
   "commitMessageAction": "Renovate",
+  "minimumReleaseAge": "7 days",
   "labels": [
-      "Renovate"
+    "Renovate"
   ],
   "packageRules": [
     {
       "groupName": "Minor and Patch Updates",
-      "matchPackagePatterns": ["*"],
+      "matchPackagePatterns": [
+        "*"
+      ],
       "matchUpdateTypes": [
         "minor",
         "patch"
       ],
-      "stabilityDays": 5,
-      "addLabels": ["minor-and-patch"]
+      "addLabels": [
+        "minor-and-patch"
+      ]
     },
     {
       "groupName": "Major Updates",
-      "matchPackagePatterns": ["*"],
+      "matchPackagePatterns": [
+        "*"
+      ],
       "matchUpdateTypes": [
         "major"
       ],
-      "stabilityDays": 5,
-      "addLabels": ["major"]
+      "addLabels": [
+        "major"
+      ]
     }
-
   ]
 }
