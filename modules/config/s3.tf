@@ -1,7 +1,7 @@
 data "aws_region" "current" {}
 
 resource "aws_s3_bucket" "config" {
-  bucket        = "config-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
+  bucket        = "config-${data.aws_region.current.region}-${var.account_name}-${var.product}-opg"
   force_destroy = true
 }
 
@@ -23,7 +23,7 @@ resource "aws_s3_bucket_ownership_controls" "config" {
 resource "aws_s3_bucket_logging" "config" {
   bucket        = aws_s3_bucket.config.id
   target_bucket = var.s3_access_logging_bucket_name
-  target_prefix = "log/config-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
+  target_prefix = "log/config-${data.aws_region.current.region}-${var.account_name}-${var.product}-opg"
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "config" {

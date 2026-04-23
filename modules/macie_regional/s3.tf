@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket        = "macie-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
+  bucket        = "macie-${data.aws_region.current.region}-${var.account_name}-${var.product}-opg"
   force_destroy = true
   provider      = aws.region
 }
@@ -96,8 +96,8 @@ data "aws_iam_policy_document" "bucket" {
       test     = "ArnLike"
       variable = "aws:SourceArn"
       values = [
-        "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
-        "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:classification-job/*"
+        "arn:aws:macie2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
+        "arn:aws:macie2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:classification-job/*"
       ]
     }
   }
@@ -124,8 +124,8 @@ data "aws_iam_policy_document" "bucket" {
       test     = "ArnLike"
       variable = "aws:SourceArn"
       values = [
-        "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
-        "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:classification-job/*"
+        "arn:aws:macie2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
+        "arn:aws:macie2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:classification-job/*"
       ]
     }
   }

@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3_access_logging" {
-  bucket = "s3-access-logs-opg-${var.product}-${var.account_name}-${data.aws_region.current.name}"
+  bucket = "s3-access-logs-opg-${var.product}-${var.account_name}-${data.aws_region.current.region}"
 }
 
 resource "aws_s3_bucket_versioning" "s3_access_logging" {
