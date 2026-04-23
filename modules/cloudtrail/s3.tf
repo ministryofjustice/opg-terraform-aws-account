@@ -25,9 +25,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
     status = "Enabled"
     id     = "archive-after-30-days"
 
-    filter {
-      prefix = ""
-    }
+    filter {}
 
     noncurrent_version_transition {
       noncurrent_days = 30
@@ -43,9 +41,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
   rule {
     id = "abort-incomplete-multipart-upload"
 
-    filter {
-      prefix = ""
-    }
+    filter {}
 
     abort_incomplete_multipart_upload {
       days_after_initiation = 7
