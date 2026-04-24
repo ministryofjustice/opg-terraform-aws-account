@@ -13,7 +13,7 @@ resource "aws_securityhub_standards_control" "cis_1_14_ensure_hardware_mfa_is_en
   ]
 }
 locals {
-  cis_standard_controls_arn_path             = "arn:aws:securityhub:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0"
+  cis_standard_controls_arn_path             = "arn:aws:securityhub:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:control/cis-aws-foundations-benchmark/v/1.2.0"
   cis_foundation_control_3_10_custom_enabled = var.cis_1_2_foundation_control_3_10_custom_filter == "" ? false : true
   cis_controls = {
     cis_3_1_unauthorised_api_calls = {

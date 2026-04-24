@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "s3_access_logging" {
-  bucket = "s3-access-logs-opg-${var.product}-${var.account_name}-${data.aws_region.current.name}"
+  bucket = "s3-access-logs-opg-${var.product}-${var.account_name}-${data.aws_region.current.region}"
 }
 
 resource "aws_s3_bucket_versioning" "s3_access_logging" {
@@ -16,6 +16,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "s3_access_logging" {
     status = "Enabled"
     id     = "expire-after-490-days"
 
+    filter {}
+
     transition {
       days          = 30
       storage_class = "GLACIER"
@@ -28,6 +30,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "s3_access_logging" {
 
   rule {
     id = "abort-incomplete-multipart-upload"
+
+    filter {}
 
     abort_incomplete_multipart_upload {
       days_after_initiation = 7

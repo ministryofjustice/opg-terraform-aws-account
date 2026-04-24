@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket        = "macie-${data.aws_region.current.name}-${var.account_name}-${var.product}-opg"
+  bucket        = "macie-${data.aws_region.current.region}-${var.account_name}-${var.product}-opg"
   force_destroy = true
   provider      = aws.region
 }
@@ -36,9 +36,13 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
   rule {
     status = "Enabled"
     id     = "expire-after-490-days"
+
+    filter {}
+
     noncurrent_version_expiration {
       noncurrent_days = 10
     }
+
     expiration {
       days = 490
     }
@@ -46,6 +50,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "bucket" {
 
   rule {
     id = "abort-incomplete-multipart-upload"
+
+    filter {}
 
     abort_incomplete_multipart_upload {
       days_after_initiation = 7
@@ -96,8 +102,8 @@ data "aws_iam_policy_document" "bucket" {
       test     = "ArnLike"
       variable = "aws:SourceArn"
       values = [
-        "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
-        "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:classification-job/*"
+        "arn:aws:macie2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
+        "arn:aws:macie2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:classification-job/*"
       ]
     }
   }
@@ -124,8 +130,8 @@ data "aws_iam_policy_document" "bucket" {
       test     = "ArnLike"
       variable = "aws:SourceArn"
       values = [
-        "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
-        "arn:aws:macie2:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:classification-job/*"
+        "arn:aws:macie2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:export-configuration:*",
+        "arn:aws:macie2:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:classification-job/*"
       ]
     }
   }
