@@ -1,6 +1,6 @@
 module "aws_cost_notifier" {
   count                     = var.aws_cost_anomaly_notifications_enabled ? 1 : 0
-  source                    = "git@github.com:ministryofjustice/opg-aws-cost-notifier.git"
+  source                    = "git@github.com:ministryofjustice/opg-aws-cost-notifier.git?ref=v1.34.0"
   account_name              = var.account_name
   ecr_repository_url        = data.aws_ecr_repository.cost_notifier_lambda.repository_url
   failed_invocation_sns_arn = aws_sns_topic.slack_notification_failures.arn
@@ -16,7 +16,7 @@ module "aws_cost_notifier" {
 
 module "aws_health_notifier" {
   count                     = var.aws_health_notifications_enabled ? 1 : 0
-  source                    = "git@github.com:ministryofjustice/opg-aws-health-notifier.git"
+  source                    = "git@github.com:ministryofjustice/opg-aws-health-notifier.git?ref=v1.29.0"
   account_name              = var.account_name
   ecr_repository_url        = data.aws_ecr_repository.health_notifier_lambda.repository_url
   failed_invocation_sns_arn = aws_sns_topic.slack_notification_failures.arn
