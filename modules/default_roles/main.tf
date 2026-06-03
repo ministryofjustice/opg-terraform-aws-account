@@ -13,14 +13,20 @@ variable "custom_policy_json" {
   default = ""
 }
 
+variable "permissions_boundary_arn" {
+  type    = string
+  default = ""
+}
+
 variable "create_instance_profile" {
   type    = bool
   default = false
 }
 
 resource "aws_iam_role" "role" {
-  name               = var.name
-  assume_role_policy = var.create_instance_profile ? data.aws_iam_policy_document.instance_profile[0].json : data.aws_iam_policy_document.role.json
+  name                 = var.name
+  assume_role_policy   = var.create_instance_profile ? data.aws_iam_policy_document.instance_profile[0].json : data.aws_iam_policy_document.role.json
+  permissions_boundary = var.permissions_boundary_arn != "" ? var.permissions_boundary_arn : null
 }
 
 resource "aws_iam_instance_profile" "role" {
