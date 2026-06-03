@@ -145,6 +145,16 @@ variable "has_onboarding_role" {
   description = "Whether the account has an onboarding role (only for development accounts)"
 }
 
+variable "ci_boundaried_enabled" {
+  type    = bool
+  default = false
+}
+
+variable "ci_classic_enabled" {
+  type    = bool
+  default = true
+}
+
 variable "user_arns" {
   type = object({
     view        = list(string)
