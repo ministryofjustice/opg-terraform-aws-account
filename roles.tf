@@ -60,9 +60,18 @@ moved {
 }
 
 module "ci" {
-  count              = length(var.user_arns.ci) > 0 ? 1 : 0
+  count              = length(var.user_arns.ci) > 0 ? 1 : 0 && var.ci_unboundaried
   source             = "./modules/default_roles"
   name               = "${var.product}-ci"
+  user_arns          = var.user_arns.ci
+  base_policy_arn    = var.ci_base_policy_arn
+  custom_policy_json = var.ci_custom_policy_json
+}
+
+module "ci_boundaried" {
+  count              = length(var.user_arns.ci) > 0 ? 1 : 0 && var.ci_boundaried
+  source             = "./modules/ci_roles"
+  service            = var.product
   user_arns          = var.user_arns.ci
   base_policy_arn    = var.ci_base_policy_arn
   custom_policy_json = var.ci_custom_policy_json
