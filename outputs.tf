@@ -15,9 +15,9 @@ output "aws_sns_topic_slack_notification_failures" {
 }
 
 output "ci_iam_role" {
-  value = length(var.user_arns.ci) > 0 && var.ci_unboundaried ? module.ci[0].aws_iam_role : null
+  value = length(var.user_arns.ci) > 0 && var.ci_classic_enabled ? module.ci[0].aws_iam_role : null
 }
 
 output "ci_iam_role_boundaried" {
-  value = length(var.user_arns.ci) > 0 && var.ci_boundaried ? module.ci_boundaried[0].aws_iam_role : null
+  value = length(var.user_arns.ci) > 0 && var.ci_boundaried_enabled ? module.ci_boundaried[0].aws_iam_role : null
 }
