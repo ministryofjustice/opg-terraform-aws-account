@@ -75,6 +75,7 @@ module "ci_boundaried" {
   user_arns          = var.user_arns.ci
   base_policy_arn    = var.ci_base_policy_arn
   custom_policy_json = var.ci_custom_policy_json
+  boundary           = var.ci_boundary
 }
 
 resource "aws_iam_policy" "missing_view_only_access" {

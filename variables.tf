@@ -145,6 +145,11 @@ variable "has_onboarding_role" {
   description = "Whether the account has an onboarding role (only for development accounts)"
 }
 
+variable "ci_boundary" {
+  type    = list(string)
+  default = []
+}
+
 variable "ci_boundaried_enabled" {
   type    = bool
   default = false
