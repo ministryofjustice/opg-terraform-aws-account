@@ -15,7 +15,7 @@ output "aws_sns_topic_slack_notification_failures" {
 }
 
 output "aws_sns_topic_guardduty_findings" {
-  value = local.guardduty_enabled ? module.guardduty[0].sns_topic_arn : null
+  value = local.guardduty_enabled ? module.guardduty[0].sns_topic : null
 }
 
 output "ci_iam_role" {
