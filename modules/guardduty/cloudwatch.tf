@@ -44,7 +44,7 @@ resource "aws_cloudwatch_event_target" "guardduty_findings_log_group" {
 
 resource "aws_cloudwatch_log_metric_filter" "guardduty_findings" {
   count          = local.alerting_enabled ? 1 : 0
-  name           = "guardduty-findings-${var.alert_minimum_severity}-and-above"
+  name           = "guardduty-findings"
   pattern        = "{ $.detail.severity >= ${local.alert_threshold} }"
   log_group_name = aws_cloudwatch_log_group.guardduty_findings[0].name
 
@@ -57,7 +57,7 @@ resource "aws_cloudwatch_log_metric_filter" "guardduty_findings" {
 
 resource "aws_cloudwatch_metric_alarm" "guardduty_findings" {
   count               = local.alerting_enabled ? 1 : 0
-  alarm_name          = "guardduty-findings-${var.alert_minimum_severity}-and-above"
+  alarm_name          = "guardduty-findings"
   alarm_description   = "GuardDuty finding at or above ${var.alert_minimum_severity} severity detected"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 1

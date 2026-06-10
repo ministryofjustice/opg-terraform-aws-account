@@ -24,14 +24,24 @@ data "aws_iam_policy_document" "findings_sns" {
       type        = "AWS"
       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
-    actions   = ["sns:*"]
+    actions = [
+      "sns:Publish",
+      "sns:Subscribe",
+      "sns:Receive",
+      "sns:GetTopicAttributes",
+      "sns:SetTopicAttributes",
+      "sns:AddPermission",
+      "sns:RemovePermission",
+      "sns:DeleteTopic",
+      "sns:ListSubscriptionsByTopic",
+    ]
     resources = [aws_sns_topic.guardduty_findings[0].arn]
   }
 }
 
 resource "aws_sns_topic" "guardduty_findings" {
   count             = local.alerting_enabled ? 1 : 0
-  name              = "guardduty-findings-${var.alert_minimum_severity}-and-above"
+  name              = "guardduty-findings"
   kms_master_key_id = aws_kms_key.guardduty_findings[0].key_id
 }
 
