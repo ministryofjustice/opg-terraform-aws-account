@@ -1,5 +1,5 @@
 locals {
-  security_hub_pagerduty_integration_enabled = var.pagerduty_securityhub_integration_key != null ? true : false
+  security_hub_pagerduty_integration_enabled = var.security_hub_config.pagerduty_securityhub_integration_key != null ? true : false
   security_hub_sns_topic_arn                 = try(aws_sns_topic.security_hub[0].arn, "default")
 }
 
@@ -41,7 +41,7 @@ resource "aws_sns_topic_subscription" "security_hub" {
   count     = local.security_hub_pagerduty_integration_enabled ? 1 : 0
   topic_arn = aws_sns_topic.security_hub[0].arn
   protocol  = "https"
-  endpoint  = "https://events.pagerduty.com/integration/${var.pagerduty_securityhub_integration_key}/enqueue"
+  endpoint  = "https://events.pagerduty.com/integration/${var.security_hub_config.pagerduty_securityhub_integration_key}/enqueue"
 }
 
 resource "aws_sns_topic_policy" "security_hub_topic_policy" {
