@@ -90,6 +90,16 @@ variable "enable_guardduty" {
   default = true
 }
 
+variable "guardduty_alert_minimum_severity" {
+  type        = string
+  description = "Minimum GuardDuty finding severity level to alert on. Alerts on this level and above. Valid values: low, medium, high, critical. Defaults null to disable alerting."
+  default     = null
+  validation {
+    condition     = var.guardduty_alert_minimum_severity == null || contains(["low", "medium", "high", "critical"], var.guardduty_alert_minimum_severity)
+    error_message = "Valid severity levels are: low, medium, high, critical."
+  }
+}
+
 variable "is_production" {
   type    = bool
   default = false

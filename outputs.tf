@@ -14,6 +14,10 @@ output "aws_sns_topic_slack_notification_failures" {
   value = var.aws_slack_notifications_enabled ? module.slack_notifications[0].slack_notification_failures : null
 }
 
+output "aws_sns_topic_guardduty_findings" {
+  value = local.guardduty_enabled ? module.guardduty[0].sns_topic_arn : null
+}
+
 output "ci_iam_role" {
   value = length(var.user_arns.ci) > 0 && var.ci_classic_enabled ? module.ci[0].aws_iam_role : null
 }

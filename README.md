@@ -1,24 +1,26 @@
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.5 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.38 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.0.0 |
 
 ## Providers
 
 | Name | Version |
-|------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 5.100.0 |
-| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 5.100.0 |
-| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 5.100.0 |
+| ---- | ------- |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.48.0 |
+| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 6.48.0 |
+| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 6.48.0 |
 
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_breakglass"></a> [breakglass](#module\_breakglass) | ./modules/default_roles | n/a |
 | <a name="module_ci"></a> [ci](#module\_ci) | ./modules/default_roles | n/a |
+| <a name="module_ci_boundaried"></a> [ci\_boundaried](#module\_ci\_boundaried) | ./modules/ci_roles | n/a |
 | <a name="module_cloudtrail"></a> [cloudtrail](#module\_cloudtrail) | ./modules/cloudtrail | n/a |
 | <a name="module_cloudwatch_loginsights_cis_queries_opg"></a> [cloudwatch\_loginsights\_cis\_queries\_opg](#module\_cloudwatch\_loginsights\_cis\_queries\_opg) | ./modules/cis_queries | n/a |
 | <a name="module_cloudwatch_loginsights_cis_queries_provisioned"></a> [cloudwatch\_loginsights\_cis\_queries\_provisioned](#module\_cloudwatch\_loginsights\_cis\_queries\_provisioned) | ./modules/cis_queries | n/a |
@@ -32,6 +34,7 @@
 | <a name="module_github_oidc_role_cost_data"></a> [github\_oidc\_role\_cost\_data](#module\_github\_oidc\_role\_cost\_data) | ./modules/github_oidc_roles | n/a |
 | <a name="module_github_oidc_role_uptime_data"></a> [github\_oidc\_role\_uptime\_data](#module\_github\_oidc\_role\_uptime\_data) | ./modules/github_oidc_roles | n/a |
 | <a name="module_global_multiregion_resources"></a> [global\_multiregion\_resources](#module\_global\_multiregion\_resources) | ./modules/global | n/a |
+| <a name="module_guardduty"></a> [guardduty](#module\_guardduty) | ./modules/guardduty | n/a |
 | <a name="module_onboarding"></a> [onboarding](#module\_onboarding) | ./modules/default_roles | n/a |
 | <a name="module_operator"></a> [operator](#module\_operator) | ./modules/default_roles | n/a |
 | <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | ./modules/security_hub | n/a |
@@ -41,12 +44,11 @@
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_account_alternate_contact.operations](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/account_alternate_contact) | resource |
 | [aws_account_alternate_contact.security](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/account_alternate_contact) | resource |
 | [aws_account_primary_contact.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/account_primary_contact) | resource |
 | [aws_ebs_encryption_by_default.enabled](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ebs_encryption_by_default) | resource |
-| [aws_guardduty_detector.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/guardduty_detector) | resource |
 | [aws_iam_account_alias.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_alias) | resource |
 | [aws_iam_account_password_policy.strict](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_account_password_policy) | resource |
 | [aws_iam_policy.missing_view_only_access](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -75,7 +77,7 @@
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_account_name"></a> [account\_name](#input\_account\_name) | Account Name | `string` | n/a | yes |
 | <a name="input_auto_enable_controls"></a> [auto\_enable\_controls](#input\_auto\_enable\_controls) | Whether to automatically enable new controls when they are added to standards that are enabled | `bool` | `true` | no |
 | <a name="input_aws_account_alternate_contact"></a> [aws\_account\_alternate\_contact](#input\_aws\_account\_alternate\_contact) | The alternate contacts for the account. | <pre>object({<br/>    operations = object({<br/>      name          = string<br/>      title         = string<br/>      email_address = string<br/>      phone_number  = string<br/>    })<br/>    security = object({<br/>      name          = string<br/>      title         = string<br/>      email_address = string<br/>      phone_number  = string<br/>    })<br/>  })</pre> | n/a | yes |
@@ -97,6 +99,9 @@
 | <a name="input_breakglass_create_instance_profile"></a> [breakglass\_create\_instance\_profile](#input\_breakglass\_create\_instance\_profile) | n/a | `bool` | `false` | no |
 | <a name="input_breakglass_custom_policy_json"></a> [breakglass\_custom\_policy\_json](#input\_breakglass\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_ci_base_policy_arn"></a> [ci\_base\_policy\_arn](#input\_ci\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/AdministratorAccess"` | no |
+| <a name="input_ci_boundaried_enabled"></a> [ci\_boundaried\_enabled](#input\_ci\_boundaried\_enabled) | n/a | `bool` | `false` | no |
+| <a name="input_ci_boundary"></a> [ci\_boundary](#input\_ci\_boundary) | n/a | `list(string)` | `[]` | no |
+| <a name="input_ci_classic_enabled"></a> [ci\_classic\_enabled](#input\_ci\_classic\_enabled) | n/a | `bool` | `true` | no |
 | <a name="input_ci_custom_policy_json"></a> [ci\_custom\_policy\_json](#input\_ci\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_cis_1_2_foundation_control_1_14_enabled"></a> [cis\_1\_2\_foundation\_control\_1\_14\_enabled](#input\_cis\_1\_2\_foundation\_control\_1\_14\_enabled) | When true, creates a metric filter and alarm for CIS.1.14. When false, sets standard control to disabled. | `bool` | `false` | no |
 | <a name="input_cis_1_2_foundation_control_3_10_custom_filter"></a> [cis\_1\_2\_foundation\_control\_3\_10\_custom\_filter](#input\_cis\_1\_2\_foundation\_control\_3\_10\_custom\_filter) | When provided, creates a custom metric filter and alarm for CIS.3.10 and disables the control in security hub. | `string` | `""` | no |
@@ -120,9 +125,9 @@
 | <a name="input_cost_anomaly_notification_email_address"></a> [cost\_anomaly\_notification\_email\_address](#input\_cost\_anomaly\_notification\_email\_address) | Email address to use to send anomaly alerts to | `string` | `null` | no |
 | <a name="input_cost_anomaly_threshold_expression_type"></a> [cost\_anomaly\_threshold\_expression\_type](#input\_cost\_anomaly\_threshold\_expression\_type) | Setting passed to the threshold\_expression to determine if the value (weekly\_schedule\_threshold\|immediate\_schedule\_threshold) is an absolute (ANOMALY\_TOTAL\_IMPACT\_ABSOLUTE) or percentage (ANOMALY\_TOTAL\_IMPACT\_PERCENTAGE) | `string` | `"ANOMALY_TOTAL_IMPACT_ABSOLUTE"` | no |
 | <a name="input_cost_anomaly_weekly_schedule_threshold"></a> [cost\_anomaly\_weekly\_schedule\_threshold](#input\_cost\_anomaly\_weekly\_schedule\_threshold) | The value that triggers a weekly notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage. | `string` | `"100.0"` | no |
-| <a name="input_custom_alarms_breakglass_assume_role_alarm_enabled"></a> [custom\_alarms\_breakglass\_assume\_role\_alarm\_enabled](#input\_custom\_alarms\_breakglass\_assume\_role\_alarm\_enabled) | Enable or disable the breakglass assume role alarm | `bool` | `false` | no |
+| <a name="input_custom_alarms_breakglass_assume_role_alarm_enabled"></a> [custom\_alarms\_breakglass\_assume\_role\_alarm\_enabled](#input\_custom\_alarms\_breakglass\_assume\_role\_alarm\_enabled) | Enable or disable the breakglass assume role alarm | `bool` | `true` | no |
 | <a name="input_custom_alarms_breakglass_login_alarm_enabled"></a> [custom\_alarms\_breakglass\_login\_alarm\_enabled](#input\_custom\_alarms\_breakglass\_login\_alarm\_enabled) | Enable or disable the breakglass login alarm | `bool` | `true` | no |
-| <a name="input_custom_alarms_data_access_assume_role_alarm_enabled"></a> [custom\_alarms\_data\_access\_assume\_role\_alarm\_enabled](#input\_custom\_alarms\_data\_access\_assume\_role\_alarm\_enabled) | Enable or disable the data access assume role alarm | `bool` | `false` | no |
+| <a name="input_custom_alarms_data_access_assume_role_alarm_enabled"></a> [custom\_alarms\_data\_access\_assume\_role\_alarm\_enabled](#input\_custom\_alarms\_data\_access\_assume\_role\_alarm\_enabled) | Enable or disable the data access assume role alarm | `bool` | `true` | no |
 | <a name="input_data_access_base_policy_arn"></a> [data\_access\_base\_policy\_arn](#input\_data\_access\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"` | no |
 | <a name="input_data_access_create_instance_profile"></a> [data\_access\_create\_instance\_profile](#input\_data\_access\_create\_instance\_profile) | n/a | `bool` | `false` | no |
 | <a name="input_data_access_custom_policy_json"></a> [data\_access\_custom\_policy\_json](#input\_data\_access\_custom\_policy\_json) | n/a | `string` | `""` | no |
@@ -130,6 +135,7 @@
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
 | <a name="input_fsbp_standard_control_elb_6_enabled"></a> [fsbp\_standard\_control\_elb\_6\_enabled](#input\_fsbp\_standard\_control\_elb\_6\_enabled) | When false, sets standard control to disabled. | `bool` | `true` | no |
 | <a name="input_github_oidc_enabled"></a> [github\_oidc\_enabled](#input\_github\_oidc\_enabled) | Enable an oidc provider in the account for use within github actions. Will create a stored query for the access log. | `bool` | `false` | no |
+| <a name="input_guardduty_alert_minimum_severity"></a> [guardduty\_alert\_minimum\_severity](#input\_guardduty\_alert\_minimum\_severity) | Minimum GuardDuty finding severity level to alert on. Alerts on this level and above. Valid values: low, medium, high, critical. Defaults null to disable alerting. | `string` | `null` | no |
 | <a name="input_has_onboarding_role"></a> [has\_onboarding\_role](#input\_has\_onboarding\_role) | Whether the account has an onboarding role (only for development accounts) | `bool` | `false` | no |
 | <a name="input_is_production"></a> [is\_production](#input\_is\_production) | n/a | `bool` | `false` | no |
 | <a name="input_modernisation_platform_account"></a> [modernisation\_platform\_account](#input\_modernisation\_platform\_account) | IF this is a vendored account from the Modernisation Platform | `bool` | `false` | no |
@@ -149,9 +155,12 @@
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_aws_sns_topic_ce_detection_immediate_schedule"></a> [aws\_sns\_topic\_ce\_detection\_immediate\_schedule](#output\_aws\_sns\_topic\_ce\_detection\_immediate\_schedule) | n/a |
 | <a name="output_aws_sns_topic_cis_aws_foundations_standard"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard) | n/a |
 | <a name="output_aws_sns_topic_custom_cloudwatch_alarms"></a> [aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
+| <a name="output_aws_sns_topic_guardduty_findings"></a> [aws\_sns\_topic\_guardduty\_findings](#output\_aws\_sns\_topic\_guardduty\_findings) | n/a |
 | <a name="output_aws_sns_topic_slack_notification_failures"></a> [aws\_sns\_topic\_slack\_notification\_failures](#output\_aws\_sns\_topic\_slack\_notification\_failures) | n/a |
 | <a name="output_ci_iam_role"></a> [ci\_iam\_role](#output\_ci\_iam\_role) | n/a |
+| <a name="output_ci_iam_role_boundaried"></a> [ci\_iam\_role\_boundaried](#output\_ci\_iam\_role\_boundaried) | n/a |
+<!-- END_TF_DOCS -->
