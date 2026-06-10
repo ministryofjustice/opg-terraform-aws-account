@@ -24,7 +24,17 @@ data "aws_iam_policy_document" "findings_sns" {
       type        = "AWS"
       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
-    actions   = ["sns:*"]
+    actions = [
+      "sns:Publish",
+      "sns:Subscribe",
+      "sns:Receive",
+      "sns:GetTopicAttributes",
+      "sns:SetTopicAttributes",
+      "sns:AddPermission",
+      "sns:RemovePermission",
+      "sns:DeleteTopic",
+      "sns:ListSubscriptionsByTopic",
+    ]
     resources = [aws_sns_topic.guardduty_findings[0].arn]
   }
 }

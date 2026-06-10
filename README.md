@@ -135,7 +135,7 @@
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
 | <a name="input_fsbp_standard_control_elb_6_enabled"></a> [fsbp\_standard\_control\_elb\_6\_enabled](#input\_fsbp\_standard\_control\_elb\_6\_enabled) | When false, sets standard control to disabled. | `bool` | `true` | no |
 | <a name="input_github_oidc_enabled"></a> [github\_oidc\_enabled](#input\_github\_oidc\_enabled) | Enable an oidc provider in the account for use within github actions. Will create a stored query for the access log. | `bool` | `false` | no |
-| <a name="input_guardduty_alert_minimum_severity"></a> [guardduty\_alert\_minimum\_severity](#input\_guardduty\_alert\_minimum\_severity) | Minimum GuardDuty finding severity level to alert on. Alerts on this level and above. Valid values: low, medium, high, critical. Defaults null to disable alerting. | `string` | `null` | no |
+| <a name="input_guardduty_alert_minimum_severity"></a> [guardduty\_alert\_minimum\_severity](#input\_guardduty\_alert\_minimum\_severity) | Minimum GuardDuty finding severity level to alert on. Alerts on this level and above. Valid values: low, medium, high, critical. Defaults medium. | `string` | `"medium"` | no |
 | <a name="input_has_onboarding_role"></a> [has\_onboarding\_role](#input\_has\_onboarding\_role) | Whether the account has an onboarding role (only for development accounts) | `bool` | `false` | no |
 | <a name="input_is_production"></a> [is\_production](#input\_is\_production) | n/a | `bool` | `false` | no |
 | <a name="input_modernisation_platform_account"></a> [modernisation\_platform\_account](#input\_modernisation\_platform\_account) | IF this is a vendored account from the Modernisation Platform | `bool` | `false` | no |
