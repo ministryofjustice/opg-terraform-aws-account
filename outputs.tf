@@ -1,5 +1,13 @@
 output "aws_sns_topic_cis_aws_foundations_standard" {
-  value = var.cis_foundation_alarms_enabled && local.security_hub_enabled ? module.security_hub[0].aws_sns_topic_cis_aws_foundations_standard : null
+  value = var.cis_foundation_alarms_enabled && local.security_hub_enabled ? module.eu-west-1.aws_sns_topic_cis_aws_foundations_standard : null
+}
+
+output "aws_sns_topic_cis_aws_foundations_standard_eu_west_1" {
+  value = var.cis_foundation_alarms_enabled && local.security_hub_enabled ? module.eu-west-1.aws_sns_topic_cis_aws_foundations_standard : null
+}
+
+output "aws_sns_topic_cis_aws_foundations_standard_eu-west_2" {
+  value = var.cis_foundation_alarms_enabled && local.security_hub_enabled ? module.eu-west-2.aws_sns_topic_cis_aws_foundations_standard : null
 }
 
 output "aws_sns_topic_ce_detection_immediate_schedule" {

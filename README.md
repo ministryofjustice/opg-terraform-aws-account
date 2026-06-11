@@ -37,7 +37,6 @@
 | <a name="module_guardduty"></a> [guardduty](#module\_guardduty) | ./modules/guardduty | n/a |
 | <a name="module_onboarding"></a> [onboarding](#module\_onboarding) | ./modules/default_roles | n/a |
 | <a name="module_operator"></a> [operator](#module\_operator) | ./modules/default_roles | n/a |
-| <a name="module_security_hub"></a> [security\_hub](#module\_security\_hub) | ./modules/security_hub | n/a |
 | <a name="module_slack_notifications"></a> [slack\_notifications](#module\_slack\_notifications) | ./modules/slack_notifications | n/a |
 | <a name="module_viewer"></a> [viewer](#module\_viewer) | ./modules/default_roles | n/a |
 
@@ -65,6 +64,7 @@
 | [aws_iam_service_linked_role.config](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) | resource |
 | [aws_oam_link.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/oam_link) | resource |
 | [aws_s3_account_public_access_block.block_all](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_account_public_access_block) | resource |
+| [aws_securityhub_account.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/securityhub_account) | resource |
 | [aws_shield_drt_access_role_arn_association.aws_srt_support_association](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/shield_drt_access_role_arn_association) | resource |
 | [aws_cloudwatch_log_group.cloudtrail_log_group_vendored](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudwatch_log_group) | data source |
 | [aws_iam_policy_document.aws_srt_support_assume_role_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
@@ -158,6 +158,8 @@
 | ---- | ----------- |
 | <a name="output_aws_sns_topic_ce_detection_immediate_schedule"></a> [aws\_sns\_topic\_ce\_detection\_immediate\_schedule](#output\_aws\_sns\_topic\_ce\_detection\_immediate\_schedule) | n/a |
 | <a name="output_aws_sns_topic_cis_aws_foundations_standard"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard) | n/a |
+| <a name="output_aws_sns_topic_cis_aws_foundations_standard_eu-west_2"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard\_eu-west\_2](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard\_eu-west\_2) | n/a |
+| <a name="output_aws_sns_topic_cis_aws_foundations_standard_eu_west_1"></a> [aws\_sns\_topic\_cis\_aws\_foundations\_standard\_eu\_west\_1](#output\_aws\_sns\_topic\_cis\_aws\_foundations\_standard\_eu\_west\_1) | n/a |
 | <a name="output_aws_sns_topic_custom_cloudwatch_alarms"></a> [aws\_sns\_topic\_custom\_cloudwatch\_alarms](#output\_aws\_sns\_topic\_custom\_cloudwatch\_alarms) | n/a |
 | <a name="output_aws_sns_topic_guardduty_findings"></a> [aws\_sns\_topic\_guardduty\_findings](#output\_aws\_sns\_topic\_guardduty\_findings) | n/a |
 | <a name="output_aws_sns_topic_slack_notification_failures"></a> [aws\_sns\_topic\_slack\_notification\_failures](#output\_aws\_sns\_topic\_slack\_notification\_failures) | n/a |
