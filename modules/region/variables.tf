@@ -63,6 +63,7 @@ variable "security_hub_config" {
     cis_1_2_subscription_enabled                  = bool
     cis_3_0_subscription_enabled                  = bool
     cis_metric_namespace                          = string
+    cloudtrail_enabled                            = bool
     control_finding_generator                     = string
     enable_default_standards                      = bool
     fsbp_standard_control_elb_6_enabled           = bool

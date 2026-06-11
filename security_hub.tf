@@ -26,6 +26,7 @@ locals {
     cis_1_2_subscription_enabled                  = var.cis_1_2_subscription_enabled
     cis_3_0_subscription_enabled                  = var.cis_3_0_subscription_enabled
     cis_metric_namespace                          = var.cis_metric_namespace
+    cloudtrail_enabled                            = local.cloudtrail_enabled
     control_finding_generator                     = var.control_finding_generator
     enable_default_standards                      = var.enable_default_standards
     fsbp_standard_control_elb_6_enabled           = var.fsbp_standard_control_elb_6_enabled

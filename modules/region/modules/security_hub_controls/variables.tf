@@ -21,6 +21,7 @@ variable "security_hub_config" {
     cis_1_2_subscription_enabled                  = bool
     cis_3_0_subscription_enabled                  = bool
     cis_metric_namespace                          = string
+    cloudtrail_enabled                            = bool
     control_finding_generator                     = string
     enable_default_standards                      = bool
     fsbp_standard_control_elb_6_enabled           = bool
@@ -32,5 +33,6 @@ variable "security_hub_config" {
 }
 
 locals {
-  create_cloudtrail_alarms = data.aws_region.current.region == "eu-west-1"
+  create_cloudtrail_alarms  = (var.security_hub_config.cloudtrail_enabled && data.aws_region.current.region == "eu-west-1") || (!var.security_hub_config.cloudtrail_enabled && data.aws_region.current.region == "eu-west-2")
+  cloudtrail_log_group_name = var.security_hub_config.cloudtrail_enabled ? var.security_hub_config.aws_cloudwatch_log_group_cloudtrail_name : "cloudtrail"
 }
