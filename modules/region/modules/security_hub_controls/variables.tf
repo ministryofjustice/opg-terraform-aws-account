@@ -33,6 +33,5 @@ variable "security_hub_config" {
 }
 
 locals {
-  create_cloudtrail_alarms  = (var.security_hub_config.cloudtrail_enabled && data.aws_region.current.region == "eu-west-1") || (!var.security_hub_config.cloudtrail_enabled && data.aws_region.current.region == "eu-west-2")
-  cloudtrail_log_group_name = var.security_hub_config.cloudtrail_enabled ? var.security_hub_config.aws_cloudwatch_log_group_cloudtrail_name : "cloudtrail"
+  create_cloudtrail_alarms = var.security_hub_config.cloudtrail_enabled && data.aws_region.current.region == "eu-west-1"
 }
