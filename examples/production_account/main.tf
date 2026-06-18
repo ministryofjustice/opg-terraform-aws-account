@@ -32,6 +32,14 @@ locals {
     onboarding  = data.aws_iam_group.onboarding.users[*].arn
     view        = data.aws_iam_group.viewers.users[*].arn
   }
+
+  # All resource types that your service interacts with
+  service_boundary = [
+    "dynamodb:*",
+    "logs:*",
+    "iam:*",
+    "ec2:*",
+  ]
 }
 
 # Description: This module configures an AWS account with some security controls turned off for production purposes.
