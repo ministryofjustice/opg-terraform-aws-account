@@ -32,6 +32,14 @@ locals {
     onboarding  = data.aws_iam_group.onboarding.users[*].arn
     view        = data.aws_iam_group.viewers.users[*].arn
   }
+
+  # All resource types that your service interacts with
+  service_boundary = [
+    "dynamodb:*",
+    "logs:*",
+    "iam:*",
+    "ec2:*",
+  ]
 }
 
 # Description: This module configures an AWS account with some security controls turned off for production purposes.
@@ -48,6 +56,8 @@ module "production" {
   data_access_custom_policy_json            = data.aws_iam_policy_document.data_access.json
   product                                   = "example"
   user_arns                                 = local.user_arns
+  ci_boundaried_enabled                     = true
+  ci_boundary                               = local.service_boundary
   providers = {
     aws           = aws.production_eu_west_1
     aws.eu-west-2 = aws.production_eu_west_2
