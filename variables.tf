@@ -417,6 +417,12 @@ variable "has_onboarding_role" {
   description = "Whether the account has an onboarding role (only for development accounts)"
 }
 
+variable "iam_access_analyser_unused_access_enabled" {
+  default     = false
+  description = "Should the Unused Access Analyser for IAM Access Analyser be enabled"
+  type        = bool
+}
+
 variable "is_production" {
   type    = bool
   default = false
