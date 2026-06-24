@@ -149,6 +149,7 @@
 | <a name="input_operator_custom_policy_json"></a> [operator\_custom\_policy\_json](#input\_operator\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_pagerduty_securityhub_integration_key"></a> [pagerduty\_securityhub\_integration\_key](#input\_pagerduty\_securityhub\_integration\_key) | The PagerDuty integration key to subscribe to SecurityHub findings | `string` | `null` | no |
 | <a name="input_product"></a> [product](#input\_product) | n/a | `string` | n/a | yes |
+| <a name="input_security_hub_terminate_ssl_at_alb"></a> [security\_hub\_terminate\_ssl\_at\_alb](#input\_security\_hub\_terminate\_ssl\_at\_alb) | Disable security Hub Controls that are not compatible with Terminating SSL at the Load Balancer | `bool` | `true` | no |
 | <a name="input_shield_support_role_enabled"></a> [shield\_support\_role\_enabled](#input\_shield\_support\_role\_enabled) | Whether to create the Shield Support Role to allow AWS security engineers to access the account to assist with DDoS mitigation | `bool` | `false` | no |
 | <a name="input_user_arns"></a> [user\_arns](#input\_user\_arns) | n/a | <pre>object({<br/>    view        = list(string)<br/>    operation   = list(string)<br/>    breakglass  = list(string)<br/>    data_access = list(string)<br/>    onboarding  = list(string)<br/>    ci          = list(string)<br/>  })</pre> | n/a | yes |
 | <a name="input_viewer_base_policy_arn"></a> [viewer\_base\_policy\_arn](#input\_viewer\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/ReadOnlyAccess"` | no |

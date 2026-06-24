@@ -72,6 +72,8 @@ variable "security_hub_config" {
     cloudtrail_enabled                             = bool
     control_finding_generator                      = string
     enable_default_standards                       = bool
+    fsbp_standard_control_elb_21_enabled           = bool
+    fsbp_standard_control_elb_22_enabled           = bool
     fsbp_standard_control_elb_6_enabled            = bool
     fsbp_standard_control_secretsmanager_1_enabled = bool
     macie_enabled                                  = bool

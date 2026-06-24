@@ -457,6 +457,12 @@ variable "product" {
   type = string
 }
 
+variable "security_hub_terminate_ssl_at_alb" {
+  description = "Disable security Hub Controls that are not compatible with Terminating SSL at the Load Balancer"
+  default     = true
+  type        = bool
+}
+
 variable "user_arns" {
   type = object({
     view        = list(string)

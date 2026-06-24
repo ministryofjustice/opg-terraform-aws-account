@@ -29,6 +29,8 @@ locals {
     cloudtrail_enabled                             = local.cloudtrail_enabled
     control_finding_generator                      = var.control_finding_generator
     enable_default_standards                       = var.enable_default_standards
+    fsbp_standard_control_elb_21_enabled           = !var.security_hub_terminate_ssl_at_alb
+    fsbp_standard_control_elb_22_enabled           = !var.security_hub_terminate_ssl_at_alb
     fsbp_standard_control_elb_6_enabled            = var.fsbp_standard_control_elb_6_enabled
     fsbp_standard_control_secretsmanager_1_enabled = var.fsbp_standard_control_secretsmanager_1_enabled
     macie_enabled                                  = local.macie_enabled
