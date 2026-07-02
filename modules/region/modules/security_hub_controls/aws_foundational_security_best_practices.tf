@@ -49,3 +49,9 @@ resource "aws_securityhub_standards_control" "secretsmanager_automatic_rotation_
   control_status        = var.security_hub_config.fsbp_standard_control_secretsmanager_1_enabled ? "ENABLED" : "DISABLED"
   disabled_reason       = var.security_hub_config.fsbp_standard_control_secretsmanager_1_enabled ? null : "Secrets Manager Automatic Rotation is intentionally Disabled"
 }
+
+resource "aws_securityhub_standards_control" "secretsmanager_should_be_rotated_within_a_number_of_days" {
+  standards_control_arn = "${local.fsbp_standard_controls_arn_path}/SecretsManager.4"
+  control_status        = "DISABLED"
+  disabled_reason       = "Secrets Manager enforced rotation is not feasible for all secrets"
+}
