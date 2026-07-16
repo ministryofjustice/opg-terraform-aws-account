@@ -18,3 +18,10 @@ resource "aws_securityhub_standards_control" "cis_3_0_iam_6_hardware_mfa_should_
   control_status        = "DISABLED"
   disabled_reason       = "See ADR https://docs.opg.service.justice.gov.uk/documentation/adrs/adr-004.html#adr-004-no-hardware-mfa-key-for-root-account"
 }
+
+resource "aws_securityhub_standards_control" "cis_3_0_s3_20_s3_hardware_mfa_deletion_enabled" {
+  count                 = var.security_hub_config.cis_3_0_subscription_enabled ? 1 : 0
+  standards_control_arn = "${local.cis_3_0_standard_controls_arn_path}/2.1.2"
+  control_status        = "DISABLED"
+  disabled_reason       = "Requires root user to have MFA enabled https://docs.opg.service.justice.gov.uk/documentation/adrs/adr-004.html#adr-004-no-hardware-mfa-key-for-root-account"
+}

@@ -417,6 +417,12 @@ variable "has_onboarding_role" {
   description = "Whether the account has an onboarding role (only for development accounts)"
 }
 
+variable "iam_access_analyser_unused_access_enabled" {
+  default     = false
+  description = "Should the Unused Access Analyser for IAM Access Analyser be enabled"
+  type        = bool
+}
+
 variable "is_production" {
   type    = bool
   default = false
@@ -449,6 +455,12 @@ variable "operator_custom_policy_json" {
 
 variable "product" {
   type = string
+}
+
+variable "security_hub_terminate_ssl_at_alb" {
+  description = "Disable security Hub Controls that are not compatible with Terminating SSL at the Load Balancer"
+  default     = true
+  type        = bool
 }
 
 variable "user_arns" {

@@ -35,6 +35,12 @@ variable "config_iam_role" {
   description = "Iam role object for the config role."
 }
 
+variable "iam_access_analyser_unused_access_enabled" {
+  default     = false
+  description = "Should the Unused Access Analyser for IAM Access Analyser be enabled"
+  type        = bool
+}
+
 variable "macie_findings_s3_bucket_kms_key" {
   description = "The KMS key to use for the Macie findings bucket"
   type        = any
@@ -66,6 +72,8 @@ variable "security_hub_config" {
     cloudtrail_enabled                             = bool
     control_finding_generator                      = string
     enable_default_standards                       = bool
+    fsbp_standard_control_elb_21_enabled           = bool
+    fsbp_standard_control_elb_22_enabled           = bool
     fsbp_standard_control_elb_6_enabled            = bool
     fsbp_standard_control_secretsmanager_1_enabled = bool
     macie_enabled                                  = bool
