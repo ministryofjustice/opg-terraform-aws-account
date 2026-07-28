@@ -10,9 +10,9 @@
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.48.0 |
-| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 6.48.0 |
-| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 6.48.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.54.0 |
+| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 6.54.0 |
+| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 6.54.0 |
 
 ## Modules
 
@@ -133,6 +133,7 @@
 | <a name="input_data_access_custom_policy_json"></a> [data\_access\_custom\_policy\_json](#input\_data\_access\_custom\_policy\_json) | n/a | `string` | `""` | no |
 | <a name="input_enable_default_standards"></a> [enable\_default\_standards](#input\_enable\_default\_standards) | Whether to enable the security standards that Security Hub has designated as automatically enabled | `bool` | `false` | no |
 | <a name="input_enable_guardduty"></a> [enable\_guardduty](#input\_enable\_guardduty) | n/a | `bool` | `true` | no |
+| <a name="input_fsbp_standard_control_config_1_active_regions"></a> [fsbp\_standard\_control\_config\_1\_active\_regions](#input\_fsbp\_standard\_control\_config\_1\_active\_regions) | List of regions where the Config.1 FSBP control checks should be enabled. All other regions will have the control suppressed. If empty (default), no suppression rule is created. | `list(string)` | `[]` | no |
 | <a name="input_fsbp_standard_control_elb_6_enabled"></a> [fsbp\_standard\_control\_elb\_6\_enabled](#input\_fsbp\_standard\_control\_elb\_6\_enabled) | When false, sets standard control to disabled. | `bool` | `true` | no |
 | <a name="input_fsbp_standard_control_secretsmanager_1_enabled"></a> [fsbp\_standard\_control\_secretsmanager\_1\_enabled](#input\_fsbp\_standard\_control\_secretsmanager\_1\_enabled) | When false, disables Security Hub FSBP control for all secrets to have automatic rotation | `bool` | `false` | no |
 | <a name="input_github_oidc_enabled"></a> [github\_oidc\_enabled](#input\_github\_oidc\_enabled) | Enable an oidc provider in the account for use within github actions. Will create a stored query for the access log. | `bool` | `false` | no |
