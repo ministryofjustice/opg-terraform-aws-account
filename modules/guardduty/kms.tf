@@ -33,6 +33,27 @@ data "aws_iam_policy_document" "findings_kms" {
       values   = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/events/guardduty/findings"]
     }
   }
+  statement {
+    sid    = "AllowOperatorGuardDutyFindingsDecrypt"
+    effect = "Allow"
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/operator"]
+    }
+    actions = [
+      "kms:Encrypt*",
+      "kms:Decrypt*",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey",
+    ]
+    resources = ["*"]
+    condition {
+      test     = "ArnEquals"
+      variable = "kms:EncryptionContext:aws:logs:arn"
+      values   = ["arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/events/guardduty/findings"]
+    }
+  }
 }
 
 resource "aws_kms_key" "guardduty_findings" {
@@ -45,6 +66,6 @@ resource "aws_kms_key" "guardduty_findings" {
 
 resource "aws_kms_alias" "guardduty_findings" {
   count         = local.alerting_enabled ? 1 : 0
-  name          = "alias/guardduty_findings"
+  name          = "alias/guardduty-findings"
   target_key_id = aws_kms_key.guardduty_findings[0].key_id
 }
