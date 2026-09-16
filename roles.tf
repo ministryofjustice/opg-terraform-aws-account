@@ -30,6 +30,11 @@ resource "aws_iam_role_policy_attachment" "aws_billing_access_for_operator" {
   policy_arn = "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "aws_support_access_for_operator" {
+  role       = module.operator.aws_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSSupportAccess"
+}
+
 module "breakglass" {
   source                  = "./modules/default_roles"
   name                    = "breakglass"
