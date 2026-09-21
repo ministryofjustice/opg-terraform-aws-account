@@ -10,9 +10,9 @@
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.48.0 |
-| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 6.48.0 |
-| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 6.48.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.54.0 |
+| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 6.54.0 |
+| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 6.54.0 |
 
 ## Modules
 
@@ -61,6 +61,7 @@
 | [aws_iam_role_policy_attachment.aws_billing_access_for_operator](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.aws_srt_support_managed_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_role_policy_attachment.aws_support_access_for_breakglass](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.aws_support_access_for_operator](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_iam_service_linked_role.config](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_service_linked_role) | resource |
 | [aws_oam_link.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/oam_link) | resource |
 | [aws_s3_account_public_access_block.block_all](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_account_public_access_block) | resource |
@@ -147,6 +148,7 @@
 | <a name="input_operator_base_policy_arn"></a> [operator\_base\_policy\_arn](#input\_operator\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/ReadOnlyAccess"` | no |
 | <a name="input_operator_create_instance_profile"></a> [operator\_create\_instance\_profile](#input\_operator\_create\_instance\_profile) | n/a | `bool` | `false` | no |
 | <a name="input_operator_custom_policy_json"></a> [operator\_custom\_policy\_json](#input\_operator\_custom\_policy\_json) | n/a | `string` | `""` | no |
+| <a name="input_operator_iam_role_path"></a> [operator\_iam\_role\_path](#input\_operator\_iam\_role\_path) | n/a | `string` | `null` | no |
 | <a name="input_pagerduty_securityhub_integration_key"></a> [pagerduty\_securityhub\_integration\_key](#input\_pagerduty\_securityhub\_integration\_key) | The PagerDuty integration key to subscribe to SecurityHub findings | `string` | `null` | no |
 | <a name="input_product"></a> [product](#input\_product) | n/a | `string` | n/a | yes |
 | <a name="input_security_hub_terminate_ssl_at_alb"></a> [security\_hub\_terminate\_ssl\_at\_alb](#input\_security\_hub\_terminate\_ssl\_at\_alb) | Disable security Hub Controls that are not compatible with Terminating SSL at the Load Balancer | `bool` | `true` | no |
