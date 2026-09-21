@@ -23,6 +23,7 @@ module "operator" {
   base_policy_arn         = var.operator_base_policy_arn
   custom_policy_json      = var.operator_custom_policy_json
   create_instance_profile = var.operator_create_instance_profile
+  iam_role_path           = var.operator_iam_role_path
 }
 
 resource "aws_iam_role_policy_attachment" "aws_billing_access_for_operator" {

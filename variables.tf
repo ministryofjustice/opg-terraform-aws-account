@@ -453,6 +453,12 @@ variable "operator_custom_policy_json" {
   default = ""
 }
 
+variable "operator_iam_role_path" {
+  type     = string
+  default  = null
+  nullable = true
+}
+
 variable "product" {
   type = string
 }
