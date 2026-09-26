@@ -391,6 +391,11 @@ variable "enable_guardduty" {
   type    = bool
   default = true
 }
+variable "fsbp_standard_control_config_1_active_regions" {
+  type        = list(string)
+  default     = []
+  description = "List of regions where the Config.1 FSBP control checks should be enabled. All other regions will have the control suppressed. If empty (default), no suppression rule is created."
+}
 variable "fsbp_standard_control_elb_6_enabled" {
   type        = bool
   default     = true

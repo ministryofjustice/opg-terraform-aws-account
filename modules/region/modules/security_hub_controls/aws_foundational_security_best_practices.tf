@@ -2,6 +2,42 @@ locals {
   fsbp_standard_controls_arn_path = "arn:aws:securityhub:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:control/aws-foundational-security-best-practices/v/1.0.0"
 }
 
+resource "aws_securityhub_automation_rule" "suppress_fsbp_config_1_inactive_regions" {
+  count = length(var.security_hub_config.fsbp_standard_control_config_1_active_regions) > 0 ? 1 : 0
+
+  rule_name   = "suppress-fsbp-config-1-inactive-regions"
+  rule_order  = 1
+  is_terminal = false
+  description = "Suppress Config.1 FSBP checks in non active regions."
+
+  criteria {
+    generator_id {
+      comparison = "CONTAINS"
+      value      = "Config.1"
+    }
+    dynamic "resource_region" {
+      for_each = var.security_hub_config.fsbp_standard_control_config_1_active_regions
+      content {
+        comparison = "NOT_EQUALS"
+        value      = resource_region.value
+      }
+    }
+  }
+
+  actions {
+    type = "FINDING_FIELDS_UPDATE"
+    finding_fields_update {
+      workflow {
+        status = "SUPPRESSED"
+      }
+      note {
+        text       = "Suppressed: Not an active region"
+        updated_by = "terraform"
+      }
+    }
+  }
+}
+
 resource "aws_securityhub_standards_control" "ec2_vpc_172_vpc_bpa_should_be_enabled" {
   standards_control_arn = "${local.fsbp_standard_controls_arn_path}/EC2.172"
   control_status        = "DISABLED"
