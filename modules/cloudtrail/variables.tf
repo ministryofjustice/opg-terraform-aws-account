@@ -10,8 +10,8 @@ variable "trail_name" {
   type        = string
 }
 
-variable "s3_vpc_endpoint_access_denied_logging_enabled" {
-  description = "Create an additional trail that logs S3 network activity events denied by a VPC endpoint policy to the existing CloudTrail log group."
+variable "vpc_endpoint_access_denied_logging_enabled" {
+  description = "Create an additional trail that logs network activity events denied by a VPC endpoint policy to the existing CloudTrail log group."
   type        = bool
   default     = false
 }

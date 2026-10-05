@@ -8,14 +8,14 @@ locals {
 }
 
 module "cloudtrail" {
-  count                                         = local.cloudtrail_enabled ? 1 : 0
-  source                                        = "./modules/cloudtrail"
-  trail_name                                    = var.cloudtrail_trail_name
-  bucket_name                                   = var.cloudtrail_bucket_name
-  s3_vpc_endpoint_access_denied_logging_enabled = var.cloudtrail_s3_vpc_endpoint_access_denied_logging_enabled
-  s3_access_logging_bucket_name                 = module.eu-west-1.access_logging_bucket.bucket
-  sns_failure_feedback_role_arn                 = aws_iam_role.sns_failure_feedback.arn
-  sns_success_feedback_role_arn                 = aws_iam_role.sns_success_feedback.arn
+  count                                      = local.cloudtrail_enabled ? 1 : 0
+  source                                     = "./modules/cloudtrail"
+  trail_name                                 = var.cloudtrail_trail_name
+  bucket_name                                = var.cloudtrail_bucket_name
+  vpc_endpoint_access_denied_logging_enabled = var.cloudtrail_vpc_endpoint_access_denied_logging_enabled
+  s3_access_logging_bucket_name              = module.eu-west-1.access_logging_bucket.bucket
+  sns_failure_feedback_role_arn              = aws_iam_role.sns_failure_feedback.arn
+  sns_success_feedback_role_arn              = aws_iam_role.sns_success_feedback.arn
 }
 
 module "cloudwatch_loginsights_cis_queries_provisioned" {
