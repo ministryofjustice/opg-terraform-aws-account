@@ -124,3 +124,15 @@ data "aws_iam_policy_document" "cloudtrail_role_policy" {
     effect    = "Allow"
   }
 }
+
+resource "aws_cloudwatch_query_definition" "last_1000" {
+  name = "CloudTrail/Last 1000 entries"
+
+  log_group_names = [var.trail_name]
+
+  query_string = <<EOF
+fields @timestamp, @message
+| sort @timestamp desc
+| limit 1000
+EOF
+}
