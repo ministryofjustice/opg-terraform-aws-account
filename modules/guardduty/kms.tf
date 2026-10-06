@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "findings_kms" {
     }
   }
   statement {
-    sid    = "AllowCloudWatchAlarmsToEncryptSnsPublish"
+    sid    = "AllowCloudWatchAlarmsSnsPublish"
     effect = "Allow"
     principals {
       type        = "Service"
