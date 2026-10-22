@@ -33,3 +33,11 @@ output "ci_iam_role" {
 output "ci_iam_role_boundaried" {
   value = length(var.user_arns.ci) > 0 && var.ci_boundaried_enabled ? module.ci_boundaried[0].aws_iam_role : null
 }
+
+output "waf_rule_group_php2shell_arn_eu_west_1" {
+  value = module.eu-west-1.waf_rule_group_php2shell_arn
+}
+
+output "waf_rule_group_php2shell_arn_eu_west_2" {
+  value = module.eu-west-2.waf_rule_group_php2shell_arn
+}

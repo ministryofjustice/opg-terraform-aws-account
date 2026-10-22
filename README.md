@@ -170,4 +170,6 @@
 | <a name="output_aws_sns_topic_slack_notification_failures"></a> [aws\_sns\_topic\_slack\_notification\_failures](#output\_aws\_sns\_topic\_slack\_notification\_failures) | n/a |
 | <a name="output_ci_iam_role"></a> [ci\_iam\_role](#output\_ci\_iam\_role) | n/a |
 | <a name="output_ci_iam_role_boundaried"></a> [ci\_iam\_role\_boundaried](#output\_ci\_iam\_role\_boundaried) | n/a |
+| <a name="output_waf_rule_group_php2shell_arn_eu_west_1"></a> [waf\_rule\_group\_php2shell\_arn\_eu\_west\_1](#output\_waf\_rule\_group\_php2shell\_arn\_eu\_west\_1) | n/a |
+| <a name="output_waf_rule_group_php2shell_arn_eu_west_2"></a> [waf\_rule\_group\_php2shell\_arn\_eu\_west\_2](#output\_waf\_rule\_group\_php2shell\_arn\_eu\_west\_2) | n/a |
 <!-- END_TF_DOCS -->
