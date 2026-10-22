@@ -1,7 +1,7 @@
 resource "aws_wafv2_rule_group" "php2shell" {
   name     = "php2shell"
   scope    = "REGIONAL"
-  capacity = 10
+  capacity = 24
 
   rule {
     name     = "PHP2Shell"
