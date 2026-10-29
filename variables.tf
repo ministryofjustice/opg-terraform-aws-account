@@ -379,6 +379,12 @@ variable "custom_alarms_data_access_assume_role_alarm_enabled" {
   type        = bool
 }
 
+variable "custom_alarms_data_access_login_alarm_enabled" {
+  default     = true
+  description = "Enable or disable the data access login alarm"
+  type        = bool
+}
+
 variable "data_access_base_policy_arn" {
   type    = string
   default = "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
