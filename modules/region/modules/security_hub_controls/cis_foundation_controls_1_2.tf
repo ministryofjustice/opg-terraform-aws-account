@@ -55,7 +55,7 @@ locals {
       control_status        = "ENABLED"
       pattern               = "{($.eventName=ConsoleLogin) && ($.errorMessage=\"Failed authentication\")}"
       alarm_description     = "console authentication failure count"
-      alarm_threshold       = 1
+      alarm_threshold       = 3
     }
     cis_3_7_disabling_or_scheduled_deletion_of_cmk = {
       metric_name           = "CIS-3.7-DisableOrDeleteCMK"
