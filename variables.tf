@@ -367,12 +367,6 @@ variable "custom_alarms_breakglass_assume_role_alarm_enabled" {
   type        = bool
 }
 
-variable "custom_alarms_breakglass_login_alarm_enabled" {
-  default     = true
-  description = "Enable or disable the breakglass login alarm"
-  type        = bool
-}
-
 variable "custom_alarms_data_access_assume_role_alarm_enabled" {
   default     = true
   description = "Enable or disable the data access assume role alarm"
