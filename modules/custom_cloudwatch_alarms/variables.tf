@@ -18,12 +18,6 @@ variable "account_name" {
   type        = string
 }
 
-variable "custom_alarms_breakglass_login_alarm_enabled" {
-  default     = true
-  description = "Enable or disable the breakglass login alarm"
-  type        = bool
-}
-
 variable "custom_alarms_breakglass_assume_role_alarm_enabled" {
   default     = true
   description = "Enable or disable the breakglass assume role alarm"
@@ -33,12 +27,6 @@ variable "custom_alarms_breakglass_assume_role_alarm_enabled" {
 variable "custom_alarms_data_access_assume_role_alarm_enabled" {
   default     = true
   description = "Enable or disable the data access assume role alarm"
-  type        = bool
-}
-
-variable "custom_alarms_data_access_login_alarm_enabled" {
-  default     = true
-  description = "Enable or disable the breakglass login alarm"
   type        = bool
 }
 

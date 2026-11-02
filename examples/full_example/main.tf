@@ -69,7 +69,6 @@ module "full" {
   cost_anomaly_notification_email_address             = null
   cost_anomaly_threshold_expression_type              = "ANOMALY_TOTAL_IMPACT_ABSOLUTE"
   cost_anomaly_weekly_schedule_threshold              = "100.0"
-  custom_alarms_breakglass_login_alarm_enabled        = true
   custom_alarms_breakglass_assume_role_alarm_enabled  = true
   custom_alarms_data_access_assume_role_alarm_enabled = true
   data_access_custom_policy_json                      = data.aws_iam_policy_document.data_access.json
