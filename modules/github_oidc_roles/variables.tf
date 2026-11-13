@@ -15,6 +15,10 @@ variable "custom_policy_documents" {
   default     = []
 }
 
+variable "description" {
+  type        = string
+  description = "Description of the role"
+}
 
 variable "permissions" {
   type        = list(string)
