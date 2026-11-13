@@ -12,7 +12,7 @@ module "eu-west-1" {
   security_hub_config                       = local.security_hub_config
   sns_failure_feedback_role_arn             = aws_iam_role.sns_failure_feedback.arn
   sns_success_feedback_role_arn             = aws_iam_role.sns_success_feedback.arn
-  extended_support_sns_topic_arn            = module.eu-west-1.aws_sns_topic_extended_support
+  extended_support_sns_topic_arn            = module.eu-west-1.aws_sns_topic_extended_support.arn
   providers = {
     aws = aws
   }
@@ -32,7 +32,7 @@ module "eu-west-2" {
   security_hub_config                       = local.security_hub_config
   sns_failure_feedback_role_arn             = aws_iam_role.sns_failure_feedback.arn
   sns_success_feedback_role_arn             = aws_iam_role.sns_success_feedback.arn
-  extended_support_sns_topic_arn            = module.eu-west-2.aws_sns_topic_extended_support
+  extended_support_sns_topic_arn            = module.eu-west-2.aws_sns_topic_extended_support.arn
   providers = {
     aws = aws.eu-west-2
   }
