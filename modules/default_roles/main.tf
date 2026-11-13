@@ -3,14 +3,18 @@ variable "user_arns" {
   default = []
 }
 
-variable "name" {}
+variable "name" {
+  type = string
+}
 
 variable "base_policy_arn" {
   default = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+  type    = string
 }
 
 variable "custom_policy_json" {
   default = ""
+  type    = string
 }
 
 variable "iam_role_path" {

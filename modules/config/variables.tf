@@ -12,6 +12,7 @@ variable "config_delivery_frequency" {
 
 variable "config_iam_role" {
   description = "Iam role object for the config role."
+  type        = any
 }
 
 variable "config_max_execution_frequency" {
