@@ -87,7 +87,7 @@ data "aws_iam_policy_document" "bucket" {
     ]
     resources = [
       "${aws_s3_bucket.bucket.arn}/*",
-      "${aws_s3_bucket.bucket.arn}"
+      aws_s3_bucket.bucket.arn
     ]
     principals {
       type        = "Service"
@@ -96,7 +96,7 @@ data "aws_iam_policy_document" "bucket" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceAccount"
-      values   = ["${data.aws_caller_identity.current.account_id}"]
+      values   = [data.aws_caller_identity.current.account_id]
     }
     condition {
       test     = "ArnLike"

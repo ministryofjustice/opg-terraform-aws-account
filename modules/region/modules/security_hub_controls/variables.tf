@@ -38,3 +38,8 @@ variable "security_hub_config" {
 locals {
   create_cloudtrail_alarms = var.security_hub_config.cloudtrail_enabled && data.aws_region.current.region == "eu-west-1"
 }
+
+variable "extended_support_sns_topic_arn" {
+  description = "extended support SNS topic ARN"
+  type        = string
+}
