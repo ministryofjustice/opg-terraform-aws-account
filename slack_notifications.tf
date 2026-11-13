@@ -4,7 +4,6 @@ module "slack_notifications" {
   account_name                                = var.account_name
   aws_cost_anomaly_notifications_enabled      = local.aws_cost_anomaly_notifications_enabled
   aws_health_notifications_enabled            = local.aws_health_notifications_enabled
-  aws_security_hub_enabled                    = var.aws_security_hub_enabled
   aws_slack_cost_anomaly_notification_channel = var.aws_slack_cost_anomaly_notification_channel
   aws_slack_health_notification_channel       = var.aws_slack_health_notification_channel
   cost_anomaly_sns_topic_arn                  = module.cost_anomaly_detection.immediate_schedule_sns_topic.arn
