@@ -10,9 +10,9 @@
 
 | Name | Version |
 | ---- | ------- |
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.54.0 |
-| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 6.54.0 |
-| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 6.54.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.72.0 |
+| <a name="provider_aws.eu-west-2"></a> [aws.eu-west-2](#provider\_aws.eu-west-2) | 6.72.0 |
+| <a name="provider_aws.global"></a> [aws.global](#provider\_aws.global) | 6.72.0 |
 
 ## Modules
 
@@ -128,7 +128,6 @@
 | <a name="input_cost_anomaly_threshold_expression_type"></a> [cost\_anomaly\_threshold\_expression\_type](#input\_cost\_anomaly\_threshold\_expression\_type) | Setting passed to the threshold\_expression to determine if the value (weekly\_schedule\_threshold\|immediate\_schedule\_threshold) is an absolute (ANOMALY\_TOTAL\_IMPACT\_ABSOLUTE) or percentage (ANOMALY\_TOTAL\_IMPACT\_PERCENTAGE) | `string` | `"ANOMALY_TOTAL_IMPACT_ABSOLUTE"` | no |
 | <a name="input_cost_anomaly_weekly_schedule_threshold"></a> [cost\_anomaly\_weekly\_schedule\_threshold](#input\_cost\_anomaly\_weekly\_schedule\_threshold) | The value that triggers a weekly notification if the threshold is exceeded. By default, an absolute dollar value, but changing `threshold_expression_type` changes this to percentage. | `string` | `"100.0"` | no |
 | <a name="input_custom_alarms_breakglass_assume_role_alarm_enabled"></a> [custom\_alarms\_breakglass\_assume\_role\_alarm\_enabled](#input\_custom\_alarms\_breakglass\_assume\_role\_alarm\_enabled) | Enable or disable the breakglass assume role alarm | `bool` | `true` | no |
-| <a name="input_custom_alarms_breakglass_login_alarm_enabled"></a> [custom\_alarms\_breakglass\_login\_alarm\_enabled](#input\_custom\_alarms\_breakglass\_login\_alarm\_enabled) | Enable or disable the breakglass login alarm | `bool` | `true` | no |
 | <a name="input_custom_alarms_data_access_assume_role_alarm_enabled"></a> [custom\_alarms\_data\_access\_assume\_role\_alarm\_enabled](#input\_custom\_alarms\_data\_access\_assume\_role\_alarm\_enabled) | Enable or disable the data access assume role alarm | `bool` | `true` | no |
 | <a name="input_data_access_base_policy_arn"></a> [data\_access\_base\_policy\_arn](#input\_data\_access\_base\_policy\_arn) | n/a | `string` | `"arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"` | no |
 | <a name="input_data_access_create_instance_profile"></a> [data\_access\_create\_instance\_profile](#input\_data\_access\_create\_instance\_profile) | n/a | `bool` | `false` | no |
@@ -170,6 +169,7 @@
 | <a name="output_aws_sns_topic_slack_notification_failures"></a> [aws\_sns\_topic\_slack\_notification\_failures](#output\_aws\_sns\_topic\_slack\_notification\_failures) | n/a |
 | <a name="output_ci_iam_role"></a> [ci\_iam\_role](#output\_ci\_iam\_role) | n/a |
 | <a name="output_ci_iam_role_boundaried"></a> [ci\_iam\_role\_boundaried](#output\_ci\_iam\_role\_boundaried) | n/a |
+| <a name="output_extended_support_sns_topics"></a> [extended\_support\_sns\_topics](#output\_extended\_support\_sns\_topics) | n/a |
 | <a name="output_waf_rule_group_php2shell_arn_eu_west_1"></a> [waf\_rule\_group\_php2shell\_arn\_eu\_west\_1](#output\_waf\_rule\_group\_php2shell\_arn\_eu\_west\_1) | n/a |
 | <a name="output_waf_rule_group_php2shell_arn_eu_west_2"></a> [waf\_rule\_group\_php2shell\_arn\_eu\_west\_2](#output\_waf\_rule\_group\_php2shell\_arn\_eu\_west\_2) | n/a |
 <!-- END_TF_DOCS -->
