@@ -41,3 +41,11 @@ output "waf_rule_group_php2shell_arn_eu_west_1" {
 output "waf_rule_group_php2shell_arn_eu_west_2" {
   value = module.eu-west-2.waf_rule_group_php2shell_arn
 }
+
+output "extended_support_sns_topics" {
+  value = {
+    "eu-west-1" : module.eu-west-1.aws_sns_topic_extended_support
+    "eu-west-2" : module.eu-west-2.aws_sns_topic_extended_support
+    "us-east-1" : module.global_multiregion_resources.aws_sns_topic_extended_support
+  }
+}
