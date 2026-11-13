@@ -3,11 +3,6 @@ variable "name" {
   description = "The name of the role. Used for both policy and role"
 }
 
-variable "description" {
-  type        = string
-  description = "Description of the role"
-}
-
 variable "assumable_roles" {
   type        = list(string)
   description = "List of assumable roles"
