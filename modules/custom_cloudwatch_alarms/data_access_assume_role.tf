@@ -16,7 +16,7 @@ resource "aws_cloudwatch_metric_alarm" "data_access_assume_role_alarm" {
   count               = var.custom_alarms_data_access_assume_role_alarm_enabled ? 1 : 0
   actions_enabled     = true
   alarm_name          = "${var.account_name} DataAccess console assume_role check"
-  alarm_actions       = [aws_sns_topic.custom_cloudwatch_alarms.arn]
+  alarm_actions       = [aws_sns_topic.custom_cloudwatch_alarms.arn, var.extended_support_sns_topic_arn]
   alarm_description   = "number of DataAccess assume role occurrences"
   namespace           = "${var.product}/Cloudtrail"
   metric_name         = "DataAccessAssumeRoleCount"
