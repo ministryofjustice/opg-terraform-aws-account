@@ -33,6 +33,7 @@ variable "config_continuous_resource_recording" {
 
 variable "config_iam_role" {
   description = "Iam role object for the config role."
+  type        = any
 }
 
 variable "iam_access_analyser_unused_access_enabled" {
