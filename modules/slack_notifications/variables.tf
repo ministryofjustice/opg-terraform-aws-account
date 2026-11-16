@@ -10,10 +10,6 @@ variable "aws_health_notifications_enabled" {
   type = bool
 }
 
-variable "aws_security_hub_enabled" {
-  type = bool
-}
-
 variable "aws_slack_cost_anomaly_notification_channel" {
   type = string
 }

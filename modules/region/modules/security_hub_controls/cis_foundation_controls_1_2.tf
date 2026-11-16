@@ -165,7 +165,7 @@ resource "aws_cloudwatch_metric_alarm" "toggled_control" {
   for_each            = local.create_cloudtrail_alarms ? merge(local.cis_controls, local.cis_metrics_only) : {}
   actions_enabled     = each.value.actions_enabled
   alarm_name          = each.value.metric_name
-  alarm_actions       = [aws_sns_topic.cis_aws_foundations_standard.arn]
+  alarm_actions       = [aws_sns_topic.cis_aws_foundations_standard.arn, var.extended_support_sns_topic_arn]
   alarm_description   = each.value.alarm_description
   namespace           = "CISLogMetrics"
   metric_name         = each.value.metric_name

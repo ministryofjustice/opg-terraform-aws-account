@@ -5,6 +5,7 @@ terraform {
       version = ">= 6.38.0"
     }
   }
+  required_version = ">= 1.1.5"
 }
 
 data "aws_region" "current" {}

@@ -37,3 +37,8 @@ variable "cloudtrail_log_group_name" {
 
 data "aws_caller_identity" "current" {
 }
+
+variable "extended_support_sns_topic_arn" {
+  description = "extended support SNS topic ARN"
+  type        = string
+}
